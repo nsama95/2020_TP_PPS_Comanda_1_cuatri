@@ -13,7 +13,7 @@
 
 .splashAnimado {
     --background:none;
-    background: url("../assets/img/splashSoloFondo.png") no-repeat center / cover;
+    background: url("../assets/img/N.png") no-repeat center / cover;
     height:100%;
     width:100%;
     display: flex;
@@ -23,24 +23,98 @@
 
 
 
-#splashAnimado.img1
+.img1
 {
   position:absolute;
-  top:50%;
+  top:52%;
   left:50%;
   transform:translate(-50%, -50%); // SIEMPORE MEDIO
-  width:150px;
-  height:150px;
+  width:350px;
+  height:350px;
   z-index: 1;
 
-  animation: blinker 1s linear infinite;
+}
+.img2
+{
+  position: absolute;
+  left: 42px;
+  top: 33%;
+  width: 300px;
+  height: 300px;
+  z-index: 11;
+}
+.img3
+{
+  position: absolute;
+  left: 30px;
+  top: 30%;
+  width: 340px;
+  height: 340px;
+  z-index: 111;
+}
+.img4
+{
+  position: absolute;
+  left: 25px;
+  top: 62%;
+  width: 360px;
+  height: 360px;
+  z-index: 111;
+}
+.img5
+{
+  position: absolute;
+  left: 25px;
+  top: 70%;
+  width: 360px;
+  height: 360px;
+  z-index: 111;
 }
 
-
-
-
-@keyframes blinker {
-  50% {
+.box1 .img2{
+  animation: giro 8s infinite; 
+ 
+}
+.box2 .img3{
+  animation: giro 8s 1; 
+ 
+}
+.box3 .img4{
+  animation: slideInLeft 2s 1; 
+ 
+}
+.box4 .img5{
+  animation: slideInRight 2s 1; 
+ 
+}
+@keyframes giro{ 
+  0%{
     opacity: 0;
+    transform: rotate(-200deg);    
   }
+  100%{ 
+    opacity: 1;
+  } 
 }
+@keyframes slideInLeft {
+  0% {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  visibility: visible;
+  }
+  100% {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  }
+  } 
+  @keyframes slideInRight {
+    0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    visibility: visible;
+    }
+    100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    }
+    } 
