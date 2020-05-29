@@ -7,14 +7,14 @@ export const environment = {
 };
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBYTdfYGwC2hjqHO6o3So9nB7DOx1z1czo",
-  authDomain: "primerlogin-1010.firebaseapp.com",
-  databaseURL: "https://primerlogin-1010.firebaseio.com",
-  projectId: "primerlogin-1010",
-  storageBucket: "primerlogin-1010.appspot.com",
-  messagingSenderId: "459994957275",
-  appId: "1:459994957275:web:1d19bf4fd31e420e3bd3fe",
-  measurementId: "G-KVP1Y810ZE"
+  apiKey: "AIzaSyC-UMfVeQNeMx1AQ2m9Mgktwf5w5o9YZAE",
+  authDomain: "lacomanda-c1055.firebaseapp.com",
+  databaseURL: "https://lacomanda-c1055.firebaseio.com",
+  projectId: "lacomanda-c1055",
+  storageBucket: "lacomanda-c1055.appspot.com",
+  messagingSenderId: "503253383760",
+  appId: "1:503253383760:web:755ebaceea1ba83ce2af55",
+  measurementId: "G-FF8H5K31XZ"
 };
 
 /*

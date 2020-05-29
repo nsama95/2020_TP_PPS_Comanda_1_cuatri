@@ -25,6 +25,8 @@ import { AngularFireAuthModule} from "@angular/fire/auth";
 
 // IMPORTO LO QUE NECESITO PARA QUE FUNCIONEN LOS SENSORES.
 
+//import { AltaClienteComponent } from './componentes/alta-cliente/alta-cliente.component';
+import { AltaClienteService } from './servicios/alta-cliente.service';
 
 
 @NgModule({
@@ -33,10 +35,12 @@ import { AngularFireAuthModule} from "@angular/fire/auth";
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
+   // AltaClienteComponent,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule],
   providers: [
     StatusBar,
+    AltaClienteService,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
