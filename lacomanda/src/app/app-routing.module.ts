@@ -10,9 +10,18 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./componentes/login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'registrar',
     loadChildren: () => import('./componentes/registrar/registrar.module').then( m => m.RegistrarPageModule)
+  },
+  {
+    path: 'registrar-empleado',
+    loadChildren: () => import('./componentes/registrar-empleado/registrar-empleado.module').then( m => m.RegistrarEmpleadoPageModule)
+  },
+  {
+    path: 'registrar-supervisor',
+    loadChildren: () => import('./componentes/registrar-supervisor/registrar-supervisor.module').then( m => m.RegistrarSupervisorPageModule)
   },
 
 ];
