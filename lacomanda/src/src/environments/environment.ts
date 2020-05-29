@@ -7,14 +7,14 @@ export const environment = {
 };
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBYTdfYGwC2hjqHO6o3So9nB7DOx1z1czo",
-  authDomain: "primerlogin-1010.firebaseapp.com",
-  databaseURL: "https://primerlogin-1010.firebaseio.com",
-  projectId: "primerlogin-1010",
-  storageBucket: "primerlogin-1010.appspot.com",
-  messagingSenderId: "459994957275",
-  appId: "1:459994957275:web:1d19bf4fd31e420e3bd3fe",
-  measurementId: "G-KVP1Y810ZE"
+  apiKey: "AIzaSyDK7coLtj6hFP55Lo7FNKWjVCA-LyRqwCs",
+  authDomain: "resto-c1a4d.firebaseapp.com",
+  databaseURL: "https://resto-c1a4d.firebaseio.com",
+  projectId: "resto-c1a4d",
+  storageBucket: "resto-c1a4d.appspot.com",
+  messagingSenderId: "470540534415",
+  appId: "1:470540534415:web:f75b57d1ac820a03c926fa",
+  measurementId: "G-KHYCRSVQNE"
 };
 
 /*

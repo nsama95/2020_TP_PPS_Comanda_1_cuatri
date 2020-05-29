@@ -28,11 +28,13 @@ export class LoginPage implements OnInit {
   password : string;
 
 
-  users: Usuario[] = [{ id: 1, email: "admin@admin.com", password: "111111", perfil: "admin", sexo: "femenino" },
-  { id: 2, email: "invitado@invitado.com", password: "222222", perfil: "invitado", sexo: "femenino" },
-  { id: 3, email: "usuario@usuario.com", password: "333333", perfil: "usuario", sexo: "masculino" },
-  { id: 4, email: "anonimo@anonimo.com", password: "444444", perfil: "anonimo", sexo: "masculino" },
-  { id: 5, email: "tester@tester.com", password: "555555", perfil: "tester", sexo: "femenino" }]
+  users: Usuario[] = [
+  { id: 1, email: "supervisor@supervisor.com", password: "111111", perfil: "supervisor"},
+  { id: 2, email: "duenio@duenio.com", password: "222222", perfil: "dueño"},
+  { id: 3, email: "mozo@mozo.com", password: "333333", perfil: "mozo"},
+  { id: 4, email: "cocinero@cocinero.com", password: "444444", perfil: "cocinero" },
+  { id: 5, email: "metre@metre.com", password: "555555", perfil: "metre"},
+  { id: 6, email: "anonimo@anonimo.com", password: "666666", perfil: "anonimo"}]
 
 
   constructor(
@@ -57,9 +59,9 @@ public onSubmitLogin()
 
     this.complementos.presentLoading();
 
-    let audio = new Audio();
-    audio.src = 'assets/audio/login/sonidoBotonSUCESS.mp3';
-    audio.play();
+    //let audio = new Audio();
+    //audio.src = 'assets/audio/login/sonidoBotonSUCESS.mp3';
+    //audio.play();
 
     timer(2000).subscribe(() => {this.router.navigate(['/home']);
   });

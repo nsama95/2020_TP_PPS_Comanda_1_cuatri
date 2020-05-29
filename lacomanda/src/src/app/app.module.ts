@@ -24,9 +24,6 @@ import { AngularFireAuthModule} from "@angular/fire/auth";
 
 
 // IMPORTO LO QUE NECESITO PARA QUE FUNCIONEN LOS SENSORES.
-
-
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

@@ -21,12 +21,18 @@ import { AngularFireModule } from "@angular/fire";
 
 import { AngularFireAuthModule} from "@angular/fire/auth";
 
+//importo lo plugin
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';  
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { Platform } from '@ionic/angular';
 
+import { from } from 'rxjs';
+import { platform } from 'os';
 
 // IMPORTO LO QUE NECESITO PARA QUE FUNCIONEN LOS SENSORES.
 
 //import { AltaClienteComponent } from './componentes/alta-cliente/alta-cliente.component';
-import { AltaClienteService } from './servicios/alta-cliente.service';
+//import { AltaClienteService } from './servicios/alta-cliente.service';
 
 
 @NgModule({
@@ -40,7 +46,9 @@ import { AltaClienteService } from './servicios/alta-cliente.service';
     AngularFireAuthModule],
   providers: [
     StatusBar,
-    AltaClienteService,
+    Camera,
+    QRScanner,
+    Platform,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

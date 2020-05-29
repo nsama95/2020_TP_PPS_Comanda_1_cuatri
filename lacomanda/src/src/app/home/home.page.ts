@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class HomePage {
 
 
-  // IMAGENES POR DEFECTO EN LOS REDONDITOS.
+ /* // IMAGENES POR DEFECTO EN LOS REDONDITOS.
   srcDefaultPaises = "assets/home/banderas/banderas_default.png"; 
   srcDefaultTemas = 'assets/home/temas/tema_default.png';
 
@@ -17,11 +17,11 @@ export class HomePage {
   idioma = 'español';
   acentoIdioma = 'español';
 
-
+*/
   constructor() {}
 
 
-// CAMBIO LA FOTITO DEL REDONDO EN EL IDIOMA.
+/*// CAMBIO LA FOTITO DEL REDONDO EN EL IDIOMA.
   cambiarIdioma( idioma: string) {
     let audio = new Audio();
     audio.src = 'assets/audio/home/cambiarRedondo.mp3';
@@ -249,6 +249,6 @@ export class HomePage {
           break;
       }}}
 
-  // 
+  // */
   
 }
