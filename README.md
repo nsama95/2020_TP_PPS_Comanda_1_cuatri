@@ -2,7 +2,9 @@
 
 ### RESTAURANTE MAWEY
 
-![alt text](https://github.com/nsama95/2020_TP_PPS_Comanda_1_cuatri/blob/master/lacomanda/resources/android/icon/drawable-xxxhdpi-icon.png)
+<p align="center">
+  <img src="https://github.com/nsama95/2020_TP_PPS_Comanda_1_cuatri/blob/master/lacomanda/resources/android/icon/drawable-xxxhdpi-icon.png" width="250" height="250"> </p>
+
 
 ## Integrantes 📋
 
