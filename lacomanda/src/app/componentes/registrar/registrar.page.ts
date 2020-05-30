@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import{ComplementosService } from "../../servicios/complementos.service"
+import { Component, OnInit, Input } from '@angular/core';
+//import{ComplementosService } from "../../servicios/complementos.service"
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';  
+import { Platform } from '@ionic/angular';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 
 @Component({
   selector: 'app-registrar',
@@ -8,16 +12,37 @@ import{ComplementosService } from "../../servicios/complementos.service"
 })
 export class RegistrarPage implements OnInit {
   dni : string;
-
-  constructor(private  complementos : ComplementosService) { }
+  qr:any;
+  constructor(
+    private camera: Camera,
+    public plataform:Platform,
+    private barcodeScanner: BarcodeScanner
+  ) { 
+    
+    
+   
+  }
 
   ngOnInit() {
   }
 
-  escanear()
+  escanearCodigo()
   {
-    this.dni= this.complementos.escanearDni();
-    
-  }
 
+    let fafafa;
+
+    this.barcodeScanner.scan().then(barcodeData => {
+      alert('Barcode data: ' + barcodeData);
+
+
+      fafafa = JSON.parse(barcodeData.text);
+
+      this.dni = fafafa;
+
+     }).catch(err => {
+         console.log('Error', err);
+     });
+
+  }
+ 
 }
