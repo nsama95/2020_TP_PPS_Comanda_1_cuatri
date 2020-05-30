@@ -27,7 +27,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Platform } from '@ionic/angular';
 
 import { from } from 'rxjs';
-import { platform } from 'os';
+//import { platform } from 'os';
 
 // IMPORTO LO QUE NECESITO PARA QUE FUNCIONEN LOS SENSORES.
 
