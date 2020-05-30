@@ -13,6 +13,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 export class RegistrarPage implements OnInit {
   dni : string;
   qr:any;
+  pickedName :string;
+  clientes = [
+    {perfil:"Cliente"},
+    {perfil: "Anonimo"}
+  ]
   constructor(
     private camera: Camera,
     public plataform:Platform,
@@ -24,6 +29,7 @@ export class RegistrarPage implements OnInit {
   }
 
   ngOnInit() {
+    this.pickedName='Cliente';
   }
 
   escanearCodigo()
@@ -45,4 +51,12 @@ export class RegistrarPage implements OnInit {
 
   }
  
+  pickUser(pickedName) {
+    this.clientes.forEach((user) => {
+      if (user.perfil === pickedName) {
+        
+        
+      }
+    });
+  }
 }
