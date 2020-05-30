@@ -9,6 +9,10 @@ import { ToastController, LoadingController } from '@ionic/angular';
 
 // IMPORTO EL TIMER:
 import { timer } from 'rxjs';
+//pluing
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';  
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { Platform } from '@ionic/angular';
 
 
 @Injectable({
@@ -17,10 +21,21 @@ import { timer } from 'rxjs';
 
 export class ComplementosService {
 
+  qr:any;
+
   constructor(private complementos : ComplementosService, 
     public toastController: ToastController,
     public loadingController: LoadingController,
-    ) { }
+    private camera: Camera,
+    private qrScan: QRScanner,
+    public plataform:Platform
+    ) { 
+      this.plataform.backButton.subscribeWithPriority(0,() => {
+        document.getElementsByTagName("body")[0].style.opacity = "1";
+        this.qr.unsubscribe();
+      })
+      
+    }
 
 
 
@@ -102,10 +117,50 @@ this.presentToast(err);
   toast.present();
   }
 
+  //FUNCION PARA ESCANEAR EL DNI
+  escanearDni() : string
+  {
+    let texto : string;
+    //solicita el permiso para usar la camara
+    this.qrScan.prepare().then((status:QRScannerStatus) => {
+//acepta
+      if(status.authorized)
+      {
+        //inicia el scan
+        this.qrScan.show();
+        document.getElementsByTagName("body")[0].style.opacity = "0";
 
+       this.qr= this.qrScan.scan().subscribe((texto) => {
+        document.getElementsByTagName("body")[0].style.opacity = "1";
+        
+        //alert("Escaneo con exito!");
+        console.log("escaneo" + texto);
+        this.qr.unsubscribe();
+        
+        return texto;
 
+        },(err) =>{
+          //return err;
+          alert(JSON.stringify(err));
+        })
+      }
+      else if(status.denied)
+      {
+        //return status.denied;
+      }
+      else{
+        //return "Hubo un error!";
+      }
 
+    })
+
+    return ;
   }
+
+}
+
+
+  
 
 
 

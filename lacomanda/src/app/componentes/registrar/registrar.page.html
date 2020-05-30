@@ -12,34 +12,34 @@
     <ion-item class="labels" fill="outline">
      
       <br>
-      <ion-input type="text" [(ngModel)]="nombre" placeholder="Nombre..."></ion-input>
+      <ion-input type="text" [(ngModel)]="nombre" placeholder="Nombre"></ion-input>
     </ion-item>
     <br>
     <ion-item class="labels" >
      
       <br>
-      <ion-input type="text" [(ngModel)]="apellido" placeholder="Apellido..."></ion-input>
+      <ion-input type="text" [(ngModel)]="apellido" placeholder="Apellido"></ion-input>
     </ion-item>
     <br>
     <ion-item class="label" >
      
       <br>
-      <ion-input type="text" [(ngModel)]="DNI" placeholder="DNI..."></ion-input>
+      <ion-input type="text" [(ngModel)]="DNI" placeholder="DNI"> {{dni}}</ion-input>
     </ion-item>
     <br>
-   <img src="../../../assets/img/qr.png" (click)="nada()" class="botonQR">
+   <img src="../../../assets/img/qr.png" (click)="escanear()" class="botonQR">
   
     <br>
     <ion-item class="labels" fill="outline">
      
       <br>
-      <ion-input type="text" [(ngModel)]="correo" placeholder="Email..."></ion-input>
+      <ion-input type="text" [(ngModel)]="correo" placeholder="Email"></ion-input>
     </ion-item>
     <br>
     <ion-item class="labels" fill="outline">
      
       <br>
-      <ion-input type="text" [(ngModel)]="password" placeholder="Contraseña..."></ion-input>
+      <ion-input type="text" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
     </ion-item>
     <br>
     <ion-button (click)="registrarUsuario()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
