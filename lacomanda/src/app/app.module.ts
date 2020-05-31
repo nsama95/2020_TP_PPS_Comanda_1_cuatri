@@ -26,7 +26,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Platform } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { from } from 'rxjs';
 //import { platform } from 'os';
@@ -43,6 +43,8 @@ import { from } from 'rxjs';
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
+    FormsModule,
+    ReactiveFormsModule,
    // AltaClienteComponent,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule],
