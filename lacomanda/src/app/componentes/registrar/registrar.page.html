@@ -5,20 +5,25 @@
 </ion-header>
 
 <ion-content padding class="background"> 
+  <ion-avatar >
+    <img src="../../../assets/img/avatarR.png">
+  </ion-avatar>
 
-  <br> 
-  <ion-item  class="item"> 
-    <ion-label>Ingrese como:</ion-label>
-    <ion-select [(ngModel)]="pickedName" interface="popover" 
-     (ionChange)="pickUser(pickedName)">
-        <ion-select-option *ngFor="let clientes of clientes" value="{{clientes.perfil}}"
-          color="light">{{clientes.perfil}}</ion-select-option>
-    </ion-select> 
-</ion-item>
-<br>
-      <ion-card>
+  <ion-button  (click)="tomarFoto()" color ="primary" class="camera"><ion-icon name="camera" ></ion-icon></ion-button>
 
-    <div *ngIf="pickedName=='Cliente'">
+
+
+      <ion-card class="cliente" *ngIf="pickedName=='Cliente'">
+        <br> 
+        <ion-item  class="item"> 
+          <ion-label>Ingrese como:</ion-label>
+          <ion-select [(ngModel)]="pickedName" interface="popover" 
+           (ionChange)="pickUser(pickedName)">
+              <ion-select-option *ngFor="let clientes of clientes" value="{{clientes.perfil}}"
+                color="light">{{clientes.perfil}}</ion-select-option>
+          </ion-select> 
+      </ion-item>
+   
     <br>
     <ion-item class="labels" fill="outline">
       <br>
@@ -52,26 +57,41 @@
     <br>
     <ion-button (click)="registrarUsuario()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
     <br>
-    </div>
+    
 
-<div *ngIf="pickedName==='Anonimo'" >
-  <ion-item class="labels" fill="outline">
-    <br>
-    <ion-input type="text" [(ngModel)]="nombre" placeholder="Nombre"></ion-input>
-  </ion-item>
-  <br>
-  <ion-item>
-      <ion-input type="text" [(ngModel)]="correo" placeholder="Email"></ion-input>
-    </ion-item>
-    <br>
-    <ion-item class="labels" fill="outline">   
+
+
+
+</ion-card>
+<ion-card *ngIf="pickedName==='Anonimo'" class="anonimo" >
+  <br> 
+  <ion-item  class="item"> 
+    <ion-label>Ingrese como:</ion-label>
+    <ion-select [(ngModel)]="pickedName" interface="popover" 
+     (ionChange)="pickUser(pickedName)">
+        <ion-select-option *ngFor="let clientes of clientes" value="{{clientes.perfil}}"
+          color="light">{{clientes.perfil}}</ion-select-option>
+    </ion-select> 
+</ion-item>
+<br>
+    <ion-item fill="outline">
       <br>
-      <ion-input type="text" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+      <ion-input type="text" [(ngModel)]="nombre" placeholder="Nombre"></ion-input>
     </ion-item>
-  </div>
-
-
-    </ion-card>
+    <br>
+    <ion-item>
+        <ion-input type="text" [(ngModel)]="correo" placeholder="Email"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item class="labels" fill="outline">   
+        <br>
+        <ion-input type="text" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+        
+      </ion-item>
+      <br>
+      <ion-button (click)="registrarUsuario()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+      <br>
+</ion-card>
 
 
 </ion-content>
