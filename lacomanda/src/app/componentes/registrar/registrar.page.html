@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title style="text-align: center;" color="light">REGISTRAR CLIENTE</ion-title>
+      <ion-back-button defaultHref="" slot="start" color="light"  icon="arrow-undo"></ion-back-button>
+    <ion-title style="text-align: center;" color="light">  
+      
+      REGISTRARSE 
+      <ion-icon name="restaurant"></ion-icon>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -48,12 +53,12 @@
     <br>
     <ion-item class="labels" fill="outline">     
       <br>
-      <ion-input type="text" [(ngModel)]="correo" formControlName="email" placeholder="Email"></ion-input>
+      <ion-input type="email" [(ngModel)]="correo" formControlName="email" placeholder="Email"></ion-input>
     </ion-item>
     <br>
     <ion-item class="labels" fill="outline"> 
       <br>
-      <ion-input type="text" [(ngModel)]="password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
+      <ion-input type= "password" [(ngModel)]="password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
     </ion-item>
 
   </form>
@@ -77,23 +82,27 @@
     </ion-select> 
 </ion-item>
 <br>
+
+  <form [formGroup]="todo">
     <ion-item fill="outline">
       <br>
-      <ion-input type="text" [(ngModel)]="nombre" placeholder="Nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
     </ion-item>
     <br>
     <ion-item>
-        <ion-input type="text" [(ngModel)]="correo" placeholder="Email"></ion-input>
+        <ion-input type="password" [(ngModel)]="correo" formControlName="email" placeholder="Email"></ion-input>
       </ion-item>
       <br>
       <ion-item class="labels" fill="outline">   
         <br>
-        <ion-input type="text" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+        <ion-input type="text" [(ngModel)]="password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
         
       </ion-item>
+    </form>
       <br>
       <ion-button (click)="registrarUsuario()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
       <br>
+    
 </ion-card>
 
 

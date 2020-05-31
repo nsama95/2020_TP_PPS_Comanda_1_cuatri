@@ -33,18 +33,18 @@ export class RegistrarPage implements OnInit {
     public plataform:Platform,
     private barcodeScanner: BarcodeScanner,public fb: FormBuilder) {
       this.todo = this.fb.group({
-        nombre: ['', [Validators.required]],
-        apellido: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+        nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]],
+        apellido: ['', [Validators.required,, Validators.pattern('^[a-zA-Z]{3,10}$')]],
         email: ['', [Validators.required, Validators.email]],
-        dni: ['', [Validators.required]],
-        contraseña: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]],
+        dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+        contraseña: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
       });
      
     }
   
-    saveData(){
+    /*saveData(){
       alert(JSON.stringify(this.todo.value));
-    }
+    }*/
     
 
   ngOnInit() {
