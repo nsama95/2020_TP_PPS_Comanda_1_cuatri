@@ -24,7 +24,7 @@ export class RegistrarPage implements OnInit {
     {perfil: "Anonimo"}]
 
     cliente = {
-      foto:"../../../assets/img/avatarR.png",
+      foto:"../../../assets/img/avatarRR.png",
     }
 
 

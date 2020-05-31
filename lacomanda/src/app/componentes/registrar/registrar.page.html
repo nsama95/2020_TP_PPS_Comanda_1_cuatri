@@ -10,9 +10,9 @@
 </ion-header>
 
 <ion-content padding class="background"> 
-  <ion-avatar >
-    <img src={{cliente.foto}}>
-  </ion-avatar>
+  
+    <img src={{cliente.foto}} class="img">
+
 
   <ion-button  (click)="tomarFoto()" color ="primary" class="camera"><ion-icon name="camera" ></ion-icon></ion-button>
 
@@ -49,7 +49,8 @@
     </ion-item>
     <br>
    <img src="../../../assets/img/qr.png" (click)="escanearCodigo()" class="botonQR">
-  
+   <a class="dni">Escanee su DNI </a> 
+   <br>
     <br>
     <ion-item class="labels" fill="outline">     
       <br>

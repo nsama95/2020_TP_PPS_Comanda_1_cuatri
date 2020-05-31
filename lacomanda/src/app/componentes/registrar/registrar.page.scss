@@ -9,7 +9,24 @@ ion-content.background{
     text-align: center;
     
 }
+.img{
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  /* los siguientes valores son independientes del tamaño del círculo */
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-radius: 5%;
+  background-size: 100% auto;
+  top: 18px;
+  left: 140px;
 
+}
+.dni
+{
+  position: relative;
+  left: 130px;
+}
 
 #container{
     text-align: center;
