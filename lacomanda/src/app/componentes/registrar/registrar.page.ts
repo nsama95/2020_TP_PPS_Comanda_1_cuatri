@@ -30,6 +30,14 @@ export class RegistrarPage implements OnInit {
       nombre : "",
       apellido : "",
       dni : "",
+      email: "",
+      contraseña: "",
+      foto:"../../../assets/img/avatarRR.png"
+    };
+      anonimoJson = {
+        nombre : "",
+        password : "",
+        correo : "",
       foto:"../../../assets/img/avatarRR.png"
     };
 
@@ -80,6 +88,23 @@ export class RegistrarPage implements OnInit {
 
         this.usuarioJson.foto = link;
         this.bd.crear('usuarios',this.usuarioJson);
+
+      });
+    }
+
+    this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
+
+  }
+  registrarAnonimo()
+  {
+    if(this.pathImagen != null){
+      
+
+      this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
+      {
+
+        this.anonimoJson.foto = link;
+        this.bd.crear('usuarios',this.anonimoJson);
 
       });
     }

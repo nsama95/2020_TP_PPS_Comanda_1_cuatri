@@ -10,7 +10,9 @@
 </ion-header>
 
 <ion-content padding class="background"> 
-  
+  <ion-grid fixed>
+  <ion-row>
+    <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12">
     <img src={{usuarioJson.foto}} class="img">
 
 
@@ -87,24 +89,25 @@
   <form [formGroup]="todo">
     <ion-item fill="outline">
       <br>
-      <ion-input type="text" [(ngModel)]="nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="anonimoJson.nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
     </ion-item>
     <br>
     <ion-item>
-        <ion-input type="password" [(ngModel)]="correo" formControlName="email" placeholder="Email"></ion-input>
+        <ion-input type="text" [(ngModel)]="anonimoJson.correo" formControlName="email" placeholder="Email"></ion-input>
       </ion-item>
       <br>
       <ion-item class="labels" fill="outline">   
         <br>
-        <ion-input type="text" [(ngModel)]="password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
+        <ion-input type="password" [(ngModel)]="anonimoJson.password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
         
       </ion-item>
     </form>
       <br>
-      <ion-button (click)="registrarUsuario()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+      <ion-button (click)="registrarAnonimo()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
       <br>
     
 </ion-card>
-
-
+</ion-col>
+</ion-row>
+</ion-grid>
 </ion-content>
