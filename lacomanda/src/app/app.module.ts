@@ -29,6 +29,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { from } from 'rxjs';
+
+//IMPORT PARA LA BASE DE DATOS
+import {AngularFirestore} from "@angular/fire/firestore";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+
 //import { platform } from 'os';
 
 // IMPORTO LO QUE NECESITO PARA QUE FUNCIONEN LOS SENSORES.
@@ -45,6 +50,7 @@ import { from } from 'rxjs';
     AppRoutingModule, 
     FormsModule,
     ReactiveFormsModule,
+    AngularFireStorageModule,
    // AltaClienteComponent,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule],
@@ -54,6 +60,7 @@ import { from } from 'rxjs';
     Platform,
     SplashScreen,
     BarcodeScanner,
+    AngularFirestore,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

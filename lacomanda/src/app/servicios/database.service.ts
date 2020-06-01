@@ -7,12 +7,12 @@ import {AngularFirestore,AngularFirestoreCollection } from "@angular/fire/firest
 })
 export class DatabaseService {
   constructor(private firestore: AngularFirestore) { }
-
-  //Crea un nuevo dato   
-  public crear(collection: string, data: any) 
-  {    
-     return this.firestore.collection(collection).add(data);   
-   }
+  
+ //Crea un nuevo dato   
+ public crear(collection: string, data: any) 
+ {    
+    return this.firestore.collection(collection).add(data);   
+  }
  
    public obtenerPorId(coleccion:string,id:string)
    {

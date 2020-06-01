@@ -1,11 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import{DatabaseService } from "../../servicios/database.service"
+import{ DatabaseService } from "../../servicios/database.service";
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';  
 import { Platform } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { from } from 'rxjs';
-import{UsuarioBD} from "../../clases/usuario-bd";
+import { UsuarioBD } from "../../clases/usuario-bd";
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/forms';
+import * as firebase from 'firebase/app';
+import {AngularFireStorage} from "@angular/fire/storage"
+import { ComplementosService } from 'src/app/servicios/complementos.service';
 //import { IonicPage, NavController } from 'ionic-angular';
 
 
@@ -23,14 +26,21 @@ export class RegistrarPage implements OnInit {
     {perfil:"Cliente"},
     {perfil: "Anonimo"}]
 
-    cliente = {
-      foto:"../../../assets/img/avatarRR.png",
-    }
+    usuarioJson = {
+      nombre : "",
+      apellido : "",
+      dni : "",
+      foto:"../../../assets/img/avatarRR.png"
+    };
 
+    pathImagen : string;
 
   constructor(
     private camera: Camera,
     public plataform:Platform,
+    private bd : DatabaseService,
+    private st : AngularFireStorage,
+    private complemetos : ComplementosService,
     private barcodeScanner: BarcodeScanner,public fb: FormBuilder) {
       this.todo = this.fb.group({
         nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]],
@@ -60,15 +70,45 @@ export class RegistrarPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true
   }
+  registrarUsuario()
+  {
+    if(this.pathImagen != null){
+      
+
+      this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
+      {
+
+        this.usuarioJson.foto = link;
+        this.bd.crear('usuarios',this.usuarioJson);
+
+      });
+    }
+
+    this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
+
+  }
 
   tomarFoto()
   {
     this.camera.getPicture(this.options).then((imageData) => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.cliente.foto = base64Image;
-    }, (err) => {
-      // Handle error
-    });
+      //let base64Image = 'data:image/jpeg;base64,' + imageData;
+      var base64Str = 'data:image/jpeg;base64,'+imageData;
+      this.usuarioJson.foto = base64Str;
+      var storageRef = firebase.storage().ref();
+     //obtenemos la foto que fue sacada en esen instante
+      let obtenerLaFoto = new Date().getTime(); 
+      var nombreFoto = "usuarios/"+obtenerLaFoto+"."+this.usuarioJson.dni+".jpg";
+      var childRef = storageRef.child(nombreFoto);
+      this.pathImagen = nombreFoto;
+      childRef.putString(base64Str,'data_url').then(function(snapshot)
+      {
+
+      })
+
+    },(Err)=>{
+      alert(JSON.stringify(Err));
+    })
+    
   }
 
 
