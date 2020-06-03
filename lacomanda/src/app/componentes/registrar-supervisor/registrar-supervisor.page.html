@@ -1,15 +1,15 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
       <ion-back-button defaultHref="" slot="start" color="light"  icon="arrow-undo"></ion-back-button>
     <ion-title style="text-align: center;" color="light">  
       
-      REGISTRAR SUPERVISOR
+      REGISTRAR 
       <ion-icon name="restaurant"></ion-icon>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="background"> 
+<!--ion-content padding class="background"> 
   <ion-grid fixed>
   <ion-row>
     <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12">
@@ -18,7 +18,7 @@
 
 
   <ion-button  (click)="tomarFoto()" color ="primary" class="camera"><ion-icon name="camera" ></ion-icon></ion-button>
-      <ion-card class="cliente" *ngIf="pickedName=='Cliente'">
+      <ion-card >
         <br> 
         <ion-item  class="item"> 
           <ion-label>Ingrese como:</ion-label>
@@ -72,41 +72,7 @@
 
 
 </ion-card>
-<ion-card *ngIf="pickedName==='Anonimo'" class="anonimo" >
-  <br> 
-  <ion-item  class="item"> 
-    <ion-label>Ingrese como:</ion-label>
-    <ion-select [(ngModel)]="pickedName" interface="popover" 
-     (ionChange)="pickUser(pickedName)">
-        <ion-select-option *ngFor="let clientes of clientes" value="{{clientes.perfil}}"
-          color="light">{{clientes.perfil}}</ion-select-option>
-    </ion-select> 
-</ion-item>
-<br>
-
-  <form [formGroup]="todo">
-    <ion-item fill="outline">
-      <br>
-      <ion-input type="text" [(ngModel)]="anonimoJson.nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
-    </ion-item>
-    <br>
-    <ion-item>
-        <ion-input type="text" [(ngModel)]="anonimoJson.correo" formControlName="email" placeholder="Correo"></ion-input>
-      </ion-item>
-      <br>
-      <ion-item class="labels" fill="outline">   
-        <br>
-        <ion-input type="password" [(ngModel)]="anonimoJson.contrasenia" formControlName="contraseña" placeholder="Contraseña"></ion-input>
-        
-      </ion-item>
-    </form>
-      <br>
-      <ion-button (click)="registrarAnonimo()" class="btnRegistro"  [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
-      <br>
-    
-</ion-card>
 </ion-col>
 </ion-row>
-</ion-grid>
-</ion-content> -->
-<h1>HOLA</h1>
+</ion-grid-->
+</ion-content>

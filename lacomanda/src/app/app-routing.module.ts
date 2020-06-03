@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { MenuComponent } from './componentes/menu/menu.component';
 //import { AltaClienteComponent } from './componentes/alta-cliente/alta-cliente.component';
 
 
 const routes: Routes = [
+  
   //{ path:'registro',component:AltaClienteComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
@@ -22,11 +24,12 @@ const routes: Routes = [
   {
     path: 'registrar-supervisor',
     loadChildren: () => import('./componentes/registrar-supervisor/registrar-supervisor.module').then( m => m.RegistrarSupervisorPageModule)
-  },  {
+  },
+  {
     path: 'registrar-anonimo',
     loadChildren: () => import('./componentes/registrar-anonimo/registrar-anonimo.module').then( m => m.RegistrarAnonimoPageModule)
   },
-
+ {path:'menu',component:MenuComponent}
 
 ];
 

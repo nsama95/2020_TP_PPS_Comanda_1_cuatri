@@ -6,7 +6,7 @@
     left: 0;                            
     z-index: 99999;  // POR ENCIMA DE TODO                              
     width:100%;             
-    background-color:green; // ESTO ES PARA Q NO SE VEA EL FONDO.              
+    background-color: #a52d1dc7; // ESTO ES PARA Q NO SE VEA EL FONDO.              
 }
        
 
@@ -19,37 +19,39 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
   }
 
 
 
-.img1
-{
+.img1{
+  
   position:absolute;
   top:52%;
-  left:50%;
+  left:52%;
   transform:translate(-50%, -50%); // SIEMPORE MEDIO
-  width:350px;
-  height:350px;
-  z-index: 1;
-
+  width:250px;
+  height:250px;
+  //z-index: 111;
+  
+  
 }
 .img2
 {
   position: absolute;
-  left: 42px;
-  top: 33%;
-  width: 300px;
-  height: 300px;
-  z-index: 11;
+  left: 33px;
+  top: 30%;
+  width:355px;
+  height: 355px;
+  z-index: 111;
 }
 .img3
 {
   position: absolute;
   left: 30px;
   top: 30%;
-  width: 340px;
-  height: 340px;
+  width: 355px;
+  height: 355px;
   z-index: 111;
 }
 .img4
@@ -87,6 +89,7 @@
   animation: slideInRight 2s 1; 
  
 }
+
 @keyframes giro{ 
   0%{
     opacity: 0;
@@ -118,3 +121,20 @@
     transform: translateX(0);
     }
     } 
+   
+     
+      @keyframes zoomIn {
+      0% {
+      opacity: 0;
+      -webkit-transform: scale3d(.3, .3, .3);
+      transform: scale3d(.3, .3, .3);
+      }
+      50% {
+      opacity: 1;
+      }
+      } 
+      .splashAnimado .b{   // Le indicamos a todo lo que este dentro de la clase box y la clase b que se mueva
+
+        animation: giro 2.1s ;  //Aca definimos el movimiento, 1- Nombre de la propiedad(lo inventas vos al nombre), 2- la velocidad de la animacion, 3- Cuanto se ejecutara osea si es infinito o un cierto tiempo
+          backface-visibility: visible;
+      }

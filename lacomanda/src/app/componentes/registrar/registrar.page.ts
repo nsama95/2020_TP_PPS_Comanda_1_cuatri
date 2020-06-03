@@ -160,18 +160,27 @@ export class RegistrarPage implements OnInit {
   escanearCodigo()
   {
 
-    let fafafa;
+    let texto;
+  //lee el formato del dni que es pdf417
+    this.barcodeScanner.scan({formats : "PDF_417"}).
+    then(barcodeData => {
+      
 
-    this.barcodeScanner.scan().then(barcodeData => {
-      alert('Barcode data: ' + barcodeData);
 
-
-      fafafa = JSON.parse(barcodeData.text);
-
-      this.dni = fafafa;
+      texto = barcodeData.text.split("@");
+      //alert('dni ' +texto + texto.length);
+      if(texto.length==8|| texto.length == 9)
+    {
+      this.usuarioJson.nombre = texto[2];
+       this.usuarioJson.apellido = texto[1];
+      this.usuarioJson.dni=texto[4];//el 4 indica el 4to @
+      this.complemetos.presentToastConMensajeYColor("¡Se cargaron con exito tus datos!","primary");
+    }
+      
 
      }).catch(err => {
-         console.log('Error', err);
+      this.complemetos.presentToastConMensajeYColor("Hubo un error, intenta más tarde.","primary");
+    
      });
 
   }
@@ -184,8 +193,7 @@ export class RegistrarPage implements OnInit {
       }
     });
   }
-
-
+  
   /*checkEmptyInputs() {
     if (this.email && this.psw) {
       return false;

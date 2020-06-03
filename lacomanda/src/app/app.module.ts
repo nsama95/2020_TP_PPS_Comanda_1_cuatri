@@ -16,6 +16,7 @@ import { firebaseConfig } from "../environments/environment";
 
 // IMPORTO MODULOS DE ANGULAR
 import { AngularFireModule } from "@angular/fire";
+import{MenuComponent} from "./componentes/menu/menu.component";
 
 // IMPORTO EL MODULO DE AUTENTIFICACION
 
@@ -43,7 +44,8 @@ import {AngularFireStorageModule} from "@angular/fire/storage";
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,
+    MenuComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
@@ -51,6 +53,7 @@ import {AngularFireStorageModule} from "@angular/fire/storage";
     FormsModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
+    
    // AltaClienteComponent,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule],

@@ -64,7 +64,7 @@ export class HomePage {
   // }
 
   items = [
-    {icono : "clipboard" , nombre : "Pedidos" , ruta : "/menu-mozo/pedidos"},
+    {icono : "clipboard" , nombre : "Pedidos" , ruta : "/home/registrar"},
     {icono : "card" , nombre : "Solicitudes de pago" , ruta  : "/menu-mozo/solicitud-pago"}
   ]
   jefeLogueado = {nombre : "Pablo" , apellido : "Hidalgo" , path : "../../../assets/mozo.png" , perfil : "Mozo"}

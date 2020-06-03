@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-
+//import{HttpClient} from "@angular/common/http";
 // IMPORTO A USUARIOS.
-import {Usuario} from '../clases/usuario'
+import {Usuario} from '../clases/usuario';
 
 
 // IMPORTO LOS MENSAJES. CON ESTO USO LOS TOAST.
@@ -22,7 +22,7 @@ export class ComplementosService {
 
   constructor(private complementos : ComplementosService, 
     public toastController: ToastController,
-    public loadingController: LoadingController,
+    public loadingController: LoadingController//private http:HttpClient
    
     ) { 
     
@@ -108,8 +108,10 @@ this.presentToast(err);
   });
   toast.present();
   }
-
- 
+/* getMenu(){
+    return this.http.get('/assets/data/menu.json');
+ }
+ */
 }
 
 
