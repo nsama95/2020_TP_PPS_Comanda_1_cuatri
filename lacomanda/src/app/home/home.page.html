@@ -1,6 +1,104 @@
-
+<!--   
+<ion-header>
+    <div  id="main-content">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Inbox</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content >
+        <ion-button expand="block" (onclick)="openMenu()">Open Menu</ion-button>
+        <ion-button (click)="redireccionar('atras')" class="btnRegistro"  >Atras</ion-button>
+    
+      </ion-content>
+    </div>
+  </ion-header>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Start Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+      
+      <ion-list *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'" >
+        <ion-item>
+          <ion-button (click)="redireccionar('atras')" class="btnRegistro"  >Atras</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="redireccionar('empleado')" class="btnRegistro" expand="block"  >Alta empleado</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="redireccionar('supervisor')"class="btnRegistro" expand="block"  >Alta dueño/supervisor</ion-button>
+        </ion-item>
+      </ion-list>
+  
+      <ion-list *ngIf = "perfilUsuario == 'cliente' || perfilUsuario == 'metre'" >
+        <ion-item>
+          <ion-button (click)="redireccionar('atras')" class="btnRegistro"  >Atras</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="redireccionar('cliente')"class="btnRegistro" expand="block"  >Alta cliente</ion-button>
+        </ion-item>
+  
+      </ion-list>
+  
+      <ion-list *ngIf = "perfilUsuario == 'cocinero' || perfilUsuario == 'mozo'" >
+        <ion-item>
+          <ion-button (click)="redireccionar('atras')" class="btnRegistro"  >Atras</ion-button>
+        </ion-item>
+  
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+  
+  
+  <ion-router-outlet id="main"></ion-router-outlet>
+   -->
+   <ion-header>
+    <ion-toolbar color = "danger">
+   <ion-buttons >
+    <ion-item color = "danger" class="ion-text-center">
+      <ion-menu-button menu = "first"></ion-menu-button>
+      <ion-title>La Comanda</ion-title>
+    </ion-item>
+  </ion-buttons> 
+</ion-toolbar>
+</ion-header>
+<ion-menu side="start" menuId="first" contentId = "principalMozo">
+<ion-header>
+  <ion-toolbar >
+      <ion-item color="danger">
+          <ion-avatar slot="start">
+              <img [src]="jefeLogueado.path">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{jefeLogueado.nombre}} {{jefeLogueado.apellido}}</h2>
+              <h3>{{jefeLogueado.perfil}}</h3>
+            </ion-label>
+      </ion-item>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-
-HOME WORKS
-
+  <ion-list>
+    <ion-menu-toggle *ngFor = "let item of items">
+        <ion-item [routerLink] = "item.ruta">
+          <ion-icon slot = "start" [name] = "item.icono" color = "danger"></ion-icon>
+          <ion-label style = "color:red">{{item.nombre}}</ion-label>
+        </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-item (click) = "Cerrar()">
+      <ion-icon color = "danger" name="log-out"></ion-icon>
+     <ion-label color = "danger">Cerrar Sesión</ion-label>
+  </ion-item>
+</ion-footer>
+</ion-menu>
+<ion-router-outlet id = "principalMozo"></ion-router-outlet>

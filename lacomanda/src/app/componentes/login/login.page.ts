@@ -88,6 +88,7 @@ pickUser(pickedName) {
     if (user.perfil === pickedName) {
       this.email = user.email;
       this.password = user.password;
+      localStorage.setItem("usuario",JSON.stringify(user));
       return;
     }
   });
