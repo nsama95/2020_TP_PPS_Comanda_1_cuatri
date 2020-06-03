@@ -20,25 +20,33 @@ import { ComplementosService } from 'src/app/servicios/complementos.service';
 export class RegistrarPage implements OnInit {
   dni : string;
   qr:any;
+
+  //list<UsuarioBD> ;
   pickedName :string;
   todo: FormGroup;
   clientes = [
     {perfil:"Cliente"},
     {perfil: "Anonimo"}]
 
-    usuarioJson = {
-      nombre : "",
+
+    usuarioJson = 
+      {nombre : "",
       apellido : "",
       dni : "",
-      email: "",
-      contraseña: "",
-      foto:"../../../assets/img/avatarRR.png"
-    };
+      correo: "",
+      contrasenia: "",
+      foto:"../../../assets/img/avatarRR.png",
+      tipo:"",
+      estado:0
+};
+
       anonimoJson = {
         nombre : "",
-        password : "",
+        contrasenia : "",
         correo : "",
-      foto:"../../../assets/img/avatarRR.png"
+      foto:"../../../assets/img/avatarRR.png",
+      tipo:"",
+      estado:0
     };
 
     pathImagen : string;
@@ -80,6 +88,8 @@ export class RegistrarPage implements OnInit {
   }
   registrarUsuario()
   {
+    this.usuarioJson.estado= 1;
+    this.usuarioJson.tipo="cliente";
     if(this.pathImagen != null){
       
 
@@ -91,12 +101,18 @@ export class RegistrarPage implements OnInit {
 
       });
     }
+    else{
+      this.bd.crear('usuarios',this.usuarioJson);
+    }
 
     this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
 
   }
+
   registrarAnonimo()
   {
+    this.anonimoJson.estado= 1;
+    this.anonimoJson.tipo="anonimo";
     if(this.pathImagen != null){
       
 
@@ -108,6 +124,10 @@ export class RegistrarPage implements OnInit {
 
       });
     }
+    else{
+      this.bd.crear('usuarios',this.anonimoJson);
+    }
+
 
     this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
 
@@ -164,4 +184,13 @@ export class RegistrarPage implements OnInit {
       }
     });
   }
+
+
+  /*checkEmptyInputs() {
+    if (this.email && this.psw) {
+      return false;
+    } else {
+      return true;
+    }
+  }*/
 }

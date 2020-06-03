@@ -16,10 +16,8 @@
     <img src={{usuarioJson.foto}} class="img">
 
 
+
   <ion-button  (click)="tomarFoto()" color ="primary" class="camera"><ion-icon name="camera" ></ion-icon></ion-button>
-
-
-
       <ion-card class="cliente" *ngIf="pickedName=='Cliente'">
         <br> 
         <ion-item  class="item"> 
@@ -56,17 +54,17 @@
     <br>
     <ion-item class="labels" fill="outline">     
       <br>
-      <ion-input type="email" [(ngModel)]="correo" formControlName="email" placeholder="Email"></ion-input>
+      <ion-input type="email" [(ngModel)]="usuarioJson.correo" formControlName="email" placeholder="Correo"></ion-input>
     </ion-item>
     <br>
     <ion-item class="labels" fill="outline"> 
       <br>
-      <ion-input type= "password" [(ngModel)]="password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
+      <ion-input type= "password" [(ngModel)]="usuarioJson.contrasenia" formControlName="contraseña" placeholder="Contraseña"></ion-input>
     </ion-item>
 
   </form>
     <br>
-    <ion-button (click)="registrarUsuario()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+    <ion-button (click)="registrarUsuario()" class="btnRegistro" [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
     <br>
     
 
@@ -93,17 +91,17 @@
     </ion-item>
     <br>
     <ion-item>
-        <ion-input type="text" [(ngModel)]="anonimoJson.correo" formControlName="email" placeholder="Email"></ion-input>
+        <ion-input type="text" [(ngModel)]="anonimoJson.correo" formControlName="email" placeholder="Correo"></ion-input>
       </ion-item>
       <br>
       <ion-item class="labels" fill="outline">   
         <br>
-        <ion-input type="password" [(ngModel)]="anonimoJson.password" formControlName="contraseña" placeholder="Contraseña"></ion-input>
+        <ion-input type="password" [(ngModel)]="anonimoJson.contrasenia" formControlName="contraseña" placeholder="Contraseña"></ion-input>
         
       </ion-item>
     </form>
       <br>
-      <ion-button (click)="registrarAnonimo()" class="btnRegistro" expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+      <ion-button (click)="registrarAnonimo()" class="btnRegistro"  [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
       <br>
     
 </ion-card>
