@@ -14,10 +14,10 @@ export class HomePage {
 
   perfilUsuario : string;
 
- /* constructor(private router : Router,
-    private menu: MenuController ) {  }*/
+  constructor(private router : Router,
+    private menu: MenuController ) {  }
 
-    constructor(private router : Router) { }
+
 
   ngOnInit() {
 
@@ -26,7 +26,6 @@ export class HomePage {
     this.perfilUsuario = auxUsuario.perfil;
     console.log(this.perfilUsuario);
   }
-
 
   // redireccionar(perfil)
   // {
