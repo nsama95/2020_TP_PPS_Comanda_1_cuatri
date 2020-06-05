@@ -105,8 +105,8 @@ export class RegistrarPage implements OnInit {
       this.bd.crear('usuarios',this.usuarioJson);
     }
 
-    this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
-
+    this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
+    this.limpiar(this.usuarioJson.tipo);
   }
 
   registrarAnonimo()
@@ -129,8 +129,8 @@ export class RegistrarPage implements OnInit {
     }
 
 
-    this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
-
+    this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
+    this.limpiar(this.anonimoJson.tipo);
   }
 
   tomarFoto()
@@ -193,7 +193,25 @@ export class RegistrarPage implements OnInit {
       }
     });
   }
-  
+  limpiar(usuario:string){
+    if(this.anonimoJson.tipo=="anonimo"){
+    this.anonimoJson.nombre = "";
+    this.anonimoJson.correo= "";
+    this.anonimoJson.contrasenia= "";
+    this.anonimoJson.foto="../../../assets/img/avatarRR.png";
+    this.anonimoJson.tipo=""; 
+     this.anonimoJson.estado=0;
+  }else{
+    this.usuarioJson.nombre = "";
+    this.usuarioJson.apellido = "";
+    this.usuarioJson.dni = "";
+    this.usuarioJson.correo= "";
+    this.usuarioJson.contrasenia= "";
+    this.usuarioJson.foto="../../../assets/img/avatarRR.png";
+    this.usuarioJson.tipo=""; 
+     this.usuarioJson.estado=0;
+  }
+}
   /*checkEmptyInputs() {
     if (this.email && this.psw) {
       return false;

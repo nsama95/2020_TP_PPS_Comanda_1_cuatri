@@ -32,6 +32,21 @@ login(email : string, password : string){
 
 }
 
+registrarUsuario(email : string, password : string){
+
+  return new Promise((resolve, rejected) => {
+
+    this.AFauth.createUserWithEmailAndPassword(email, password)
+    
+    .then (user => resolve(user))
+    
+    .catch(err => rejected(err))
+  
+    });
+    
+
+
+}
 
 }
 

@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { AuthService } from 'src/app/servicios/auth.service';
 //import { IonicPage, NavController } from 'ionic-angular';
 
 @Component({
@@ -24,10 +25,8 @@ export class RegistrarSupervisorPage implements OnInit {
 
   //list<UsuarioBD> ;
   pickedName :string;
-  todo: FormGroup;
-  clientes = [
-    {perfil:"Cliente"},
-    {perfil: "Anonimo"}]
+  FromSupervisor: FormGroup;
+  
 
 
     usuarioJson = 
@@ -36,20 +35,13 @@ export class RegistrarSupervisorPage implements OnInit {
       dni : "",
       correo: "",
       contrasenia: "",
+      cuil:"",
       foto:"../../../assets/img/avatarRR.png",
       tipo:"",
       estado:0
 };
 
-      anonimoJson = {
-        nombre : "",
-        contrasenia : "",
-        correo : "",
-      foto:"../../../assets/img/avatarRR.png",
-      tipo:"",
-      estado:0
-    };
-
+    
     pathImagen : string;
 
   constructor(
@@ -58,12 +50,15 @@ export class RegistrarSupervisorPage implements OnInit {
     private bd : DatabaseService,
     private st : AngularFireStorage,
     private complemetos : ComplementosService,
-    private barcodeScanner: BarcodeScanner,public fb: FormBuilder) {
-      this.todo = this.fb.group({
+    private auth : AuthService,
+    private barcodeScanner: BarcodeScanner,
+    public fb: FormBuilder) {
+      this.FromSupervisor = this.fb.group({
         nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]],
         apellido: ['', [Validators.required,, Validators.pattern('^[a-zA-Z]{3,10}$')]],
         email: ['', [Validators.required, Validators.email]],
         dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+        cuil: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
         contraseña: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
       });
      
@@ -75,7 +70,7 @@ export class RegistrarSupervisorPage implements OnInit {
     
 
   ngOnInit() {
-    this.pickedName='Cliente';
+   
   }
 
 
@@ -89,8 +84,8 @@ export class RegistrarSupervisorPage implements OnInit {
   }
   registrarUsuario()
   {
-    this.usuarioJson.estado= 1;
-    this.usuarioJson.tipo="cliente";
+    this.usuarioJson.estado= 2;
+    this.usuarioJson.tipo="supervisor";
     if(this.pathImagen != null){
       
 
@@ -105,34 +100,22 @@ export class RegistrarSupervisorPage implements OnInit {
     else{
       this.bd.crear('usuarios',this.usuarioJson);
     }
-
-    this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
-
+    this.auth.registrarUsuario(this.usuarioJson.correo,this.usuarioJson.contrasenia);
+    this.complemetos.presentToastConMensajeYColor("¡Supervisor registrado con éxito!","primary");
+    this.limpiar();
+    
   }
-
-  registrarAnonimo()
-  {
-    this.anonimoJson.estado= 1;
-    this.anonimoJson.tipo="anonimo";
-    if(this.pathImagen != null){
-      
-
-      this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
-      {
-
-        this.anonimoJson.foto = link;
-        this.bd.crear('usuarios',this.anonimoJson);
-
-      });
-    }
-    else{
-      this.bd.crear('usuarios',this.anonimoJson);
-    }
-
-
-    this.complemetos.presentToastConMensajeYColor("¡Cliente registrado!","primary");
-
-  }
+limpiar(){
+  this.usuarioJson.nombre = "";
+  this.usuarioJson.apellido = "";
+  this.usuarioJson.dni = "";
+  this.usuarioJson.correo= "";
+  this.usuarioJson.contrasenia= "";
+  this.usuarioJson.cuil="";
+  this.usuarioJson.foto="../../../assets/img/avatarRR.png";
+  this.usuarioJson.tipo=""; 
+   this.usuarioJson.estado=0;
+}
 
   tomarFoto()
   {
@@ -186,7 +169,7 @@ export class RegistrarSupervisorPage implements OnInit {
 
   }
  
-  pickUser(pickedName) {
+ /* pickUser(pickedName) {
     this.clientes.forEach((user) => {
       if (user.perfil === pickedName) {
         

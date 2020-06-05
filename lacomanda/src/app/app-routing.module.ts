@@ -25,10 +25,7 @@ const routes: Routes = [
     path: 'registrar-supervisor',
     loadChildren: () => import('./componentes/registrar-supervisor/registrar-supervisor.module').then( m => m.RegistrarSupervisorPageModule)
   },
-  {
-    path: 'registrar-anonimo',
-    loadChildren: () => import('./componentes/registrar-anonimo/registrar-anonimo.module').then( m => m.RegistrarAnonimoPageModule)
-  },
+  
  {path:'menu',component:MenuComponent}
 
 ];
