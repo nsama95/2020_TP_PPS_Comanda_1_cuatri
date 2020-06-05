@@ -42,7 +42,6 @@ import {AngularFireStorageModule} from "@angular/fire/storage";
 //import { AltaClienteComponent } from './componentes/alta-cliente/alta-cliente.component';
 //import { AltaClienteService } from './servicios/alta-cliente.service';
 
-
 @NgModule({
   declarations: [AppComponent,
     MenuComponent],

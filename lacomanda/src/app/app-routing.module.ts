@@ -26,7 +26,15 @@ const routes: Routes = [
     loadChildren: () => import('./componentes/registrar-supervisor/registrar-supervisor.module').then( m => m.RegistrarSupervisorPageModule)
   },
   
- {path:'menu',component:MenuComponent}
+ {path:'menu',component:MenuComponent},  {
+    path: 'alta-producto',
+    loadChildren: () => import('./componentes/alta-producto/alta-producto.module').then( m => m.AltaProductoPageModule)
+  },
+  {
+    path: 'alta-mesa',
+    loadChildren: () => import('./componentes/alta-mesa/alta-mesa.module').then( m => m.AltaMesaPageModule)
+  }
+
 
 ];
 
