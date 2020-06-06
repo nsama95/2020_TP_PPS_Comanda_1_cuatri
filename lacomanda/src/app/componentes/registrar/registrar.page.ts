@@ -86,6 +86,29 @@ export class RegistrarPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true
   }
+  tomarFoto()
+  {
+    this.camera.getPicture(this.options).then((imageData) => {
+      //let base64Image = 'data:image/jpeg;base64,' + imageData;
+      var base64Str = 'data:image/jpeg;base64,'+imageData;
+      this.usuarioJson.foto = base64Str;
+      var storageRef = firebase.storage().ref();
+     //obtenemos la foto que fue sacada en esen instante
+      let obtenerLaFoto = new Date().getTime(); 
+      var nombreFoto = "usuarios/"+obtenerLaFoto+"."+this.usuarioJson.dni+".jpg";
+      var childRef = storageRef.child(nombreFoto);
+      this.pathImagen = nombreFoto;
+      childRef.putString(base64Str,'data_url').then(function(snapshot)
+      {
+
+      })
+
+    },(Err)=>{
+      alert(JSON.stringify(Err));
+    })
+    
+  }
+
   registrarUsuario()
   {
     this.usuarioJson.estado= 1;
@@ -133,29 +156,7 @@ export class RegistrarPage implements OnInit {
     this.limpiar(this.anonimoJson.tipo);
   }
 
-  tomarFoto()
-  {
-    this.camera.getPicture(this.options).then((imageData) => {
-      //let base64Image = 'data:image/jpeg;base64,' + imageData;
-      var base64Str = 'data:image/jpeg;base64,'+imageData;
-      this.usuarioJson.foto = base64Str;
-      var storageRef = firebase.storage().ref();
-     //obtenemos la foto que fue sacada en esen instante
-      let obtenerLaFoto = new Date().getTime(); 
-      var nombreFoto = "usuarios/"+obtenerLaFoto+"."+this.usuarioJson.dni+".jpg";
-      var childRef = storageRef.child(nombreFoto);
-      this.pathImagen = nombreFoto;
-      childRef.putString(base64Str,'data_url').then(function(snapshot)
-      {
-
-      })
-
-    },(Err)=>{
-      alert(JSON.stringify(Err));
-    })
-    
-  }
-
+ 
 
   escanearCodigo()
   {
@@ -175,13 +176,26 @@ export class RegistrarPage implements OnInit {
        this.usuarioJson.apellido = texto[1];
       this.usuarioJson.dni=texto[4];//el 4 indica el 4to @
       this.complemetos.presentToastConMensajeYColor("¡Se cargaron con exito tus datos!","primary");
-    }
+    }else if(texto.length == 17)
+    {
+     this.usuarioJson.nombre = texto[5];
+     this.usuarioJson.apellido = texto[4];
+     this.usuarioJson.dni = texto[1];
+   }
+   else if(texto.length == 14)
+    {
+     this.usuarioJson.nombre = texto[4];
+     this.usuarioJson.apellido = texto[3];
+     this.usuarioJson.dni = texto[7];
+   }
+    
+  }).catch(err => {
+    this.complemetos.presentToastConMensajeYColor("¡Hubo un error, intente más tarde!","primary");
+      console.log('Error', err);
+  });
       
 
-     }).catch(err => {
-      this.complemetos.presentToastConMensajeYColor("Hubo un error, intenta más tarde.","primary");
-    
-     });
+
 
   }
  

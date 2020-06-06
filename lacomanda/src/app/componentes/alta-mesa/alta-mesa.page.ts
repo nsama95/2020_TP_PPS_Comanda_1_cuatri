@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import{ DatabaseService } from "../../servicios/database.service";
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';  
-import { Platform } from '@ionic/angular';
+import { Platform, LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { from } from 'rxjs';
 import { UsuarioBD } from "../../clases/usuario-bd";
@@ -10,6 +10,7 @@ import * as firebase from 'firebase/app';
 import {AngularFireStorage} from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { Router } from '@angular/router';
 //import { IonicPage, NavController } from 'ionic-angular';
 
 @Component({
@@ -27,16 +28,16 @@ export class AltaMesaPage implements OnInit {
     numero : "",
     comensales : "",
     tipo : "",
-    foto :  "../../../assets/icon/iconLogoMovimiento.png",
+    foto :  "",
   };
 
 
   pathImagen : string;
 
   listaTipo = [ 
-    { tipo : "Por defecto" },
-    { tipo : "VIP" },
-    { tipo : "Discapacitados"},
+    { tipo : "sector fumador" },
+    { tipo : "sector no fumador" },
+    
   ]
 
   constructor(
@@ -45,22 +46,27 @@ export class AltaMesaPage implements OnInit {
     private bd : DatabaseService,
     private formBuilder: FormBuilder,
     private st : AngularFireStorage,
-    private complemetos : ComplementosService) {
+    private complemetos : ComplementosService,
+    private toastController: ToastController,
+    public alertController: AlertController ,
+    public router : Router,
+    public loadingController: LoadingController
+    ) {
       this.miFormulario = this.formBuilder.group({
-        comensales: ['', [Validators.required, Validators.pattern('^[0-9]{2}$')]],
-        numero: ['', [Validators.required, Validators.pattern('^[0-9]{2}$')]],
+        comensales: ['', [Validators.required, Validators.pattern('^[0-9]{1}$')]],
+        numero: ['', [Validators.required, Validators.pattern('^[0-9]{1}$')]],
      });
    }
    
   ngOnInit() {
   
-    this.pickedName = "Cliente";
+    this.pickedName = "sector no fumador";
 
   }
 
   pickerUser(pickedName){
     this.listaTipo.forEach((mesa) =>{
-      if(mesa.tipo == pickedName && pickedName == "Cliente")
+      if(mesa.tipo == pickedName && pickedName == "sector no fumador")
       {
         this.mesaJson.tipo = pickedName;
       }
@@ -71,7 +77,7 @@ export class AltaMesaPage implements OnInit {
   }
 
 
-  registrar()
+  async registrar()
   {
     if(this.pathImagen != null){   
 
@@ -86,13 +92,14 @@ export class AltaMesaPage implements OnInit {
     }
     else
     {
-      this.bd.crear('usuarios',this.mesaJson);
+      this.bd.crear('mesas',this.mesaJson);
 
     }
-
-    this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.","primary");
+   
+  
+    this.complemetos.presentToastConMensajeYColor("La mesa ha sido registrada","primary");
   }
-
+ 
   tomarFotografia()
   {
     const options: CameraOptions =  { 
@@ -132,7 +139,7 @@ export class AltaMesaPage implements OnInit {
     
   }
 
-  escanearDni()
+  /*escanearDni()
   {
     let auxDni;
 
@@ -148,8 +155,5 @@ export class AltaMesaPage implements OnInit {
      });
 
   }
-
-
-
-
+*/
 }

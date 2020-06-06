@@ -3,7 +3,7 @@
       <ion-back-button defaultHref="" slot="start" color="light"  icon="arrow-undo"></ion-back-button>
     <ion-title style="text-align: center;" color="light">  
       
-      PRODUCTOS 
+      REGISTRAR PRODUCTOS 
       <ion-icon name="restaurant"></ion-icon>
     </ion-title>
   </ion-toolbar>
@@ -51,17 +51,20 @@
       </ion-item> 
       <br>
 
+      
   </form>
-    
+    <!--img src="../../../assets/img/icon.png" alt=""-->
     <ion-grid>
       <ion-row>
         <ion-col col-12>
+
           <ion-button (click)="tomarFotografia()" class="btnRegistro" expand="block">Tomar foto</ion-button>
+          <ion-button (click)="registrarProducto()" class="btnRegistro"  expand="block">REGISTRAR PRODUCTO</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-button (click)="registrar()" class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">REGISTRAR MESA</ion-button>
+   
 
         
     </ion-card>
