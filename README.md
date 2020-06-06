@@ -32,8 +32,8 @@ Realizamos llamadas diarias a traves de Hangouts, creamos un excel para una mayo
 
 ## Gestión de pedidos, QRs y push notificaciones (semana 10/06) 📌
 
-* *Natalia Samaniego* : QR para la propina, QR para mesa, notifiaciones push(pedido de mesas, pedido de platos, cierre de cuentas).
-* *Julieta Sdrubolini* : Pedir y tomar pedidos, reservas, notifiaciones push(reservas agendadas y delivery).
+* *Natalia Samaniego* : QR para la propina, QR para mesa, notificaciones push(pedido de mesas, pedido de platos, cierre de cuentas).
+* *Julieta Sdrubolini* : Pedir y tomar pedidos, reservas, notificaciones push(reservas agendadas y delivery).
 
 ## Delivery y juegos (semana 17/06) 📌
 
