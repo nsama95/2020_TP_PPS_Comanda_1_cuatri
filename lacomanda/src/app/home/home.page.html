@@ -5,7 +5,7 @@
           <ion-buttons slot="start">
             <ion-menu-button menu="mainmenu"></ion-menu-button>
           </ion-buttons>
-          <ion-title>Inbox</ion-title>
+          <ion-title>MAWEY</ion-title>
         </ion-toolbar>
 
       </ion-header>
@@ -18,51 +18,82 @@
         </ion-toolbar>
       </ion-header>
       
-      <ion-content>
-       
 
-        
-          <ion-list>
-            <ion-menu-toggle *ngFor = "let item of items">
-                <ion-item [routerLink] = "item.ruta">
-                  <ion-icon slot = "start" [name] = "item.icono" color = "danger"></ion-icon>
-                  <ion-label style = "color:red">{{item.nombre}}</ion-label>
-                </ion-item>
-            </ion-menu-toggle>
+
+
+      <ion-content> 
+
+          <ion-list *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'" >
+            <ion-item routerLink="/registrar">
+              <ion-icon name="ellipsis-horizontal-outline" slot="start"></ion-icon>
+              <ion-label>Clientes pendientes</ion-label>
+            </ion-item>
+            <ion-item routerLink="/registrar-empleado">
+              <ion-icon name="person-add-outline" slot="start"></ion-icon>
+              <ion-label>Registrar empleado</ion-label>
+            </ion-item>
           </ion-list>
-          <!--ion-list>
-          <ion-item routerLink="/menu">
-            <ion-icon name="mail" slot="start"></ion-icon>
-            <ion-label>Inbox</ion-label>
-          </ion-item>
-          <ion-item routerLink="/registrar-empleado">
-            <ion-icon name="paper-plane" slot="start"></ion-icon>
-            <ion-label>Outbox</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="heart" slot="start"></ion-icon>
-            <ion-label>Favorites</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="archive" slot="start"></ion-icon>
-            <ion-label>Archived</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="trash" slot="start"></ion-icon>
-            <ion-label>Trash</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="warning" slot="start"></ion-icon>
-            <ion-label>Spam</ion-label>
-          </ion-item>
-        </ion-list-->
-      </ion-content>
-    </ion-menu>
+      
+          <ion-list *ngIf = "perfilUsuario == 'mozo'" >
+            <ion-item routerLink="/">
+              <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+              <ion-label>Pedidos</ion-label>
+            </ion-item>
+            <ion-item routerLink="/registrar-empleado">
+              <ion-icon name="cash-outline" slot="start"></ion-icon>
+              <ion-label>Solicitudes de pago</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <ion-list *ngIf = "perfilUsuario == 'cocinero'" >
+            <ion-item routerLink="/">
+              <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+              <ion-label>Pedidos</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <ion-list *ngIf = "perfilUsuario == 'metre'" >
+            <ion-item routerLink="/">
+              <ion-icon name="scan-outline" slot="start"></ion-icon>
+              <ion-label>Solicitudes de mesa</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <ion-list *ngIf = "perfilUsuario == 'anonimo'" >
+            <ion-item routerLink="/">
+              <ion-icon name="scan-outline" slot="start"></ion-icon>
+              <ion-label>Pedir mesa</ion-label>
+            </ion-item>
+            <ion-item routerLink="/">
+              <ion-icon name="reader-outline" slot="start"></ion-icon>
+              <ion-label>Hacer pedido</ion-label>
+            </ion-item>
+            <ion-item routerLink="/">
+              <ion-icon name="stopwatch-outline" slot="start"></ion-icon>
+              <ion-label>Ver estado del pedido</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <ion-list *ngIf = "perfilUsuario == 'bartender'" >
+            <ion-item routerLink="/">
+              <ion-icon name="reader-outline" slot="start"></ion-icon>
+              <ion-label>Pedidos</ion-label>
+            </ion-item>
+          </ion-list>
+        
+            
+   
+       </ion-content>
+       <ion-item (click)="cerrarSesion()">
+        <ion-icon  name="log-out"></ion-icon>
+        <ion-label>Cerrar Sesión</ion-label>
+    </ion-item>
+    </ion-menu> 
     <ion-router-outlet id="main"></ion-router-outlet>
     
 
 
-    </ion-content>
+     </ion-content> 
       
   </div>
   

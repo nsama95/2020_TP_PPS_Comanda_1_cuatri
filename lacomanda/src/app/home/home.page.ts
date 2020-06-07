@@ -33,6 +33,9 @@ export class HomePage {
   ]
   jefeLogueado = {nombre : "Pablo" , apellido : "Hidalgo" , path : "../../../assets/mozo.png" , perfil : "Mozo"}
 
+  cerrarSesion() {
+    this.router.navigate(['/login']);
+  }
   /*Cerrar()
   {
     this.router.navigate(['/login']);
