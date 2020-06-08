@@ -48,6 +48,20 @@ registrarUsuario(email : string, password : string){
 
 }
 
+mandarCorreoElectronico(email : string)
+{
+  
+  return new Promise((resolve, rejected) => {
+
+    this.AFauth.sendPasswordResetEmail(email)
+    
+    .then (user => resolve(user))
+    
+    .catch(err => rejected(err))
+  
+    });
+}
+
 }
 
 

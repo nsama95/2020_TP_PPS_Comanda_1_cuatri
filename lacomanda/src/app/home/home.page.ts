@@ -11,8 +11,6 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import { DatabaseService } from '../servicios/database.service';
 import { AuthService } from '../servicios/auth.service';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -27,7 +25,9 @@ export class HomePage {
     private menu: MenuController,
     private firestore : AngularFirestore,
       private bd : DatabaseService,
-      private auth : AuthService) {  }
+      private auth : AuthService,
+      
+      ) {  }
 
     
 
@@ -77,6 +77,7 @@ export class HomePage {
           usuario.estado = estado;
           this.bd.actualizar('usuarios',usuario,doc.id);
           this.auth.registrarUsuario(usuario.correo,usuario.contrasenia); //lo registra
+          this.auth.mandarCorreoElectronico(usuario.correo);
          }
        
         
@@ -87,7 +88,6 @@ export class HomePage {
     })
     
   }
-
 
 
 
