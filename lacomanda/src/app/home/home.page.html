@@ -80,8 +80,9 @@
               <ion-label>Pedidos</ion-label>
             </ion-item>
           </ion-list>
-        
-            
+
+
+          
    
        </ion-content>
        <ion-item (click)="cerrarSesion()">
@@ -91,7 +92,19 @@
     </ion-menu> 
     <ion-router-outlet id="main"></ion-router-outlet>
     
-
+    <div *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'">
+      <ion-card *ngFor="let usuario of listaUsuarios">
+        {{usuario.nombre}}
+        <br>
+        {{usuario.apellido}}
+        <br>
+        {{usuario.correo}}
+        <br>
+        <ion-button color="success" (click)="organizarUsuario(usuario,2)"> Aceptar</ion-button>
+        <ion-button color="danger" (click)="organizarUsuario(usuario,3)"> Rechazar</ion-button>
+      </ion-card>
+     
+    </div> 
 
      </ion-content> 
       

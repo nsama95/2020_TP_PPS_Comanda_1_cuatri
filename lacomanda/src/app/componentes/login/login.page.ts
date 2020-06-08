@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
   { id: 4, email: "cocinero@cocinero.com", password: "444444", perfil: "cocinero" },
   { id: 5, email: "metre@metre.com", password: "555555", perfil: "metre"},
   { id: 6, email: "anonimo@anonimo.com", password: "666666", perfil: "anonimo"},
-  { id: 7, email: "bartender@bartender.com", password: "666666", perfil: "bartender"}]
+  { id: 7, email: "bartender@bartender.com", password: "777777", perfil: "bartender"}]
 
 
   constructor(

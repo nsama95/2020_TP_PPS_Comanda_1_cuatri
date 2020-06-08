@@ -37,7 +37,7 @@ export class RegistrarPage implements OnInit {
       contrasenia: "",
       foto:"../../../assets/img/avatarRR.png",
       tipo:"",
-      estado:0
+      estado:1
 };
 
       anonimoJson = {
@@ -46,7 +46,7 @@ export class RegistrarPage implements OnInit {
         correo : "",
       foto:"../../../assets/img/avatarRR.png",
       tipo:"",
-      estado:0
+      estado:1
     };
 
     pathImagen : string;

@@ -64,7 +64,7 @@
 
   </form>
     <br>
-    <ion-button (click)="registrarUsuario()" class="btnRegistro" [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+    <ion-button (click)="registrarUsuario()" [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
     <br>
     
 
@@ -101,12 +101,12 @@
       </ion-item>
     </form>
       <br>
-      <ion-button (click)="registrarAnonimo()" class="btnRegistro"  [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+      <ion-button (click)="registrarAnonimo()"  [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
       <br>
     
 </ion-card>
 </ion-col>
 </ion-row>
 </ion-grid>
-<ion-router-outlet id="menu"></ion-router-outlet>
+
 </ion-content>
