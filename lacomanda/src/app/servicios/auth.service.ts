@@ -50,13 +50,12 @@ registrarUsuario(email : string, password : string){
 
 mandarCorreoElectronico(email : string)
 {
+  setTimeout(()=>{
+    this.AFauth.sendPasswordResetEmail(email);
+  },3000);
+//this.AFauth.sendPasswordResetEmail(email).then (user => resolve(user)).catch(err => rejected(err))
   
-  return new Promise((resolve, rejected) => {
-    this.AFauth.sendPasswordResetEmail(email).then(user=>resolve(user)).catch(err => rejected(err));
-
-    //this.AFauth.sendPasswordResetEmail(email).then (user => resolve(user)).catch(err => rejected(err))
-  
-    });
+    
 }
 
 }
