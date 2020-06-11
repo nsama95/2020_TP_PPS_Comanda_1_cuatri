@@ -11,7 +11,7 @@ import {AngularFireStorage} from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 //import { IonicPage, NavController } from 'ionic-angular';
-//import { Usuario } from "../../clases/usuario";
+import { Usuario } from "../../clases/usuario";
 
 
 @Component({
@@ -30,7 +30,9 @@ export class RegistrarPage implements OnInit {
   clientes = [
     {perfil:"cliente"},
     {perfil: "anonimo"}]
-    //users: Usuario[] = [];
+    users: Usuario[] = [
+      {correo:'',contrasenia: '' , perfil: '' }
+    ];
 
     usuarioJson = 
       {nombre : "",
@@ -152,16 +154,23 @@ export class RegistrarPage implements OnInit {
       {
 
         this.anonimoJson.foto = link;
-        this.bd.crear('usuarios',this.anonimoJson);
-        this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
+        this.bd.crearA('usuarios',this.anonimoJson);
+       this.users=[{correo: this.anonimoJson.correo,contrasenia: this.anonimoJson.contrasenia, perfil: this.anonimoJson.perfil}]
 
-        //ocalStorage.setItem("usuario",this.anonimoJson);
+      //  this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
+
+        //localStorage.setItem("usuario",JSON.stringify(this.users));
 
       });
     }
     else{
-      this.bd.crear('usuarios',this.anonimoJson);
-     this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
+      this.bd.crearA('usuarios',this.anonimoJson);
+     this.users=[{correo: this.anonimoJson.correo,contrasenia: this.anonimoJson.contrasenia, perfil: "anonimo"}]
+
+      //  this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
+
+        localStorage.setItem("usuario",JSON.stringify(this.users));
+     //this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
     }
 
 
