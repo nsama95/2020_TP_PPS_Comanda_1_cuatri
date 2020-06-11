@@ -7,14 +7,14 @@ export const environment = {
 };
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyDK7coLtj6hFP55Lo7FNKWjVCA-LyRqwCs",
-  authDomain: "resto-c1a4d.firebaseapp.com",
-  databaseURL: "https://resto-c1a4d.firebaseio.com",
-  projectId: "resto-c1a4d",
-  storageBucket: "resto-c1a4d.appspot.com",
-  messagingSenderId: "470540534415",
-  appId: "1:470540534415:web:f75b57d1ac820a03c926fa",
-  measurementId: "G-KHYCRSVQNE"
+  apiKey: "AIzaSyAza7CXRZnJrvXyrcnSz9n7k2jCCKgJh-8",
+  authDomain: "mawey-4ea19.firebaseapp.com",
+  databaseURL: "https://mawey-4ea19.firebaseio.com",
+  projectId: "mawey-4ea19",
+  storageBucket: "mawey-4ea19.appspot.com",
+  messagingSenderId: "714397140145",
+  appId: "1:714397140145:web:bcbbeaa486c1e193870e90",
+  measurementId: "G-BCEF28SP55"
 };
 
 /*

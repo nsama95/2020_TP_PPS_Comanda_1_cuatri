@@ -52,12 +52,9 @@ mandarCorreoElectronico(email : string)
 {
   
   return new Promise((resolve, rejected) => {
+    this.AFauth.sendPasswordResetEmail(email).then(user=>resolve(user)).catch(err => rejected(err));
 
-    this.AFauth.sendPasswordResetEmail(email)
-    
-    .then (user => resolve(user))
-    
-    .catch(err => rejected(err))
+    //this.AFauth.sendPasswordResetEmail(email).then (user => resolve(user)).catch(err => rejected(err))
   
     });
 }
