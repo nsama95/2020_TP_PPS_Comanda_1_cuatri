@@ -9,7 +9,9 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { AuthService } from 'src/app/servicios/auth.service';
 //import { IonicPage, NavController } from 'ionic-angular';
+//import { Usuario } from "../../clases/usuario";
 
 
 @Component({
@@ -23,11 +25,12 @@ export class RegistrarPage implements OnInit {
 
   //list<UsuarioBD> ;
   pickedName :string;
-  todo: FormGroup;
+  cliente: FormGroup;
+  anonimo: FormGroup;
   clientes = [
-    {perfil:"Cliente"},
-    {perfil: "Anonimo"}]
-
+    {perfil:"cliente"},
+    {perfil: "anonimo"}]
+    //users: Usuario[] = [];
 
     usuarioJson = 
       {nombre : "",
@@ -36,7 +39,7 @@ export class RegistrarPage implements OnInit {
       correo: "",
       contrasenia: "",
       foto:"../../../assets/img/avatarRR.png",
-      tipo:"",
+      perfil:"",
       estado:1
 };
 
@@ -45,7 +48,7 @@ export class RegistrarPage implements OnInit {
         contrasenia : "",
         correo : "",
       foto:"../../../assets/img/avatarRR.png",
-      tipo:"",
+      perfil:"",
       estado:1
     };
 
@@ -57,12 +60,18 @@ export class RegistrarPage implements OnInit {
     private bd : DatabaseService,
     private st : AngularFireStorage,
     private complemetos : ComplementosService,
+    private auth :AuthService,
     private barcodeScanner: BarcodeScanner,public fb: FormBuilder) {
-      this.todo = this.fb.group({
+      this.cliente = this.fb.group({
         nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]],
         apellido: ['', [Validators.required,, Validators.pattern('^[a-zA-Z]{3,10}$')]],
         email: ['', [Validators.required, Validators.email]],
         dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+        contraseña: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
+      });
+      this.anonimo = this.fb.group({
+        nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]],
+        email: ['', [Validators.required, Validators.email]],
         contraseña: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
       });
      
@@ -74,7 +83,7 @@ export class RegistrarPage implements OnInit {
     
 
   ngOnInit() {
-    this.pickedName='Cliente';
+    this.pickedName='cliente';
   }
 
 
@@ -112,7 +121,7 @@ export class RegistrarPage implements OnInit {
   registrarUsuario()
   {
     this.usuarioJson.estado= 1;
-    this.usuarioJson.tipo="cliente";
+    this.usuarioJson.perfil="cliente";
     if(this.pathImagen != null){
       
 
@@ -129,13 +138,13 @@ export class RegistrarPage implements OnInit {
     }
 
     this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
-    this.limpiar(this.usuarioJson.tipo);
+    this.limpiar(this.usuarioJson.perfil);
   }
 
   registrarAnonimo()
   {
-    this.anonimoJson.estado= 1;
-    this.anonimoJson.tipo="anonimo";
+    this.anonimoJson.estado=2;
+    this.anonimoJson.perfil="anonimo";
     if(this.pathImagen != null){
       
 
@@ -144,16 +153,20 @@ export class RegistrarPage implements OnInit {
 
         this.anonimoJson.foto = link;
         this.bd.crear('usuarios',this.anonimoJson);
+        this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
+
+        //ocalStorage.setItem("usuario",this.anonimoJson);
 
       });
     }
     else{
       this.bd.crear('usuarios',this.anonimoJson);
+     this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
     }
 
 
     this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
-    this.limpiar(this.anonimoJson.tipo);
+    this.limpiar(this.anonimoJson.perfil);
   }
 
  
@@ -208,12 +221,12 @@ export class RegistrarPage implements OnInit {
     });
   }
   limpiar(usuario:string){
-    if(this.anonimoJson.tipo=="anonimo"){
+    if(this.anonimoJson.perfil=="anonimo"){
     this.anonimoJson.nombre = "";
     this.anonimoJson.correo= "";
     this.anonimoJson.contrasenia= "";
     this.anonimoJson.foto="../../../assets/img/avatarRR.png";
-    this.anonimoJson.tipo=""; 
+    this.anonimoJson.perfil=""; 
      this.anonimoJson.estado=0;
   }else{
     this.usuarioJson.nombre = "";
@@ -222,7 +235,7 @@ export class RegistrarPage implements OnInit {
     this.usuarioJson.correo= "";
     this.usuarioJson.contrasenia= "";
     this.usuarioJson.foto="../../../assets/img/avatarRR.png";
-    this.usuarioJson.tipo=""; 
+    this.usuarioJson.perfil=""; 
      this.usuarioJson.estado=0;
   }
 }

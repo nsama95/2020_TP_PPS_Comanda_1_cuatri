@@ -29,13 +29,13 @@ export class LoginPage implements OnInit {
 
 
   users: Usuario[] = [
-  { id: 1, email: "supervisor@supervisor.com", password: "111111", perfil: "supervisor"},
-  { id: 2, email: "duenio@duenio.com", password: "222222", perfil: "dueño"},
-  { id: 3, email: "mozo@mozo.com", password: "333333", perfil: "mozo"},
-  { id: 4, email: "cocinero@cocinero.com", password: "444444", perfil: "cocinero" },
-  { id: 5, email: "metre@metre.com", password: "555555", perfil: "metre"},
-  { id: 6, email: "anonimo@anonimo.com", password: "666666", perfil: "anonimo"},
-  { id: 7, email: "bartender@bartender.com", password: "777777", perfil: "bartender"}]
+  {  correo: "supervisor@supervisor.com", contrasenia: "111111", perfil: "supervisor"},
+  {  correo: "duenio@duenio.com", contrasenia: "222222", perfil: "dueño"},
+  {  correo: "mozo@mozo.com", contrasenia: "333333", perfil: "mozo"},
+  {  correo: "cocinero@cocinero.com", contrasenia: "444444", perfil: "cocinero" },
+  {  correo: "metre@metre.com", contrasenia: "555555", perfil: "metre"},
+  { correo: "anonimo@anonimo.com", contrasenia: "666666", perfil: "anonimo"},
+  {  correo: "bartender@bartender.com", contrasenia: "777777", perfil: "bartender"}]
 
 
   constructor(
@@ -60,9 +60,9 @@ public onSubmitLogin()
 
     this.complementos.presentLoading();
 
-    //let audio = new Audio();
-    //audio.src = 'assets/audio/login/sonidoBotonSUCESS.mp3';
-    //audio.play();
+    let audio = new Audio();
+    audio.src = 'assets/audio/login/sonidoBotonSUCESS.mp3';
+    audio.play();
 
     timer(2000).subscribe(() => {this.router.navigate(['/home']);
   });
@@ -87,8 +87,8 @@ public onClearAll()
 pickUser(pickedName) {
   this.users.forEach((user) => {
     if (user.perfil === pickedName) {
-      this.email = user.email;
-      this.password = user.password;
+      this.email = user.correo;
+      this.password = user.contrasenia;
       localStorage.setItem("usuario",JSON.stringify(user));
       return;
     }

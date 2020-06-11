@@ -18,7 +18,7 @@
 
 
   <ion-button  (click)="tomarFoto()" color ="primary" class="camera"><ion-icon name="camera" ></ion-icon></ion-button>
-      <ion-card class="cliente" *ngIf="pickedName=='Cliente'">
+      <ion-card class="cliente" *ngIf="pickedName=='cliente'">
         <br> 
         <ion-item  class="item"> 
           <ion-label>Ingrese como:</ion-label>
@@ -30,7 +30,7 @@
       </ion-item>
     <br>
 
-    <form [formGroup]="todo">
+    <form [formGroup]="cliente">
     <ion-item class="labels" fill="outline">
       <br>
       <ion-input type="text" [(ngModel)]="usuarioJson.nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
@@ -64,7 +64,7 @@
 
   </form>
     <br>
-    <ion-button (click)="registrarUsuario()" [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+    <ion-button (click)="registrarUsuario()" [disabled]='!cliente.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
     <br>
     
 
@@ -72,7 +72,7 @@
 
 
 </ion-card>
-<ion-card *ngIf="pickedName==='Anonimo'" class="anonimo" >
+<ion-card *ngIf="pickedName=='anonimo'" class="anonimo" >
   <br> 
   <ion-item  class="item"> 
     <ion-label>Ingrese como:</ion-label>
@@ -84,7 +84,7 @@
 </ion-item>
 <br>
 
-  <form [formGroup]="todo">
+  <form [formGroup]="anonimo">
     <ion-item fill="outline">
       <br>
       <ion-input type="text" [(ngModel)]="anonimoJson.nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
@@ -101,7 +101,7 @@
       </ion-item>
     </form>
       <br>
-      <ion-button (click)="registrarAnonimo()"  [disabled]='!todo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
+      <ion-button (click)="registrarAnonimo()"  [disabled]='!anonimo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>
       <br>
     
 </ion-card>
