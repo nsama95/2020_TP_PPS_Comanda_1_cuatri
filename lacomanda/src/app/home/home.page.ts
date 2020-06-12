@@ -10,6 +10,7 @@ import { async } from '@angular/core/testing';
 import {AngularFirestore} from "@angular/fire/firestore";
 import { DatabaseService } from '../servicios/database.service';
 import { AuthService } from '../servicios/auth.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,12 @@ export class HomePage {
 
   perfilUsuario : string;
   listaUsuarios = [];
+  listaEspera = [];
   tieneCorreo: string;
+  nombreAnonimo;
 
   constructor(private router : Router,
+    private barcodeScanner : BarcodeScanner,
     private menu: MenuController,
     private firestore : AngularFirestore,
       private bd : DatabaseService,
@@ -30,6 +34,12 @@ export class HomePage {
       
       ) {  }
 
+      usuarioMesa = {
+        mesa : "",
+        estadoMesa : "",
+        nombreUsuario: "",
+        perfilUsuario : "",
+      }
     
 
     /*  ngOnInit() {
@@ -231,6 +241,7 @@ organizarUsuario(usuario,estado){
 
   cerrarSesion() {
     this.router.navigate(['/login']);
+    this.perfilUsuario = "";
   }
 
 

@@ -161,6 +161,7 @@ export class RegistrarPage implements OnInit {
 
         this.anonimoJson.foto = link;
         this.bd.crearA('usuarios',this.anonimoJson);
+        localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre);
         localStorage.setItem('correoUsuario', this.anonimoJson.correo);
         this.router.navigate(['/home']);
  
@@ -168,6 +169,7 @@ export class RegistrarPage implements OnInit {
     }
     else{
       this.bd.crearA('usuarios',this.anonimoJson);
+      localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre);
       localStorage.setItem('correoUsuario', this.anonimoJson.correo);
      localStorage.setItem('tieneCorreo','conCorreo'); // NO tiene correo
      this.router.navigate(['/home']);

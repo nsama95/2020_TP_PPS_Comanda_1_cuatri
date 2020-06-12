@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'alta-mesa',
     loadChildren: () => import('./componentes/alta-mesa/alta-mesa.module').then( m => m.AltaMesaPageModule)
+  },
+  {
+    path: 'pedir-mesa',
+    loadChildren: () => import('./componentes/pedir-mesa/pedir-mesa.module').then( m => m.PedirMesaPageModule)
   }
 
 
