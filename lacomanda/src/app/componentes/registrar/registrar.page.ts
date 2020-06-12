@@ -12,6 +12,8 @@ import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 //import { IonicPage, NavController } from 'ionic-angular';
 import { Usuario } from "../../clases/usuario";
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -55,9 +57,11 @@ export class RegistrarPage implements OnInit {
     };
 
     pathImagen : string;
+    //router: any;
 
   constructor(
     private camera: Camera,
+    private router : Router,
     public plataform:Platform,
     private bd : DatabaseService,
     private st : AngularFireStorage,
@@ -137,6 +141,8 @@ export class RegistrarPage implements OnInit {
     }
     else{
       this.bd.crear('usuarios',this.usuarioJson);
+      //localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre); // Guardamos el nombre de anonimo en el localStorage
+      //localStorage.setItem('tieneCorreo','sinCorreo'); // NO tiene correo
     }
 
     this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
@@ -155,26 +161,20 @@ export class RegistrarPage implements OnInit {
 
         this.anonimoJson.foto = link;
         this.bd.crearA('usuarios',this.anonimoJson);
-       this.users=[{correo: this.anonimoJson.correo,contrasenia: this.anonimoJson.contrasenia, perfil: this.anonimoJson.perfil}]
-
-      //  this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
-
-        //localStorage.setItem("usuario",JSON.stringify(this.users));
-
+        localStorage.setItem('correoUsuario', this.anonimoJson.correo);
+        this.router.navigate(['/home']);
+ 
       });
     }
     else{
       this.bd.crearA('usuarios',this.anonimoJson);
-     this.users=[{correo: this.anonimoJson.correo,contrasenia: this.anonimoJson.contrasenia, perfil: "anonimo"}]
-
-      //  this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
-
-        localStorage.setItem("usuario",JSON.stringify(this.users));
-     //this.auth.registrarUsuario(this.anonimoJson.correo,this.anonimoJson.contrasenia); 
+      localStorage.setItem('correoUsuario', this.anonimoJson.correo);
+     localStorage.setItem('tieneCorreo','conCorreo'); // NO tiene correo
+     this.router.navigate(['/home']);
     }
 
 
-    this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
+   
     this.limpiar(this.anonimoJson.perfil);
   }
 
