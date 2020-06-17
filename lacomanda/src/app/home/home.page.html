@@ -143,7 +143,9 @@
     <ion-router-outlet id="main"></ion-router-outlet>
   
     <div *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'">
+      <ion-label>Clientes pendientes</ion-label>
       <ion-card *ngFor="let usuario of listaUsuarios">
+
         {{usuario.nombre}}
         <br>
         {{usuario.apellido}}
@@ -155,6 +157,68 @@
       </ion-card>
      
     </div> 
+    <div *ngIf = "perfilUsuario == 'metre'">
+
+      <ion-card>
+        <ion-card-content>
+            Mesas disponibles : 
+        </ion-card-content>
+        <ion-card-content>
+          Mesas reservadas : 
+      </ion-card-content>
+      <ion-card-content>
+          Mesas ocupadas : 
+    </ion-card-content>
+      </ion-card>
+    
+      <ion-card *ngFor="let mesa of listaEspera">
+    
+        <div *ngIf = "mesa.estadoMesa == 'enEspera'">
+          <ion-card-content>
+            {{mesa.nombreUsuario}}
+            <br>
+            {{mesa.perfilUsuario}}
+            <br>
+            {{mesa.estadoMesa}}
+            <br>
+            <ion-button color="success" (click)="comprobarMesas(mesa)" expand="block"> Asignar mesa</ion-button>
+          </ion-card-content>
+        
+        
+       </div>
+    
+      </ion-card>
+    
+    </div> 
+    
+    <div *ngIf = "tieneCorreo != 'conCorreo'">
+    
+      
+      <ion-button color="danger" (click)="listaEsperaQRCliente()"> Escanear codigo</ion-button>
+    
+    </div>
+    
+    
+    <!-- Si el perfil del usuario es cliente  -->
+    <div *ngIf = "perfilUsuario == 'cliente'">
+    
+    <!-- Si el estado de la mesa del cliente no se asigno, se le mostrara el boton para escanear el codigo qr   -->
+      <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'no'">
+       
+        <ion-button color="danger" (click)="listaEsperaQRCliente()"> Escanear codigo</ion-button>
+      </div>
+    <!-- Si el estado de la mesa del cliente se asigno, se le mostrara la mesa que se le asigno   -->
+      <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'si'">
+        <h2>SE LE ASIGNO LA MESA NRO = {{informarEstadoMesa.mesa}}</h2>
+        <!--Agregar boton para escanear la mesa-->
+      </div>
+      
+    
+    </div>
+
+
+
+
 
      </ion-content> 
       

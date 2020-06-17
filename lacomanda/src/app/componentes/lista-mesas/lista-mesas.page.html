@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar align="center">
+    <ion-title>Listado de las mesas disponibles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor = "let mesita of listadoMesas">
+    <ion-card>
+      <ion-card-content>
+        Numero de Mesa : {{mesita.mesa}}
+      </ion-card-content>
+      <ion-card-content>
+        Estado de mesa : {{mesita.estado}}
+      </ion-card-content>
+      <ion-button routerLink="/home" (click)="asignarMesa(mesita)">Asignar esta mesa</ion-button>
+    </ion-card>
+  </div>
+
+</ion-content>

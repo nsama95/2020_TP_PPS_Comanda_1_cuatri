@@ -24,8 +24,13 @@ export class HomePage {
   listaEspera = [];
   tieneCorreo: string;
   nombreAnonimo;
-  infoUsuario : any;
-
+  loading = true;
+  correoCliente ;
+    // Mensaje avisando al cliente  su asignacion de mesa
+    informarEstadoMesa ={
+      mesa: "",
+      seAsignoMesa : "no",
+    };
   constructor(private router : Router,
     private barcodeScanner : BarcodeScanner,
     private menu: MenuController,
@@ -41,25 +46,9 @@ export class HomePage {
         nombreUsuario: "",
         perfilUsuario : "",
       }
-    
-
-    /*  ngOnInit() {
-
-       // let auxUsuario = JSON.parse(localStorage.getItem("usuario"));
-      //  this.perfilUsuario = auxUsuario.perfil;
-        let auxCorreoUsuario = localStorage.getItem('correoUsuario');
-        this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
-    
-          querySnapShot.forEach(datos => {
-    
-            if(datos.data().correo == auxCorreoUsuario )
-            {
-              this.perfilUsuario = datos.data().perfil;
-              localStorage.setItem('perfil', JSON.parse(this.perfilUsuario));
-          }
-        })
-      })*/
-          
+      infoUsuario : any;
+    nombre:string;
+    correoUsuario : string;
       ngOnInit() {
 
         this.tieneCorreo  = localStorage.getItem('tieneCorreo');
@@ -68,8 +57,7 @@ export class HomePage {
         {
           
            let auxCorreoUsuario = localStorage.getItem('correoUsuario'); // Obtenemos el correo del usuario que ingreso 
-           //this.perfilUsuario = this.bd.obtenerUsuariosBD('usuarios',auxCorreoUsuario); // Lo que obtenemos aca es el perfil del usuario 
-           //console.log(this.perfilUsuario);
+          
            this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
     
             querySnapShot.forEach(datos => {
@@ -77,8 +65,10 @@ export class HomePage {
               if(datos.data().correo == auxCorreoUsuario )
               {
                 this.perfilUsuario = datos.data().perfil;
+                this.nombre= datos.data().nombre;
+                localStorage.setItem('nombreAnonimo',this.nombre);
                 this.infoUsuario = datos.data();
-    
+        
                 if(this.perfilUsuario == 'dueño' || this.perfilUsuario == 'supervisor')
                 {
                   // Voy a obtener la colección de usuarios y la guardo en FB.
@@ -104,7 +94,7 @@ export class HomePage {
                 }
           
                 // Si el perfil es metre le cargara la lista de espera
-                else if (this.perfilUsuario == 'Metre')
+                else if (this.perfilUsuario == 'metre')
                 {
                   let fb = this.firestore.collection('listaEspera');
                   
@@ -112,13 +102,13 @@ export class HomePage {
                 // Me voy a suscribir a la colección, y si el usuario está "ESPERANDO", se va a guardar en una lista de usuarios.
                 fb.valueChanges().subscribe(datos =>{       // <-- MUESTRA CAMBIOS HECHOS EN LA BASE DE DATOS.
                   
-                  this.listaUsuarios = [];
+                  this.listaEspera = [];//***************
           
                   datos.forEach( (dato:any) =>{
           
                     if(dato.estadoMesa == 'enEspera') // Verifico que el estado sea esperando.
                     {
-                      this.listaUsuarios.push(dato);      // <--- LISTA DE USUARIOS.
+                      this.listaEspera.push(dato);      // <--- LISTA DE USUARIOS.
                     }
                     
                   });
@@ -126,12 +116,42 @@ export class HomePage {
                    })
                 
                 }
+
+               //Si el perfil del usuario que ingreso es un cliente, comprobara el estado de lista de espera
+            else if (this.perfilUsuario == 'cliente')
+            {
+              // Obtenemos el correo del usuario que 
+              this.correoCliente = this.correoUsuario ;
+              let fb = this.firestore.collection('listaEspera');
+          
+              fb.valueChanges().subscribe(datos =>{       // <-- MUESTRA CAMBIOS HECHOS EN LA BASE DE DATOS.
               
-              }
-            })
+              this.listaEspera = [];
       
-          })
+              datos.forEach( (datoCl:any) =>{
+                
+                // Si el estado de la mesa esta asignada y coincide la informacion del usuario que inicio sesion, se guardara en un json el numero de mesa que se le asigno uy una bandera
+                if(datoCl.estadoMesa == 'mesaAsignada' && datoCl.nombreUsuario == this.infoUsuario.nombre) 
+                {
+                  this.informarEstadoMesa.mesa = datoCl.mesa;
+                  this.informarEstadoMesa.seAsignoMesa = "si";
+                }
+                
+                });
+      
+               })
+
+            }
+          
+          }
+        })
+  
+      })
     
+    
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
     
         
     
@@ -146,39 +166,6 @@ export class HomePage {
 
 
 
-/*
-  organizarUsuario(usuario,estado){
-
-    let indice = this.listaUsuarios.indexOf(usuario); //me trae el indice especifico de ese usuario (array)
-    this.listaUsuarios.splice(indice,1); //borra el objeto del array de ese usuario (array)
-
-    this.firestore.collection('usuarios').get().subscribe((querySnapShot) => { //obtenes la coleccion de la BASE DE DATOS de usuario
-      querySnapShot.forEach((doc) => { //te muestra lo de adentro de cada uid
-
-        
-       if(doc.data().correo == usuario.correo) //compara lo que yo le paso con la BD
-       {
-         if(estado == 3) //compara el estado que le pase por paramentros
-         {
-          usuario.estado = estado;
-          this.bd.actualizar('usuarios',usuario,doc.id);
-         }
-         else if(estado == 2){ 
-          usuario.estado = estado;
-          this.bd.actualizar('usuarios',usuario,doc.id);
-          this.auth.registrarUsuario(usuario.correo,usuario.contrasenia); //lo registra
-          this.auth.mandarCorreoElectronico(usuario.correo);
-         }
-       
-        
-         this.listaUsuarios = [];
-       }
-
-      })
-    })
-    
-  }
-*/
 organizarUsuario(usuario,estado){
 
 
@@ -234,37 +221,94 @@ organizarUsuario(usuario,estado){
 }
 
 
-
- /* items = [
-    {icono : "clipboard" , nombre : "menu" , ruta : "/menu"},
-    
-  ]
-  infoUsuario = {nombre : "Juan" , apellido : "Mawey" , path : "../../../assets/mozo.png" , perfil : "dueño"}
-*/
   cerrarSesion() {
-    this.router.navigate(['/login']);
     this.perfilUsuario = "";
+    this.router.navigate(['/login']);
+    
+  }
+
+  /*listaEsperaQRAnonimo()
+  {
+    let auxMesa;
+
+    this.barcodeScanner.scan().then(barcodeData => {
+
+    auxMesa = JSON.parse(barcodeData.text);
+
+    this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
+      querySnapShot.forEach((doc) => {
+
+        if(doc.data().nombre == this.nombreAnonimo)
+        {
+          if(auxMesa == 101010)
+          {
+                this.usuarioMesa.nombreUsuario = doc.data().nombre;
+                this.usuarioMesa.estadoMesa = "enEspera";
+                this.usuarioMesa.perfilUsuario = doc.data().perfil;
+                this.bd.crear('listaEspera', this.usuarioMesa);
+          }
+          
+        }
+
+          this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
+
+      })
+
+    })
+
+
+     }).catch(err => {
+         console.log('Error', err);
+     });
+     
+  }
+*/
+  // PARA EL CLIENTE -> Recorre la coleccion de usuarios de la bd verificando el correo del cliente y no su nombre
+  listaEsperaQRCliente()
+  {
+    let auxMesa;
+
+    this.barcodeScanner.scan().then(barcodeData => {
+
+    auxMesa = JSON.parse(barcodeData.text);
+
+    this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
+      querySnapShot.forEach((doc) => {
+
+        if(doc.data().correo == this.correoCliente)
+        {
+          if(auxMesa == 101010)
+          {
+                this.usuarioMesa.nombreUsuario = doc.data().nombre;
+                this.usuarioMesa.estadoMesa = "enEspera";
+                this.usuarioMesa.perfilUsuario = doc.data().perfil;
+                this.bd.crear('listaEspera', this.usuarioMesa);
+          }
+          
+        }
+
+          this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
+
+      })
+
+    })
+
+     }).catch(err => {
+         console.log('Error', err);
+     });
+     
+  }
+
+
+   // PARA EL METRE -> cuando se seleccione un usuario en espera, se redireccionara a la pagina de  listado-mesas y se guardara en el local storage la info del usuario seleccionado
+  comprobarMesas(mesa)
+  {
+    localStorage.setItem('usuarioMesa',JSON.stringify(mesa));
+    this.router.navigate(['/lista-mesas']);
   }
 
 
 
-
-
-
-  // openFirst() {
-  //   this.menu.enable(true, 'first');
-  //   this.menu.open('first');
-  // }
-
-  // openEnd() {
-  //   this.menu.open('end');
-  // }
-
-  // openCustom() {
-  //   this.menu.enable(true, 'custom');
-  //   this.menu.open('custom');
-  // }
-
-  
+ 
   
 }

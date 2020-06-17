@@ -46,8 +46,11 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    localStorage.setItem('tieneCorreo','sinCorreo'); // Cuando iniciamos no tiene correo
-    localStorage.setItem('correoUsuario', '');
+    localStorage.removeItem('correoUsuario');
+    localStorage.removeItem('tieneCorreo');
+    localStorage.removeItem('usuarioAnonimo');
+    localStorage.removeItem('nombreAnonimo');
+   
   }
 
 
