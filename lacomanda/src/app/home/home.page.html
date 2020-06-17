@@ -1,41 +1,37 @@
 
-    <div class="ion-page" id="maincontent">
+    <div class="ion-page" id="maincontent" >
       <ion-header>
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button menu="mainmenu"></ion-menu-button>
+          <ion-buttons slot="start" >
+            <ion-menu-button menu="mainmenu" color="light"></ion-menu-button>
           </ion-buttons>
-          <ion-title>MAWEY</ion-title>
+          <ion-title color="light">MAWEY</ion-title>
         </ion-toolbar>
 
       </ion-header>
     
-   <ion-content>
+   <ion-content class="fondo" >
      <ion-menu side="start" menuId="mainmenu" contentId="main">
     
       
 
 
 
-      <ion-content> 
+      <ion-content > 
 
-          <ion-list *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'" >
+          <ion-list *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'"  >
             <ion-item>
               <img src="../../assets/img/supervisorDueño.png" style=" height: 110%; width: 60%; ">
   
-            <ion-label>
+            <ion-label color="light">
               <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
   
           </ion-item>
-            <ion-item routerLink="/registrar">
-              <ion-icon name="ellipsis-horizontal-outline" slot="start"></ion-icon>
-              <ion-label>Clientes pendientes</ion-label>
-            </ion-item>
-            <ion-item routerLink="/registrar-empleado">
-              <ion-icon name="person-add-outline" slot="start"></ion-icon>
-              <ion-label>Registrar empleado</ion-label>
+            <ion-item routerLink="/registrar-empleado" >
+              <ion-icon name="person-add-outline" slot="start"  color="light"></ion-icon>
+              <ion-label color="light">Registrar empleado</ion-label>
             </ion-item>
           </ion-list>
       
@@ -43,7 +39,7 @@
             <ion-item>
               <img src="../../assets/img/mozo.png" style=" height: 110%; width: 60%; ">
   
-            <ion-label>
+            <ion-label color="light">
               <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
@@ -63,7 +59,7 @@
             <ion-item>
               <img src="../../assets/img/cocineroblanco.png" style=" height: 110%; width: 60%; ">
   
-            <ion-label>
+            <ion-label color="light">
               <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
@@ -79,7 +75,7 @@
             <ion-item>
               <img src="../../assets/img/metre.png" style=" height: 110%; width: 60%; ">
   
-            <ion-label>
+            <ion-label color="light">
               <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
@@ -95,7 +91,7 @@
             <ion-item>
               <img src="../../assets/img/avatarRR.png" style=" height: 80%; width: 40%;" class="imagenAnonimo">
   
-            <ion-label>
+            <ion-label color="light">
               <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
@@ -119,7 +115,7 @@
             <ion-item>
               <img src="../../assets/img/bartender.png" style=" height: 110%; width: 60%; ">
   
-            <ion-label>
+            <ion-label color="light">
               <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
@@ -143,8 +139,9 @@
     <ion-router-outlet id="main"></ion-router-outlet>
   
     <div *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'">
+      <div  *ngFor="let usuario of listaUsuarios">
       <ion-label>Clientes pendientes</ion-label>
-      <ion-card *ngFor="let usuario of listaUsuarios">
+      <ion-card>
 
         {{usuario.nombre}}
         <br>
@@ -155,6 +152,7 @@
         <ion-button color="success" (click)="organizarUsuario(usuario,2)"> Aceptar</ion-button>
         <ion-button color="danger" (click)="organizarUsuario(usuario,3)"> Rechazar</ion-button>
       </ion-card>
+    </div> 
      
     </div> 
     <div *ngIf = "perfilUsuario == 'metre'">
