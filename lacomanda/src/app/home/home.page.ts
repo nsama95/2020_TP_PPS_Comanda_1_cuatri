@@ -24,6 +24,7 @@ export class HomePage {
   listaEspera = [];
   tieneCorreo: string;
   nombreAnonimo;
+  infoUsuario : any;
 
   constructor(private router : Router,
     private barcodeScanner : BarcodeScanner,
@@ -76,6 +77,7 @@ export class HomePage {
               if(datos.data().correo == auxCorreoUsuario )
               {
                 this.perfilUsuario = datos.data().perfil;
+                this.infoUsuario = datos.data();
     
                 if(this.perfilUsuario == 'dueño' || this.perfilUsuario == 'supervisor')
                 {
@@ -233,12 +235,12 @@ organizarUsuario(usuario,estado){
 
 
 
-  items = [
+ /* items = [
     {icono : "clipboard" , nombre : "menu" , ruta : "/menu"},
     
   ]
-  jefeLogueado = {nombre : "Pablo" , apellido : "Hidalgo" , path : "../../../assets/mozo.png" , perfil : "Mozo"}
-
+  infoUsuario = {nombre : "Juan" , apellido : "Mawey" , path : "../../../assets/mozo.png" , perfil : "dueño"}
+*/
   cerrarSesion() {
     this.router.navigate(['/login']);
     this.perfilUsuario = "";
@@ -247,30 +249,6 @@ organizarUsuario(usuario,estado){
 
 
 
-  /*Cerrar()
-  {
-    this.router.navigate(['/login']);
-  }*/
-
-  // redireccionar(perfil)
-  // {
-  //   switch(perfil)
-  //   {
-  //     case 'supervisor' :  
-  //     this.router.navigate(['/registrar-supervisor']);
-  //       break;
-  //     case 'empleado' : 
-  //     this.router.navigate(['/registrar-empleado']);
-  //     break;
-  //     case 'cliente' : 
-  //     this.router.navigate(['/registrar']);
-  //     break;
-  //     case 'atras' : 
-  //     this.router.navigate(['/login']);
-  //     break;
-  //   }
-     
-  // }
 
 
   // openFirst() {

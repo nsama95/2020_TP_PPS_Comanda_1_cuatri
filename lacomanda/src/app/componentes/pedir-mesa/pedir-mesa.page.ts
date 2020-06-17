@@ -31,6 +31,7 @@ export class PedirMesaPage implements OnInit {
 
   ngOnInit() {
     let nombreAnonimo = localStorage.getItem('nombreAnonimo');
+    this.nombreAnonimo = localStorage.getItem('nombreAnonimo');
   }
 
 
