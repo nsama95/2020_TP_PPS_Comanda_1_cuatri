@@ -22,25 +22,43 @@ Realizamos llamadas diarias a traves de Hangouts, creamos un excel para una mayo
 
 ## Inicio (semana 27/05) 📌
 
-* *Natalia Samaniego* : Diseño del icono y splash, login con usuarios, creacion de base de datos, funcionalidad QR.
-* *Julieta Sdrubolini* : Creacion de splash animado, diseño de login y registro, funcionalidades de boton ingresar/registrase.
+| Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización|Estado |
+| :---         |     :---:      |          :---: | :---: |---: |
+|*Natalia Samaniego*| Diseño del icono y splash - Login con usuarios - Creación de base de datos - Funcionalidad QR DNI|31/5|29/5 | Listo|
+|*Julieta Sdrubolini*| Creación de splash animado - Diseño de login y registro - Funcionalidades de botón ingresar/registrase|31/5|29/5|Listo|
 
-## Altas (semana 03/06) 📌
+## Altas y push notificaciones del cliente (semana 03/06) 📌
 
-* *Natalia Samaniego* : Alta dueño/supervisores, funcionalidad completa de QR(ingreso al local).
-* *Julieta Sdrubolini* : Alta cliente/empleado, confirmacion de cliente.
+| Integrantes | Requerimientos  |Fecha estimada |Fecha de Finalización |Estado|
+| :---         |     :---:      |          :---: | :---: |---: |
+|*Natalia Samaniego*| Alta dueño/supervisores - Confirmación de cliente |8/6 |12/6 |Listo|
+|*Julieta Sdrubolini*| Alta cliente-Anonimo/empleado - Diseño de cada menú y funcionalidad |8/6 |12/6|Listo|
 
-## Gestión de pedidos, QRs y push notificaciones (semana 10/06) 📌
+## Gestión de pedidos, QRs y push notificaciones de mesa (semana 10/06) 📌
 
-* *Natalia Samaniego* : QR para la propina, QR para mesa, notificaciones push(pedido de mesas, pedido de platos, cierre de cuentas).
-* *Julieta Sdrubolini* : Pedir y tomar pedidos, reservas, notificaciones push(reservas agendadas y delivery).
+| Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización |Estado |
+| :---         |     :---:      |          :---: | :---: |:---: |
+|*Natalia Samaniego*| Asignación mesa-cliente - Generar listado de productos - Confirmación de pedido(mozo) -Encuesta|16/6|  |En curso |
+|*Julieta Sdrubolini*|Lectura de QR Mesa - Generar lista de espera de mesa - Gestionar pedido(cliente)|16/6| |En curso|
+## Seguimiento y cierre de pedido (semana 17/06) 📌
 
-## Delivery y juegos (semana 17/06) 📌
+| Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización |Estado |
+| :---         |     :---:      |          :---: | :---: |:---: |
+|*Natalia Samaniego*| Asignación pedido(por sector) - Detalle de cuenta - Alta de plato |23/6|  |Pendiente |
+|*Julieta Sdrubolini*|Entrega de pedido(mozo) -Confirmacion de pago - Alta de bebida|23/6| |Pendiente|
 
+## Correcciones y Reservas (semana 24/06) 📌
+
+| Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización |Estado |
+| :---         |     :---:      |          :---: | :---: |:---: |
+|*Natalia Samaniego*| Correcciones pendientes - Confirmacion de Reserva |1/7|  |Pendiente |
+|*Julieta Sdrubolini*|Correcciones pendientes - Agendar reserva|1/7||Pendiente|
+
+
+## Delivery y juegos (semana ) 📌
 * *Natalia Samaniego* : Juegos de descuentos 10%, realizar pedido con GPS.
 * *Julieta Sdrubolini* : Juegos de bebida gratis y postres, mapa de ruta hasta domicilio. 
 
-## Encuestas y correciones (semana 24/06) 📌
-
+## Encuestas (semana) 📌
 * *Natalia Samaniego* : Encuesta empleado, correción pendientes.
 * *Julieta Sdrubolini* : Encuesta cliente, supervisor, correción pendientes.
