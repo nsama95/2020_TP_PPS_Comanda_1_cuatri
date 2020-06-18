@@ -92,7 +92,7 @@
               <img src="../../assets/img/avatarRR.png" style=" height: 80%; width: 40%;" class="imagenAnonimo">
   
             <ion-label color="light">
-              <h2>Nombre :</h2> <p> {{infoUsuario.nombre}}</p>
+              <h2>Nombre : </h2> <p> {{infoUsuario.nombre}}</p>
               <h2>Perfil : </h2><p> {{infoUsuario.perfil}}</p>
             </ion-label>
   
@@ -139,18 +139,28 @@
     <ion-router-outlet id="main"></ion-router-outlet>
   
     <div *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'">
+      <ion-card class="titulo">
+      <h2>CLIENTES PENDIENTES</h2>
+    </ion-card>
       <div  *ngFor="let usuario of listaUsuarios">
-      <ion-label>Clientes pendientes</ion-label>
-      <ion-card>
-
-        {{usuario.nombre}}
+      
+      <ion-card class="nombre">
         <br>
-        {{usuario.apellido}}
+          <img [src]="usuario.foto" style=" height: 70%; width: 20%; " class="imag">
+       
+        <br>
+        {{usuario.nombre}}  {{usuario.apellido}}
         <br>
         {{usuario.correo}}
         <br>
-        <ion-button color="success" (click)="organizarUsuario(usuario,2)"> Aceptar</ion-button>
-        <ion-button color="danger" (click)="organizarUsuario(usuario,3)"> Rechazar</ion-button>
+        <br>
+        <ion-button color="medium" (click)="organizarUsuario(usuario,2)" style="border-radius: 100px;">
+          <ion-icon name="checkmark-circle"></ion-icon>
+        </ion-button>
+        <ion-button color="success" (click)="organizarUsuario(usuario,3)" style="border-radius: 100px;"> 
+          <ion-icon name="trash-bin"></ion-icon>
+        </ion-button>
+        <br>
       </ion-card>
     </div> 
      
