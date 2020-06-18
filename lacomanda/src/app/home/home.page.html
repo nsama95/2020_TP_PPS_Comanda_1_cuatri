@@ -11,6 +11,12 @@
       </ion-header>
     
    <ion-content class="fondo" >
+    <ion-content *ngIf="loading" class="ion-padding ion-text-center">
+      <!--img src="../../assets/img/icon.png" style="margin-top:50%;position: absolute;left: 34%;" width="112" height="112">
+      <ion-spinner name="crescent" color="black" style="margin-top:50%;"></ion-spinner(se bien en el celu de nany)-->
+      <img src="../../assets/img/icon.png" style="margin-top:50%;position: absolute;left: 36%;" width="112" height="112">
+      <ion-spinner name="crescent" color="black" style="margin-top:50%;"></ion-spinner>
+  </ion-content>
      <ion-menu side="start" menuId="mainmenu" contentId="main">
     
       
@@ -224,9 +230,41 @@
       </div>
     <!-- Si el estado de la mesa del cliente se asigno, se le mostrara la mesa que se le asigno   -->
       <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'si'">
+        <ion-card>
         <h2>SE LE ASIGNO LA MESA NRO = {{informarEstadoMesa.mesa}}</h2>
-        <!--Agregar boton para escanear la mesa-->
+      </ion-card>
+
+    <ion-button color="danger" (click)="qrMesa()">QR Mesa</ion-button>
+    
+    <div *ngIf = "mostrarProductos == true">
+
+      <div *ngFor = "let producto of listaProductos">
+        <ion-card>
+        <h1>{{producto.nombre}}</h1>
+
+          <ion-slides pager="true">
+            <ion-slide>
+              <img [src]="producto.fotos[0]" alt="" width="100" height="100">
+            </ion-slide>
+            <ion-slide>
+              <img [src]="producto.fotos[1]" alt="" width="100" height="100">
+            </ion-slide>
+            <ion-slide>
+              <img [src]="producto.fotos[2]" alt="" width="100" height="100">
+            </ion-slide>
+          </ion-slides>
+
+        <h4>Descripcion: {{producto.descripcion}}</h4>
+        <h4>Precio: {{producto.precio}}</h4>
+        <h4>Tiempo: {{producto.tiempo}}</h4>
+      </ion-card>
       </div>
+       
+      <ion-button color="success" (click)="consultarMozo(informarEstadoMesa.mesa)" expand="block">Consultar mozo</ion-button>
+
+    </div>
+  
+</div>
       
     
     </div>

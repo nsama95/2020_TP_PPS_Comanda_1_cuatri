@@ -50,6 +50,12 @@ export class HomePage {
       infoUsuario : any;
     nombre:string;
     correoUsuario : string;
+     // Variable que nos mostrara los productos una vez escaneado el codigo qr
+  mostrarProductos : boolean = true;
+
+  // Lista de los productos que se mostraran
+  listaProductos = [];
+
       ngOnInit() {
 
         this.tieneCorreo  = localStorage.getItem('tieneCorreo');
@@ -152,7 +158,7 @@ export class HomePage {
     
           setTimeout(() => {
             this.loading = false;
-          }, 2000);
+          }, 3000);
     
         
     
@@ -309,7 +315,71 @@ organizarUsuario(usuario,estado){
     this.router.navigate(['/lista-mesas']);
   }
 
+// PARA CLIENTES Y ANONIMOS -> El usuario al escanear el codigo qr de la mesa podra ver los productos
+qrMesa()
+{
+  let auxMesa;
 
+  this.barcodeScanner.scan().then(barcodeData => {
+
+  auxMesa = JSON.parse(barcodeData.text);
+
+  this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
+    querySnapShot.forEach((doc) => {
+
+      if(doc.data().numero == auxMesa) //Recorremos las mesas y comprobamos que coincida
+      {
+        this.mostrarProductos = true;
+      }
+
+    })
+
+  })
+
+   }).catch(err => {
+       console.log('Error', err);
+   });
+}
+
+// PARA LOS CLIENTES Y ANONIMOS -> Cargara un listado completo de los productos
+cargarProductos()
+{
+  let fb = this.firestore.collection('productos');
+            
+  fb.valueChanges().subscribe(datos =>{       // <-- MUESTRA CAMBIOS HECHOS EN LA BASE DE DATOS.
+    
+    this.listaProductos = [];
+
+    datos.forEach( (dato:any) =>{
+
+   this.listaProductos.push(dato);      // <--- LISTA DE USUARIOS.
+      
+    });
+
+  })
+}
+
+// CLIENTE O ANONIMO -> Se realiza una consulta al mozo (no se cargara)
+consultarMozo(numeroMesa)
+{
+  let auxConsulta ;
+
+  this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
+    
+    querySnapShot.forEach(dato => {
+
+      if(dato.data().mesa == numeroMesa)
+      {
+        auxConsulta = dato.data();
+        auxConsulta.consulta = "realizoConsulta";
+        this.bd.actualizar('listaEspera',auxConsulta,dato.id);
+      }
+
+    })
+  
+  });
+    
+}
 
  
   
