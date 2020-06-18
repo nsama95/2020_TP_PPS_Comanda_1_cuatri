@@ -204,8 +204,9 @@
     <div *ngIf = "tieneCorreo != 'conCorreo'">
     
       
-      <ion-button color="danger" (click)="listaEsperaQRCliente()"> Escanear codigo</ion-button>
-    
+      <ion-button  (click)="listaEsperaQRCliente()" class="qr" color="success"> 
+        <ion-icon name="qr-code-outline" class="icono"></ion-icon>
+      </ion-button>
     </div>
     
     
@@ -214,8 +215,12 @@
     
     <!-- Si el estado de la mesa del cliente no se asigno, se le mostrara el boton para escanear el codigo qr   -->
       <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'no'">
-       
-        <ion-button color="danger" (click)="listaEsperaQRCliente()"> Escanear codigo</ion-button>
+    
+            <ion-button  (click)="listaEsperaQRCliente()" class="qr" color="success"> 
+              <ion-icon name="qr-code-outline" class="icono"></ion-icon>
+            </ion-button>
+   
+        
       </div>
     <!-- Si el estado de la mesa del cliente se asigno, se le mostrara la mesa que se le asigno   -->
       <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'si'">
