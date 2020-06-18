@@ -44,6 +44,7 @@ export class HomePage {
         mesa : "",
         estadoMesa : "",
         nombreUsuario: "",
+        apellidoUsuario: "",
         perfilUsuario : "",
       }
       infoUsuario : any;
@@ -280,6 +281,7 @@ organizarUsuario(usuario,estado){
           if(auxMesa == 101010)
           {
                 this.usuarioMesa.nombreUsuario = doc.data().nombre;
+                this.usuarioMesa.apellidoUsuario = doc.data().apellido;
                 this.usuarioMesa.estadoMesa = "enEspera";
                 this.usuarioMesa.perfilUsuario = doc.data().perfil;
                 this.bd.crear('listaEspera', this.usuarioMesa);

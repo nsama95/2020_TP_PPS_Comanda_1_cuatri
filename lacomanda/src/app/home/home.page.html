@@ -167,15 +167,15 @@
     </div> 
     <div *ngIf = "perfilUsuario == 'metre'">
 
-      <ion-card>
+      <ion-card class="mesas">
         <ion-card-content>
-            Mesas disponibles : 
+            Mesas disponibles: 
         </ion-card-content>
         <ion-card-content>
-          Mesas reservadas : 
+          Mesas reservadas: 
       </ion-card-content>
       <ion-card-content>
-          Mesas ocupadas : 
+          Mesas ocupadas: 
     </ion-card-content>
       </ion-card>
     
@@ -183,12 +183,14 @@
     
         <div *ngIf = "mesa.estadoMesa == 'enEspera'">
           <ion-card-content>
-            {{mesa.nombreUsuario}}
+            <ion-icon name="person"></ion-icon>
+            {{mesa.nombreUsuario}} {{mesa.apellidoUsuario}}
             <br>
+            <ion-icon name="star"></ion-icon>
             {{mesa.perfilUsuario}}
             <br>
-            {{mesa.estadoMesa}}
-            <br>
+            <!-- {{mesa.estadoMesa}}
+            <br> -->
             <ion-button color="success" (click)="comprobarMesas(mesa)" expand="block"> Asignar mesa</ion-button>
           </ion-card-content>
         
