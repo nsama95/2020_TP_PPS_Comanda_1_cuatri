@@ -292,9 +292,9 @@ organizarUsuario(usuario,estado){
                 this.usuarioMesa.apellidoUsuario = doc.data().apellido;
                 this.usuarioMesa.estadoMesa = "enEspera";
                 this.usuarioMesa.perfilUsuario = doc.data().perfil;
-                this.bd.crear('listaEspera', this.usuarioMesa);
+                
           }
-          
+          this.bd.crear('listaEspera', this.usuarioMesa);
         }
 
           this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
