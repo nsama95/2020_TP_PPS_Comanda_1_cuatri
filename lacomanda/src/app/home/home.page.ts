@@ -168,7 +168,9 @@ export class HomePage {
           console.log("estoyDentroDelSinCorreo");
           let nombreAnonimo = localStorage.getItem('nombreAnonimo');
     
-        }   
+        } 
+        this.cargarProductos();  
+        console.log(this.listaProductos);
       }        
 
 
@@ -353,7 +355,7 @@ cargarProductos()
     datos.forEach( (dato:any) =>{
 
    this.listaProductos.push(dato);      // <--- LISTA DE USUARIOS.
-      
+   console.log(this.listaProductos);
     });
 
   })
