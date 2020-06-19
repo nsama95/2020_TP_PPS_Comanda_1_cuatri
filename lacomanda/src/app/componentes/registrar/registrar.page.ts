@@ -134,10 +134,10 @@ export class RegistrarPage implements OnInit {
       this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
       {
 
-        this.usuarioJson.foto = link;
-        this.bd.crear('usuarios',this.usuarioJson);
+        this.usuarioJson.foto = link;       
 
       });
+      this.bd.crear('usuarios',this.usuarioJson);
     }
     else{
       this.bd.crear('usuarios',this.usuarioJson);
