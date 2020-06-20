@@ -87,18 +87,10 @@
   <form [formGroup]="anonimo">
     <ion-item fill="outline">
       <br>
-      <ion-input type="text" [(ngModel)]="anonimoJson.nombre" formControlName="nombre" placeholder="Nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="anonimoJson.nombre" formControlName="nombre" placeholder="Nombre" class="nombreA"></ion-input>
     </ion-item>
     <br>
-    <ion-item>
-        <ion-input type="text" [(ngModel)]="anonimoJson.correo" formControlName="email" placeholder="Correo"></ion-input>
-      </ion-item>
-      <br>
-      <ion-item class="labels" fill="outline">   
-        <br>
-        <ion-input type="password" [(ngModel)]="anonimoJson.contrasenia" formControlName="contraseña" placeholder="Contraseña"></ion-input>
-        
-      </ion-item>
+  
     </form>
       <br>
       <ion-button (click)="registrarAnonimo()"  [disabled]='!anonimo.valid' expand="block" fill="outline" class="botonR">Registrarse</ion-button>

@@ -49,8 +49,6 @@ export class RegistrarPage implements OnInit {
 
       anonimoJson = {
         nombre : "",
-        contrasenia : "",
-        correo : "",
       foto:"../../../assets/img/avatarRR.png",
       perfil:"",
       estado:1
@@ -162,7 +160,6 @@ export class RegistrarPage implements OnInit {
         this.anonimoJson.foto = link;
         this.bd.crearA('usuarios',this.anonimoJson);
         localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre);
-        localStorage.setItem('correoUsuario', this.anonimoJson.correo);
         this.router.navigate(['/home']);
  
       });
@@ -170,7 +167,6 @@ export class RegistrarPage implements OnInit {
     else{
       this.bd.crearA('usuarios',this.anonimoJson);
       localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre);
-      localStorage.setItem('correoUsuario', this.anonimoJson.correo);
      localStorage.setItem('tieneCorreo','conCorreo'); // NO tiene correo
      this.router.navigate(['/home']);
     }
@@ -234,8 +230,6 @@ export class RegistrarPage implements OnInit {
   limpiar(usuario:string){
     if(this.anonimoJson.perfil=="anonimo"){
     this.anonimoJson.nombre = "";
-    this.anonimoJson.correo= "";
-    this.anonimoJson.contrasenia= "";
     this.anonimoJson.foto="../../../assets/img/avatarRR.png";
     this.anonimoJson.perfil=""; 
      this.anonimoJson.estado=0;
