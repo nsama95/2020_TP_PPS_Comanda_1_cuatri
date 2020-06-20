@@ -54,7 +54,7 @@ export class HomePage {
   mostrarProductos : boolean = true;
 
   // Lista de los productos que se mostraran
-  listaProductos = [];
+ //listaProductos = [];
 
       ngOnInit() {
 
@@ -169,8 +169,7 @@ export class HomePage {
           let nombreAnonimo = localStorage.getItem('nombreAnonimo');
     
         } 
-        this.cargarProductos();  
-        console.log(this.listaProductos);
+       
       }        
 
 
@@ -344,22 +343,7 @@ qrMesa()
 }
 
 // PARA LOS CLIENTES Y ANONIMOS -> Cargara un listado completo de los productos
-cargarProductos()
-{
-  let fb = this.firestore.collection('productos');
-            
-  fb.valueChanges().subscribe(datos =>{       // <-- MUESTRA CAMBIOS HECHOS EN LA BASE DE DATOS.
-    
-    this.listaProductos = [];
 
-    datos.forEach( (dato:any) =>{
-
-   this.listaProductos.push(dato);      // <--- LISTA DE USUARIOS.
-   console.log(this.listaProductos);
-    });
-
-  })
-}
 
 // CLIENTE O ANONIMO -> Se realiza una consulta al mozo (no se cargara)
 consultarMozo(numeroMesa)

@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'lista-mesas',
     loadChildren: () => import('./componentes/lista-mesas/lista-mesas.module').then( m => m.ListaMesasPageModule)
+  },  {
+    path: 'lista-productos',
+    loadChildren: () => import('./componentes/lista-productos/lista-productos.module').then( m => m.ListaProductosPageModule)
   }
+
 
 ];
 

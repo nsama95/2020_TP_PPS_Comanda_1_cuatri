@@ -238,7 +238,10 @@
     
     <div *ngIf = "mostrarProductos == true">
 
-      <div *ngFor = "let productos of listaProductos">
+      <ion-button color="success" href="/lista-productos" expand="block">Ver menú</ion-button>
+
+      
+      <!--div *ngFor = "let productos of listaProductos">
         <ion-card>
         <h1>{{productos.nombre}}</h1>
         
@@ -247,17 +250,18 @@
           
               <img [src]="productos.foto[0]" alt="" width="100" height="100">
               <img [src]="productos.foto[1]" alt="" width="100" height="100">
+              <img [src]="productos.foto[2]" alt="" width="100" height="100">
          
           
 
           
-
+        <h4>Valor unitario: ${{productos.precio}}</h4>
         <h4>Descripcion: {{productos.descripcion}}</h4>
-        <!-- <h4>Precio: {{productos.precio}}</h4>
-        <h4>Tiempo: {{productos.tiempo}}</h4> -->
+         <h4>Precio: {{productos.precio}}</h4>
+        <h4>Tiempo: {{productos.tiempo}}</h4>>
       </ion-card>
       </div>
-<!--        
+     
       <ion-button color="success" (click)="consultarMozo(informarEstadoMesa.mesa)" expand="block">Consultar mozo</ion-button> -->
 
     </div>
