@@ -58,11 +58,7 @@ export class HomePage {
 
       ngOnInit() {
 
-        this.tieneCorreo  = localStorage.getItem('tieneCorreo');
-    
-        if(this.tieneCorreo == 'conCorreo') // Si ingreso con correo, comprobara el perfil de la base de datos
-        {
-          
+
            let auxCorreoUsuario = localStorage.getItem('correoUsuario'); // Obtenemos el correo del usuario que ingreso 
           
            this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
@@ -162,13 +158,6 @@ export class HomePage {
     
         
     
-        }
-        else // Si no ingreso con correo, automaticamente sabe que es un usuario anonimo
-        {
-          console.log("estoyDentroDelSinCorreo");
-          let nombreAnonimo = localStorage.getItem('nombreAnonimo');
-    
-        } 
        
       }        
 

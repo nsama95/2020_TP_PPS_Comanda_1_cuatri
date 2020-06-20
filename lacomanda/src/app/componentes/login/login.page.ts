@@ -71,7 +71,7 @@ public onSubmitLogin()
 
     timer(2000).subscribe(() => {this.router.navigate(['/home']);
     localStorage.setItem('correoUsuario',res); // Guardamos el correo de la persona que ingreso
-    localStorage.setItem('tieneCorreo','conCorreo'); // Verificamos si se ingreso con correo (por el anonimo)
+    //localStorage.setItem('tieneCorreo','conCorreo'); // Verificamos si se ingreso con correo (por el anonimo)
   });
 
   }).catch(err => this.complementos.ngValidarError(err.code));

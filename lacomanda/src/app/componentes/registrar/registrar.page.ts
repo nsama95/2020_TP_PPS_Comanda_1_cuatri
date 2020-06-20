@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 //import { IonicPage, NavController } from 'ionic-angular';
 import { Usuario } from "../../clases/usuario";
 import { Router } from '@angular/router';
+import { Console } from 'console';
 
 
 
@@ -43,14 +44,14 @@ export class RegistrarPage implements OnInit {
       correo: "",
       contrasenia: "",
       foto:"../../../assets/img/avatarRR.png",
-      perfil:"",
+      perfil:"cliente",
       estado:1
 };
 
       anonimoJson = {
         nombre : "",
       foto:"../../../assets/img/avatarRR.png",
-      perfil:"",
+      perfil:"anonimo",
       estado:1
     };
 
@@ -74,9 +75,7 @@ export class RegistrarPage implements OnInit {
         contraseña: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
       });
       this.anonimo = this.fb.group({
-        nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]],
-        email: ['', [Validators.required, Validators.email]],
-        contraseña: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
+        nombre: ['', [Validators.required,Validators.pattern('^[a-zA-Z]{3,10}$')]]
       });
      
     }
@@ -125,7 +124,6 @@ export class RegistrarPage implements OnInit {
   registrarUsuario()
   {
     this.usuarioJson.estado= 1;
-    this.usuarioJson.perfil="cliente";
     if(this.pathImagen != null){
       
 
@@ -151,6 +149,7 @@ export class RegistrarPage implements OnInit {
   {
     this.anonimoJson.estado=2;
     this.anonimoJson.perfil="anonimo";
+
     if(this.pathImagen != null){
       
 
@@ -159,15 +158,14 @@ export class RegistrarPage implements OnInit {
 
         this.anonimoJson.foto = link;
         this.bd.crearA('usuarios',this.anonimoJson);
-        localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre);
+        localStorage.setItem('perfilUsuario',this.anonimoJson.perfil);
         this.router.navigate(['/home']);
  
       });
     }
     else{
       this.bd.crearA('usuarios',this.anonimoJson);
-      localStorage.setItem('usuarioAnonimo',this.anonimoJson.nombre);
-     localStorage.setItem('tieneCorreo','conCorreo'); // NO tiene correo
+      localStorage.setItem('perfilUsuario',this.anonimoJson.perfil);
      this.router.navigate(['/home']);
     }
 

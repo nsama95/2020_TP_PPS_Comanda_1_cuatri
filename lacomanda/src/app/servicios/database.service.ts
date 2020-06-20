@@ -21,7 +21,7 @@ export class DatabaseService {
   }
   public crearA(collection: string, data: any) 
   {  
-    this.auth.registrarUsuario(data["correo"],data["contrasenia"]);  
+   // this.auth.registrarUsuario(data["correo"],data["contrasenia"]);  
      return this.firestore.collection(collection).add(data); 
      
 
