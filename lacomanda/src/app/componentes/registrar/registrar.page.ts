@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 //import { IonicPage, NavController } from 'ionic-angular';
 import { Usuario } from "../../clases/usuario";
 import { Router } from '@angular/router';
-import { Console } from 'console';
+//import { Console } from 'console';
 
 
 
