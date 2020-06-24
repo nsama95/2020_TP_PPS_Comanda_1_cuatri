@@ -49,6 +49,18 @@ const routes: Routes = [
   {
     path: 'hacer-pedido',
     loadChildren: () => import('./componentes/hacer-pedido/hacer-pedido.module').then( m => m.HacerPedidoPageModule)
+  },
+  {
+    path: 'pedido',
+    loadChildren: () => import('./componentes/pedido/pedido.module').then( m => m.PedidoPageModule)
+  },
+  {
+    path: 'pedido-cocinero',
+    loadChildren: () => import('./componentes/pedido-cocinero/pedido-cocinero.module').then( m => m.PedidoCocineroPageModule)
+  },
+  {
+    path: 'pedido-bartender',
+    loadChildren: () => import('./componentes/pedido-bartender/pedido-bartender.module').then( m => m.PedidoBartenderPageModule)
   }
 
 
