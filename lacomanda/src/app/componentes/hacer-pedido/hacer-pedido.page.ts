@@ -53,7 +53,22 @@ largo: number;
     contadorBebidas = 0;
   contadorPostres = 0;
   contadorVecesQueConfirmaPedido = 0;
-  
+  //contadores 
+  ensalada= 0;
+  empanada=0;
+  papas=0;
+  picada=0;
+  pasta=0;
+  agua=0;
+  campari=0;
+  coca=0;
+  pepsi=0;
+  vino=0;
+  lemon=0;
+  flan=0;
+  helado=0;
+  milkshake=0;
+  torta=0;
     variabledesplegarPedido = false;
   constructor(
     private firestore : AngularFirestore,
@@ -65,6 +80,7 @@ largo: number;
 
 
   ngOnInit() {
+    this.ensalada= 0;
     this.productoJson = {
       tipo: "",
       nombre : "",
@@ -105,24 +121,44 @@ largo: number;
     }
   }
 
-  cargarJSONPedidosPlatos(plato : string, tipoDePlato : string, precio : number,producto :Producto)
+  cargarJSONPedidosPlatos(plato : string, tipoDePlato : string, precio : number)
   {
    
     if (tipoDePlato == "comida")
     { 
-      console.log(this.productoJson);
+     // console.log(this.productoJson);
      // console.log(producto);
-    this.productoJson.nombre=producto.nombre;
-    this.productoJson.precio=producto.precio;
-    this.productoJson.tipo=producto.tipo;
+   // this.productoJson.nombre=producto.nombre;
+   // this.productoJson.precio=producto.precio;
+   // this.productoJson.tipo=producto.tipo;
   
-      this.productoJson.cantidad=1;
-      this.pedidoEnFormatoJSON.platosPlato.push(this.productoJson);
+    //  this.productoJson.cantidad=1;
+      this.pedidoEnFormatoJSON.platosPlato.push(plato);
       //if()
 
       this.contadorPlatos = this.contadorPlatos + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+  let cant= this.calcularCantidad(plato,tipoDePlato);
+    switch(plato)
+    {
+      case'Ensalada Vegana':
+      this.ensalada=cant;
+      //console.log( this.ensalada)
+      break;
+      case 'Empanada':
+        this.empanada=cant;
+      break;
+      case 'Papas con cheddar':
+        this.papas=cant;
+      break;
+      case 'Picada Mawey':
+        this.picada=cant;
+      break;
+      case 'Pastas':
+        this.pasta=cant;
+      break;
 
+    }
       /*if(this.pedidoEnFormatoJSON.platosPlato.length>1){
         for(var i=0;i<=this.pedidoEnFormatoJSON.platosPlato.length;i++){
           this.largo=0;
@@ -255,7 +291,11 @@ desplegarPedido()
       this.pedidoEnFormatoJSON.platosBebida = [];
       this.pedidoEnFormatoJSON.platosPostre = [];
       this.pedidoEnFormatoJSON.precioTotal = 0;
-
+      this.ensalada=0;
+      this.picada=0;
+      this.pasta=0;
+      this.papas=0;
+      this.empanada=0;
 
       this.contadorPlatos = 0;
       this.contadorBebidas = 0;
@@ -331,5 +371,44 @@ desplegarPedido()
 
 
   }
+  calcularCantidad(nombrePlato : string, tipo : string)
+  {
+    let contador = 0 ;
+    if (tipo == 'comida')
+    {
+      this.pedidoEnFormatoJSON.platosPlato.forEach( (dato : any) => {
+        if(nombrePlato == dato)
+        {
+          contador ++;
+         /**/
+        }
+  
+      })
+    }
+    else if(tipo == 'postre')
+    {
+      this.pedidoEnFormatoJSON.platosPostre.forEach( (dato : any) => {
+        if(nombrePlato == dato)
+        {
+          contador ++;
+        }
+  
+      })
+    }
+    else
+    {
+      this.pedidoEnFormatoJSON.platosBebida.forEach( (dato : any) => {
+        if(nombrePlato == dato)
+        {
+          contador ++;
+        }
+  
+      })
+    }
+  
+
+    return contador;
+  }
+
 
 }

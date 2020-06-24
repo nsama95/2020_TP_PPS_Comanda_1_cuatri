@@ -29,7 +29,9 @@
             <ion-card>
   
             
-                
+              <!--ion-grid fixed>
+                <ion-row></ion-row>
+                  <ion-col size="12" size-lg="4" size-md="4" ></ion-col-->
                 <h1>{{producto.nombre}}</h1>
         
     
@@ -42,9 +44,14 @@
       
             
                 <h4>Valor unitario: ${{producto.precio}}</h4>
+                <h4 *ngIf="producto.nombre ==='Ensalada Vegana'"> cantidad:{{ensalada}}</h4>
+                <h4 *ngIf="producto.nombre==='Empanada'"> cantidad:{{empanada}}</h4>
+                <h4 *ngIf="producto.nombre==='Papas con cheddar'">cantidad: {{papas}}</h4>
+                <h4 *ngIf="producto.nombre==='Picada Mawey'">cantidad: {{picada}}</h4>
+                <h4 *ngIf="producto.nombre==='Pastas'">cantidad: {{pasta}}</h4>
                 <h4>Descripcion: {{producto.descripcion}}</h4>
   
-              <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio,producto)" expand="block">Agregar plato </ion-button>
+              <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio)" expand="block">Agregar plato </ion-button>
               <ion-button (click)="eliminar(producto.nombre, producto.tipo, producto.precio)" expand="block">Eliminar plato</ion-button>
               <!--ion-label>
                 <h1>{{producto.nombre}}  =  {{pickedCant}}</h1>
@@ -116,7 +123,7 @@
                 
             <h1>{{postre.nombre}}</h1>
         
-    
+          
       
             <img [src]="postre.foto[0]" alt="" width="100" height="100">
             <img [src]="postre.foto[1]" alt="" width="100" height="100">
