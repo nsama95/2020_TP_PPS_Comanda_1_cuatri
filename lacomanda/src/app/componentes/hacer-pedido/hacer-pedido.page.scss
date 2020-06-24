@@ -1,0 +1,16 @@
+.todoCompleto{
+   /* z-index: 1 !important;
+    width: 80%;
+    position: absolute !important;
+    top: 0;
+    left: 7%;*/
+    position: fixed;   
+    top: 0;              
+                  
+    bottom: 0;                    
+    left: 8%;                            
+    z-index: 99999;  // POR ENCIMA DE TODO                              
+    width:80%;         
+    height: 500px;    
+    background-color: #a52d1df3; // ESTO ES PARA Q NO SE VEA EL FONDO.   
+  }

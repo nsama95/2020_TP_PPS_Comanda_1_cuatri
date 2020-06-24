@@ -18,10 +18,129 @@
 
     <ion-col size="12" size-lg="4" size-md="4">
      
+      <!--ion-card >
+        <ion-card-content>
+        PLATOS PRINCIPALES ------- Cantidad pedida: {{contadorPlatos}}
+        </ion-card-content>
+        </ion-card-->
+  <div *ngIf="bandera === 'comida'">
+        <div *ngFor = "let producto of listaProductosTipoPlato">
+          
+            <ion-card>
+  
+            
+                
+                <h1>{{producto.nombre}}</h1>
+        
+    
+      
+                <img [src]="producto.foto[0]" alt="" width="100" height="100">
+                <img [src]="producto.foto[1]" alt="" width="100" height="100">
+                <img [src]="producto.foto[2]" alt="" width="100" height="100">
+           
+            
+      
+            
+                <h4>Valor unitario: ${{producto.precio}}</h4>
+                <h4>Descripcion: {{producto.descripcion}}</h4>
+  
+              <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio,producto)" expand="block">Agregar plato </ion-button>
+              <ion-button (click)="eliminar(producto.nombre, producto.tipo, producto.precio)" expand="block">Eliminar plato</ion-button>
+              <!--ion-label>
+                <h1>{{producto.nombre}}  =  {{pickedCant}}</h1>
+              </ion-label-->
+      
+  
+           
+            
+            </ion-card>
+      
+      
+        </div>
+  
+      </div>
+    
+      <!--ion-card >
+      <ion-card-content>
+        BEBIDAS ------- Cantidad pedida: {{contadorBebidas}}
+      </ion-card-content>
+      </ion-card-->
+      <div *ngIf="bandera === 'bebida'">
+        <div *ngFor = "let bebida of listaProductosTipoBebida">
+  
+          <ion-card>
+  
+    
+                
+            <h1>{{bebida.nombre}}</h1>
+        
+    
+      
+            <img [src]="bebida.foto[0]" alt="" width="100" height="100">
+            <img [src]="bebida.foto[1]" alt="" width="100" height="100">
+            <img [src]="bebida.foto[2]" alt="" width="100" height="100">
+       
+        
+  
+        
+            <h4>Valor unitario: ${{bebida.precio}}</h4>
+            <h4>Descripcion: {{bebida.descripcion}}</h4>
+  
+            <ion-button (click)="cargarJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio)" expand="block">Agregar bebida</ion-button>
+            <ion-button (click)="eliminar(bebida.nombre, bebida.tipo, bebida.precio)" expand="block">Eliminar bebida</ion-button>
+            <!--ion-label>
+            <h1>{{bebida.nombre}}  =  {{pickedCant}}</h1>
+          </ion-label-->
+  
+ 
+         
+          
+          </ion-card>
+    
+    
+      </div>
+       </div>
+  
+        <!--ion-card >
+        <ion-card-content>
+        POSTRES ------- Cantidad pedida: {{contadorPostres}}
+        </ion-card-content>
+        </ion-card-->
+        <div *ngIf="bandera === 'postre'">
+      <div *ngFor = "let postre of listaProductosTipoPostre">
+  
+  
+        <ion-card>
+          
 
-     
-      <ion-card *ngFor = "let productos of lista">
-        <div *ngIf="productos.tipo == bandera">
+                
+            <h1>{{postre.nombre}}</h1>
+        
+    
+      
+            <img [src]="postre.foto[0]" alt="" width="100" height="100">
+            <img [src]="postre.foto[1]" alt="" width="100" height="100">
+            <img [src]="postre.foto[2]" alt="" width="100" height="100">
+       
+        
+  
+        
+            <h4>Valor unitario: ${{postre.precio}}</h4>
+            <h4>Descripcion: {{postre.descripcion}}</h4>
+  
+            <ion-button (click)="cargarJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio)" expand="block">Agregar postre</ion-button>
+            <ion-button (click)="eliminar(postre.nombre, postre.tipo, postre.precio)" expand="block">Eliminar postre</ion-button>
+            <!--ion-label>
+            <h1>{{postre.nombre}}  =  {{pickedCant}}</h1>
+          </ion-label-->
+ 
+       
+        </ion-card>
+  
+  
+    </div>
+  </div>
+        <!--div *ngIf="productos.tipo == bandera">
         <h1>{{productos.nombre}}</h1>
         
     
@@ -39,24 +158,73 @@
         <ion-button color="success" (click)="calcularProducto(productos.nombre,'+')" expand="block">+</ion-button>
         <h1 style="text-align: center;">Cantidad: {{cantidad}}</h1> 
         <ion-button color="success" (click)="calcularProducto(productos.nombre,'-')" expand="block">-</ion-button>
-        <!-- <h4>Precio: {{productos.precio}}</h4>
-        <h4>Tiempo: {{productos.tiempo}}</h4> -->
+        <<h4>Precio: {{productos.precio}}</h4>
+        <h4>Tiempo: {{productos.tiempo}}</h4>>
         <h1 style="text-align: center;">total: {{totalProducto}}</h1> 
     
         
     
       </div>
     
-      </ion-card>
+      </ion-card-->
       
   </ion-col >
   <ion-col size="12" size-lg="4" size-md="4">
-    <ion-button color="success" (click)="alert()" expand="block">Consultar al mozo</ion-button>
-    <ion-button color="success" (click)="tomados()" expand="block">holaanda
-    </ion-button>
+    
   </ion-col>
   </ion-row>
  
 </ion-grid >
- 
+
 </ion-content>
+<ion-footer >
+<ion-card>
+    PRECIO TOTAL: ${{pedidoEnFormatoJSON.precioTotal}} 
+    <br>
+    Cantidad de platos: {{contadorPlatos}}
+    <br>
+     Cantidad de bebidas: {{contadorBebidas}} 
+     <br>
+      Cantidad de postres: {{contadorPostres}}
+    </ion-card>
+ 
+  <ion-button color="success" (click)="desplegarPedido()" expand="block">Ver pedido</ion-button>
+  <ion-card class="todoCompleto" *ngIf="variabledesplegarPedido == true" >
+              
+ 
+      <ion-label position="stacked">INFORMACION DEL PEDIDO:</ion-label>
+      <br>
+
+      <div *ngIf="pedidoEnFormatoJSON != null" >
+
+      Su pedido son los siguientes platos:
+
+      <h1> Platos principales: </h1>
+      {{pedidoEnFormatoJSON.platosPlato}}
+
+      <br>
+      <h1> Bebidas: </h1>
+      {{pedidoEnFormatoJSON.platosBebida}}
+
+      <br>
+      <h1> Postres: </h1>
+      {{pedidoEnFormatoJSON.platosPostre}}
+
+      <br>
+      <h1> Precio total del pedido: </h1>
+      ${{pedidoEnFormatoJSON.precioTotal}}
+
+      </div>
+
+
+          <ion-button (click)="confirmarPedido()" expand="block" color="success">Confirmar pedido</ion-button>
+      
+          <ion-button (click)=" cancelarPedido()" expand="block" color="warning">Cancelar pedido</ion-button>
+ 
+      
+          <ion-button (click)="desplegarInversoPedido()" expand="block" color="success">Cerrar</ion-button>
+   
+
+  </ion-card>
+
+</ion-footer>

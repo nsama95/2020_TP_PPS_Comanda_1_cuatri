@@ -4,13 +4,15 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 import { DatabaseService } from 'src/app/servicios/database.service';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
 
-interface Producto {
+export interface Producto {
   tipo:string,
   nombre:string,
- descripcion:string,
+  cantidad: number,
   precio : number,
 }
+
 @Component({
   selector: 'app-hacer-pedido',
   templateUrl: './hacer-pedido.page.html',
@@ -20,33 +22,65 @@ interface Producto {
 
 
 export class HacerPedidoPage implements OnInit {
- 
+
+largo: number;
+  
   lista = [];
-  listajson : Producto[];
+
   bandera="";
-  @Input() tipo;
+
 
   cantidad = 0;
   totalProducto= 0;
+
   productoJson:Producto;
- /*productoJson = {
-      tipo:"",
-      nombre:"",
-     descripcion: "",
-      precio : "",
-      //foto: ["","",""],
-    }*/
+
+  pedidoEnFormatoJSON = {
+    platosPlato :[],
+    platosBebida : [],
+    platosPostre : [],
+    precioTotal : 0,
+    estadoChef : "pendiente",
+    estadoBartender : "pendiente",
+    mesa : localStorage.getItem('mesaCliente'),
+    estado:'pendiente'
+  };
     productoA: string;
+    listaProductosTipoPlato = [];
+    listaProductosTipoBebida = [];
+    listaProductosTipoPostre = [];
+    contadorPlatos = 0;
+    contadorBebidas = 0;
+  contadorPostres = 0;
+  contadorVecesQueConfirmaPedido = 0;
+  
+    variabledesplegarPedido = false;
   constructor(
     private firestore : AngularFirestore,
     public alertController: AlertController ,
     public router : Router,
     private bd : DatabaseService,
+    private complementos : ComplementosService
   ) { }
 
+
   ngOnInit() {
-     
-   // console.log(this.listaProductos);
+    this.productoJson = {
+      tipo: "",
+      nombre : "",
+      precio : 0,
+      cantidad : 0
+    }
+    //this.bandera = "comida";
+    this.contadorPlatos = 0;
+    this.contadorBebidas = 0;
+    this.contadorPostres = 0;
+    this.contadorVecesQueConfirmaPedido = 0;
+
+    this.variabledesplegarPedido = false;
+  
+   
+
   }
 
 
@@ -55,211 +89,247 @@ export class HacerPedidoPage implements OnInit {
     if(pro=="comida")
     {
       this.bandera=pro;
-      console.log(this.bandera);
-      this.cargarProductos();
+      
+      this.listaProductosTipoPlato = this.cargarProductosTipo("comida");
+      
     }
     else if(pro=="bebida")
     {
       this.bandera=pro;
-      this.cargarProductos();
+      this.listaProductosTipoBebida = this.cargarProductosTipo("bebida");
+     
     }else{
       this.bandera=pro;
-      this.cargarProductos();
+      this.listaProductosTipoPostre = this.cargarProductosTipo("postre");
+      
     }
   }
 
-  cargarProductos()
-{
- 
+  cargarJSONPedidosPlatos(plato : string, tipoDePlato : string, precio : number,producto :Producto)
+  {
+   
+    if (tipoDePlato == "comida")
+    { 
+      console.log(this.productoJson);
+     // console.log(producto);
+    this.productoJson.nombre=producto.nombre;
+    this.productoJson.precio=producto.precio;
+    this.productoJson.tipo=producto.tipo;
+  
+      this.productoJson.cantidad=1;
+      this.pedidoEnFormatoJSON.platosPlato.push(this.productoJson);
+      //if()
 
-  this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-    
-    querySnapShot.forEach(datos => {
+      this.contadorPlatos = this.contadorPlatos + 1;
+      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
 
+      /*if(this.pedidoEnFormatoJSON.platosPlato.length>1){
+        for(var i=0;i<=this.pedidoEnFormatoJSON.platosPlato.length;i++){
+          this.largo=0;
+          console.log('for de  i');
+          console.log(i);
+          console.log(this.pedidoEnFormatoJSON.platosPlato.length);
 
-      if(datos.data().tipo === this.bandera){
-        localStorage.setItem('tipocomida',this.bandera);
-        let fb = this.firestore.collection('productos');
+         let nombrei= this.pedidoEnFormatoJSON.platosPlato[i].nombre;
+
+          for (var j=i+1; j <=this.pedidoEnFormatoJSON.platosPlato.length; j++) {
+            console.log(this.pedidoEnFormatoJSON.platosPlato.length);
+            console.log('for de  j');
+            console.log(j);
+            console.log(i);
+            let nombreJ= this.pedidoEnFormatoJSON.platosPlato[j].nombre;
+            console.log(this.pedidoEnFormatoJSON.platosPlato[j].nombre);
+           if( nombrei === nombreJ)
+           {
+            console.log('entre al if');
+            this.largo=1;
+            this.pedidoEnFormatoJSON.platosPlato[i].cantidad++;
             
-        fb.valueChanges().subscribe(datos =>{       // <-- MUESTRA CAMBIOS HECHOS EN LA BASE DE DATOS.
+           }else{
+            this.largo=1;
+            this.pedidoEnFormatoJSON.platosPlato[i].cantidad=this.largo;
+            console.log('entro al else');
+           }
+        }
           
-          this.lista = [];
-      
-         datos.forEach( (dato: any) =>{
-
-            
-      
-    //let producto= this.productoJson;
-    //this.listajson.push(this.productoJson);
-         this.lista.push(dato);  
-            // <--- LISTA DE USUARIOS.
-      
-          });
-      
-        })
-       // console.log(this.listajson);
-      }
-        //this.tipo = datos.data().tipo;
-       // 
-      });
-      })
-
-     /* if(this.tipo==this.bandera)
-      {
-       
+        }
 
       }*/
     
-}
-
-/*tomados(){
- 
-  
-
-    this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-      querySnapShot.forEach( (dato) => {
-       
-         if(dato.data().tipo =='comida'){
-
-          this.productoJson = {
-            nombre:dato.data().nombre,
-           tipo:dato.data().tipo,
-           precio:dato.data().precio,
-          
-         descripcion:dato.data().descripcion
-          }
-            
-
-            //console.log(this.productoJson);
-           
-           this.listajson.push(this.productoJson);
-
-        }
-         
-        
-
-          // esto pone la lista vacía para que quede facherisima.
-          
-
-      })
+    
     
       
-      console.log(this.listajson);
-    })
-   
-    
-}*/
+     
+      
+    }
 
-  async alert(){
+    if (tipoDePlato == "bebida")
+    {
+      this.pedidoEnFormatoJSON.platosBebida[this.contadorBebidas] = plato;
+      this.contadorBebidas = this.contadorBebidas + 1;
+      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+      
+    }
+
+    if (tipoDePlato == "postre")
+    {
+      this.pedidoEnFormatoJSON.platosPostre[this.contadorPostres] = plato;
+      this.contadorPostres = this.contadorPostres + 1;
+      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+    }
 
 
-  const alert =  await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Escriba su consulta',
-    inputs: [
-      {
-        name: 'name1',
-        type: 'text',
-        placeholder: 'escribe aqui',
+    console.log(this.pedidoEnFormatoJSON);
+
+
+  }
+
+
+  cargarProductosTipo(tipoProducto : string) : any
+  {
+
+    var listaProductos = [];
+    this.firestore.collection("productos").get().subscribe((querySnapShot) => {
+      querySnapShot.forEach((doc) => {
+
+        // Correo de la BD == Correo de la lista.
+       if(doc.data().tipo == tipoProducto)
+       {
+        listaProductos.push(doc.data()); 
         
+     
+       }
+
+      })
+    })
+
+    return listaProductos;
+  }
+
+
+
+
+
+
+ 
+
+
+  
+
+desplegarPedido()
+  {
+    this.variabledesplegarPedido = true;
+  }
+
+  desplegarInversoPedido()
+  {
+    this.variabledesplegarPedido = false;
+  }
+
+
+  confirmarPedido()
+  {
+
+    if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal>0)
+    {
+      this.complementos.presentToastConMensajeYColor("Pedido generado con éxito. Será redirigido al menú!", "success")
+      this.bd.crear('pedidos',this.pedidoEnFormatoJSON);
+      this.contadorVecesQueConfirmaPedido = 1;
+    }else if(this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal==0){
+      this.complementos.presentToastConMensajeYColor("¡No se puede confirmar un pedido vacio!", "warning")
+    }
+
+    else
+    {
+      this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
+    }
+
+   
+  }
+  
+  cancelarPedido()
+  {
+    if (this.contadorVecesQueConfirmaPedido == 0&& this.pedidoEnFormatoJSON.precioTotal>0)
+    {
+      this.pedidoEnFormatoJSON.platosPlato = [];
+      this.pedidoEnFormatoJSON.platosBebida = [];
+      this.pedidoEnFormatoJSON.platosPostre = [];
+      this.pedidoEnFormatoJSON.precioTotal = 0;
+
+
+      this.contadorPlatos = 0;
+      this.contadorBebidas = 0;
+      this.contadorPostres = 0;
+
+      this.complementos.presentToastConMensajeYColor("¡El pedido fue cancelado!", "success")
+    }
+    else if(this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal==0){
+      this.complementos.presentToastConMensajeYColor("¡No se puede cancelar un pedido vacio!", "warning")
+    }
+    else
+    {
+      this.complementos.presentToastConMensajeYColor("¡No puede cancelar un pedido ya enviado!", "warning")
+    }
+    
+  }
+
+ eliminar(plato : string, tipoDePlato : string, precio : number)
+  {
+   
+    if (tipoDePlato == "comida")
+    {
+
+      let auxIndice = this.pedidoEnFormatoJSON.platosPlato.indexOf(plato);
+
+      if(auxIndice >= 0 ){
+        let retorno = this.pedidoEnFormatoJSON.platosPlato.splice(auxIndice,1);
+
+          if(this.pedidoEnFormatoJSON.precioTotal > 0 && retorno.length > 0)
+          {
+            this.contadorPlatos = this.contadorPlatos - 1;
+            this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal - precio;
+          }
       }
-    ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
+    }
+
+    if (tipoDePlato == "bebida")
+    {
+
+      let auxIndice = this.pedidoEnFormatoJSON.platosBebida.indexOf(plato);
+
+      if(auxIndice >= 0 ){
+        let retorno = this.pedidoEnFormatoJSON.platosBebida.splice(auxIndice,1);
+
+          if(this.pedidoEnFormatoJSON.precioTotal > 0 && retorno.length > 0)
+          {
+            this.contadorBebidas = this.contadorBebidas - 1;
+            this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal - precio;
           }
-        }, {
-          text: 'aceptar',
-          handler: (data) => {
-            localStorage.setItem('consulta',data.name1);
-           console.log(data.name1);
+      }
+
+
+    }
+
+    if (tipoDePlato == "postre")
+    {
+      let auxIndice = this.pedidoEnFormatoJSON.platosPostre.indexOf(plato);
+
+      if(auxIndice >= 0 ){
+        let retorno = this.pedidoEnFormatoJSON.platosPostre.splice(auxIndice,1);
+
+          if(this.pedidoEnFormatoJSON.precioTotal > 0 && retorno.length > 0)
+          {
+            this.contadorPostres = this.contadorPostres - 1;
+            this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal - precio;
           }
-        }
-      ]
-    });
-  
-    await alert.present();
-  
-  /*await this.alertController.create({
-    message: '<h1>¡Solicitud de cuenta enviada con exito!</h1>No podras iniciar sesion hasta que nuestros administradores acepten tu solicitud de cliente',
-    cssClass: 'custom-alert-danger',
-    buttons: [
-      {
-        text: '¡Exelente! volver al inicio',
-        handler: () => {
-          this.router.navigate(['/']);
-        }
-      }]
-  }); */
-  
-}
-
-calcularProducto(nombre:string,signo: string){
-
-  this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-    
-    querySnapShot.forEach((datos => {
-
-if(signo === '+' && datos.data().nombre === nombre && datos.data().cantidad === 0 )
-{
-  let auxCantidad= datos.data().cantidad;
-   auxCantidad=this.cantidad++;
-
-
-
-  console.log(datos.data().nombre);
-  console.log(this.cantidad);
-  this.bd.actualizar('productos',auxCantidad,datos.id);
-  console.log(datos.data().cantidad);
-  
-
-
- 
-} 
-else if(signo === '-' && datos.data().id === nombre)
-{
- 
-  if(this.cantidad>0)
-  {
-    this.cantidad--;
-  }
-  else
-  {
-this.cantidad= 0;
-/**un toas para que el usuario entienda que no puede seguir tocando ah */
-  }
-
-}
-/*datos.data().cantidad=this.cantidad;
-let cantidad = this.cantidad;
-this.bd.actualizar('productos',cantidad,datos.data().cantidad);*/
-
-}));
-})
-  /*this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-    
-  querySnapShot.forEach(datos => {
-
-   // console.log(nombre);
-    if(datos.data().nombre == nombre){
-     // console.log(datos.data().nombre);
-      let precioProducto= datos.data().precio;
-      console.log(precioProducto);
-      console.log(this.cantidad);
-    
-     this.totalProducto = precioProducto * this.cantidad;
-      console.log(this.totalProducto);
+      }
      
     }
-  });
-})
-*/
 
 
-}
+   console.log(this.pedidoEnFormatoJSON);
+
+
+  }
 
 }
