@@ -27,9 +27,36 @@
         
         <button (click)="derivar(pedido.mesa)">Derivar pedido</button>
       </div>
-  
+      
+ 
+  </div>
+  <div *ngFor = "let pedido of listaPedidoListo">
+ 
+      
+    <button color="light" (click)="mostrarPedidoListo(pedido.mesa)">Pedido Listo para la mesa N {{pedido.mesa}}
+      <ion-icon name="checkmark-circle"></ion-icon>
+    </button>
+    <div *ngIf="mostrarPedidolisto == true && mesa == pedido.mesa && pedido.estado == 'enProceso'">
+      <div   *ngFor = "let pedido of pedido.platosPlato" >
+        {{pedido}} <!--h4 *ngIf="pedido ==='Ensalada Vegana'"> Tiempo de elaboracion:{{ensalada}}</h4--><br>---------------
+      </div>   
+      
+      <div   *ngFor = "let pedido of pedido.platosPostre" >
+        {{pedido}} <br>---------------
+      </div>   
+      <div  *ngFor = "let pedido of pedido.platosBebida" >
+        {{pedido}} <br>---------------
+      </div>      
+    
+    <button (click)="enviarPedido(pedido.mesa)">Enviar pedido</button>
+  </div>
   
 
-  </div>
+</div>
+
+
+
+
+
 
 </ion-content>

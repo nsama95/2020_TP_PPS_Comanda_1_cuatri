@@ -17,7 +17,7 @@ export class PedidoCocineroPage implements OnInit {
   listaPedido=[];
   mostrar= false;
   mesa;
-  nany = 1;
+  nany = 0;
   ngOnInit() {
     let fb = this.firestore.collection('pedidos');
    
@@ -55,7 +55,7 @@ elaborarPedido(mesa)
           {
            aux=dato.data();
            aux.estadoChef="elaborado"; 
-           this.nany = 0;
+           this.nany = 1;
            this.bd.actualizar('pedidos',aux,dato.id);
           }
     
@@ -75,7 +75,7 @@ elaborarPedido(mesa)
           {
            aux=dato.data();
            aux.estadoChef="listo";  
-           this.nany = 3;
+           this.nany = 0;
            this.bd.actualizar('pedidos',aux,dato.id);
           }
           

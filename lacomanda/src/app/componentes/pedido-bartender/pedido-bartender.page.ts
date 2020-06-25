@@ -53,7 +53,7 @@ elaborarPedido(mesa)
           {
            aux=dato.data();
            aux.estadoBartender="elaborado"; 
-           this.nany = 0;
+           this.nany = 1;
            this.bd.actualizar('pedidos',aux,dato.id);
           }
     
