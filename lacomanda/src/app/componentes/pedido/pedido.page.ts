@@ -57,33 +57,7 @@ export class PedidoPage implements OnInit {
  mostrarPedido(numero,bebida,plato,postre)
  {
   this.mostrar=true;
-  this.mesa=numero;
-  
- /* let fb = this.firestore.collection('productos');
-  for(var i=0;i<= plato.length;i++){
-     this.ba.collection('productos', ref => ref.where('tipo', '==' , 'comida'));
-   
-    this.firestore.collection('productos').get().subscribe( (querySnapShot)=>{ querySnapShot.forEach((dato) =>{      
-  
-      
-      if(dato.data().nombre === plato[i]) 
-      {
-        console.log(plato[i])
-        console.log(dato.data().tiempo)
-        switch(plato[i])
-  {
-    case'Ensalada Vegana':
-    this.ensalada= dato.data().tiempo;
-    //console.log( this.ensalada)
-    break;
-  }
-
-      }
-      
-    })
-
-  })*/
-   
+  this.mesa=numero;  
  }
 
 
@@ -97,8 +71,6 @@ this.firestore.collection('pedidos').get().subscribe( (querySnapShot)=>{ querySn
         {
           aux=dato.data();
          aux.estado="enProceso";  
-         aux.estadoBartender="enProceso";
-         aux.estadoChef="enProceso";
          this.bd.actualizar('pedidos',aux,dato.id);
         }
         

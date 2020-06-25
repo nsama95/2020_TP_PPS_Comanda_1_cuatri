@@ -5,5 +5,31 @@
 </ion-header>
 
 <ion-content>
+  <div *ngFor = "let pedido of listaPedido">
+ 
+      
+    <button color="light" (click)="mostrarPedido(pedido.mesa,pedido.platosPlato,pedido.platosPostre)">Pedido para la mesa N {{pedido.mesa}}
+      <ion-icon name="chevron-forward"></ion-icon>
+    </button>
+    <div *ngIf="mostrar== true && mesa== pedido.mesa">
+      <div   *ngFor = "let pedido of pedido.platosPlato" >
+        {{pedido}} <!--h4 *ngIf="pedido ==='Ensalada Vegana'"> Tiempo de elaboracion:{{ensalada}}</h4--><br>---------------
+      </div>   
+      
+      <div   *ngFor = "let pedido of pedido.platosPostre" >
+        {{pedido}} <br>---------------
+      </div>   
+      <div *ngIf = "nany === 1">
+        <button (click)="elaborarPedido(pedido.mesa)">Elaborar Pedido</button>
+      </div>
+      <div *ngIf = "nany === 0">
+        <button (click)="pedidoListo(pedido.mesa)">Listo</button>
+      </div>
+    
+  
+  </div>
 
+
+
+</div>
 </ion-content>
