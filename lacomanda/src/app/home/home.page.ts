@@ -50,6 +50,10 @@ export class HomePage {
       infoUsuario : any;
     nombre:string;
     correoUsuario : string;
+    cantPedido=0;
+    cantPedidoListo=0;
+    listaPedido=[];
+  listaPedidoListo=[];
      // Variable que nos mostrara los productos una vez escaneado el codigo qr
   mostrarProductos : boolean = true;
 
@@ -58,7 +62,32 @@ export class HomePage {
 
       ngOnInit() {
 
-
+        let fb = this.firestore.collection('pedidos');
+   
+        fb.valueChanges().subscribe(datos =>{      
+          
+          this.listaPedido = [];
+          this.listaPedidoListo = [];
+    
+          datos.forEach( (dato:any) =>{
+    
+            if(dato.estado === 'pendiente') 
+            {
+              this.listaPedido.push(dato);     
+            }
+            if(dato.estado  == 'enProceso' && dato.estadoChef == 'listo' && dato.estadoBartender == 'listo') 
+            {
+              this.listaPedidoListo.push(dato);     
+            }
+            
+          });
+          this.cantPedido=this.listaPedido.length;
+          this.cantPedidoListo=this.listaPedidoListo.length;
+        })
+        
+        console.log(this.cantPedido)
+        this.cantPedidoListo=this.listaPedidoListo.length;
+  
            let auxCorreoUsuario = localStorage.getItem('correoUsuario'); // Obtenemos el correo del usuario que ingreso 
           
            this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
