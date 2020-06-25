@@ -40,10 +40,7 @@
           
             <ion-card>
   
-            
-              <!--ion-grid fixed>
-                <ion-row></ion-row>
-                  <ion-col size="12" size-lg="4" size-md="4" ></ion-col-->
+        
                 <h1 style="color: white; text-align: center;">{{producto.nombre}}</h1>
         
     
@@ -58,7 +55,7 @@
         
                 <h4 style="color: white; text-align: center;">Valor unitario: ${{producto.precio}}</h4>
                
-                <h4 style="color: white;">Descripcion: {{producto.descripcion}}</h4>
+                <h4 style="color: white; ">Descripcion: {{producto.descripcion}}</h4>
   
               <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio)" class="botonmas">+</ion-button>
               <h4 style="color: white; text-align: center;" *ngIf="producto.nombre ==='Ensalada Vegana'"> CANTIDAD: {{ensalada}}</h4>
@@ -67,10 +64,7 @@
               <h4 style="color: white; text-align: center;" *ngIf="producto.nombre==='Picada Mawey'"> CANTIDAD: {{picada}}</h4>
               <h4 style="color: white; text-align: center;" *ngIf="producto.nombre==='Pastas'"> CANTIDAD: {{pasta}}</h4>
               <ion-button (click)="eliminar(producto.nombre, producto.tipo, producto.precio)" class="botonmenos">-</ion-button>
-              <!--ion-label>
-                <h1>{{producto.nombre}}  =  {{pickedCant}}</h1>
-              </ion-label-->
-      
+            
   
            
             
@@ -92,27 +86,31 @@
           <ion-card>
   
     
-                
-            <h1 style="color: white;">{{bebida.nombre}}</h1>
+            <h1 style="color: white; text-align: center;">{{bebida.nombre}}</h1>
         
     
+               
+            <img [src]="bebida.foto[0]" alt="" width="100" height="100" style="position: relative; left: 8px; width: 110px; height: 110px;border: black 2px solid;">
+          
+        
+            <img [src]="bebida.foto[1]" alt="" width="100" height="100" style="position: relative; left: 16px; width: 110px; height: 110px; border: black 2px solid;">
       
-            <img [src]="bebida.foto[0]" alt="" width="100" height="100">
-            <img [src]="bebida.foto[1]" alt="" width="100" height="100">
-            <img [src]="bebida.foto[2]" alt="" width="100" height="100">
-       
+            <img [src]="bebida.foto[2]" alt="" width="100" height="100" style="position: relative; left: 24px; width: 110px; height: 110px;border: black 2px solid;">
         
-  
+    
+            <h4 style="color: white; text-align: center;">Valor unitario: ${{bebida.precio}}</h4>
+           
+            <h4 style="color: white; ">Descripcion: {{bebida.descripcion}}</h4>
+
+          <ion-button (click)="cargarJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio)" class="botonmas">+</ion-button>
+          <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre ==='Agua sin gas'"> CANTIDAD: {{agua}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre==='Campari'"> CANTIDAD: {{campari}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre==='Coca-cola'"> CANTIDAD: {{coca}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre==='Pepsi'"> CANTIDAD: {{pepsi}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre==='Vino'"> CANTIDAD: {{vino}}</h4>
+          <ion-button (click)="eliminar(bebida.nombre, bebida.tipo, bebida.precio)" class="botonmenos">-</ion-button>
         
-            <h4 style="color: white;">Valor unitario: ${{bebida.precio}}</h4>
-            <h4 style="color: white;">Descripcion: {{bebida.descripcion}}</h4>
-  
-            <ion-button (click)="cargarJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio)" expand="block">Agregar bebida</ion-button>
-            <ion-button (click)="eliminar(bebida.nombre, bebida.tipo, bebida.precio)" expand="block">Eliminar bebida</ion-button>
-            <!--ion-label>
-            <h1>{{bebida.nombre}}  =  {{pickedCant}}</h1>
-          </ion-label-->
-  
+
  
          
           
@@ -135,26 +133,35 @@
           
 
                 
-            <h1>{{postre.nombre}}</h1>
+          <h1 style="color: white; text-align: center;">{{postre.nombre}}</h1>
         
-          
+    
+               
+          <img [src]="postre.foto[0]" alt="" width="100" height="100" style="position: relative; left: 8px; width: 110px; height: 110px;border: black 2px solid;">
+        
       
-            <img [src]="postre.foto[0]" alt="" width="100" height="100">
-            <img [src]="postre.foto[1]" alt="" width="100" height="100">
-            <img [src]="postre.foto[2]" alt="" width="100" height="100">
+          <img [src]="postre.foto[1]" alt="" width="100" height="100" style="position: relative; left: 16px; width: 110px; height: 110px; border: black 2px solid;">
+    
+          <img [src]="postre.foto[2]" alt="" width="100" height="100" style="position: relative; left: 24px; width: 110px; height: 110px;border: black 2px solid;">
+      
+  
+          <h4 style="color: white; text-align: center;">Valor unitario: ${{postre.precio}}</h4>
+         
+          <h4 style="color: white; ">Descripcion: {{postre.descripcion}}</h4>
+
+          <ion-button (click)="cargarJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio)" class="botonmas">+</ion-button>
+          <h4 style="color: white; text-align: center;" *ngIf="postre.nombre ==='Lemon pie'"> CANTIDAD: {{lemon}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="postre.nombre==='Flan casero'"> CANTIDAD: {{flan}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="postre.nombre==='Helado'"> CANTIDAD: {{helado}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="postre.nombre==='Milkshake'"> CANTIDAD: {{milkshake}}</h4>
+          <h4 style="color: white; text-align: center;" *ngIf="postre.nombre==='Torta Matilda'"> CANTIDAD: {{torta}}</h4>
+          <ion-button (click)="eliminar(postre.nombre, postre.tipo, postre.precio)" class="botonmenos">-</ion-button>
+        
+
+
+
        
         
-  
-        
-            <h4>Valor unitario: ${{postre.precio}}</h4>
-            <h4>Descripcion: {{postre.descripcion}}</h4>
-  
-            <ion-button (click)="cargarJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio)" expand="block">Agregar postre</ion-button>
-            <ion-button (click)="eliminar(postre.nombre, postre.tipo, postre.precio)" expand="block">Eliminar postre</ion-button>
-            <!--ion-label>
-            <h1>{{postre.nombre}}  =  {{pickedCant}}</h1>
-          </ion-label-->
- 
        
         </ion-card>
   
