@@ -85,8 +85,8 @@ export class HomePage {
           this.cantPedidoListo=this.listaPedidoListo.length;
         })
         
-        console.log(this.cantPedido)
-        this.cantPedidoListo=this.listaPedidoListo.length;
+        //console.log(this.cantPedido)
+        //this.cantPedidoListo=this.listaPedidoListo.length;
   
            let auxCorreoUsuario = localStorage.getItem('correoUsuario'); // Obtenemos el correo del usuario que ingreso 
           
