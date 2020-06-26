@@ -59,7 +59,7 @@ export class PedirMesaPage implements OnInit {
         }
   
           this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
-  
+        /*******MENSAJE* */
       })
   
     })

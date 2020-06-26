@@ -26,11 +26,24 @@ export class HomePage {
   nombreAnonimo;
   loading = true;
   correoCliente ;
+  jsonEncuesta ={
+    preguntaUno: 0,
+    preguntaDos: 0,
+    fotos : [],
+  }
+  gradoSatisfaccion ;
+  gradoSatisfaccionRes;
     // Mensaje avisando al cliente  su asignacion de mesa
     informarEstadoMesa ={
       mesa: "",
       seAsignoMesa : "no",
     };
+    mostrarEncuestaBoton = false;
+
+    mostrarCuentaDiv = false;
+    mostrarEncuestaDiv = false;
+  
+   
   constructor(private router : Router,
     private barcodeScanner : BarcodeScanner,
     private menu: MenuController,
@@ -47,6 +60,7 @@ export class HomePage {
         apellidoUsuario: "",
         perfilUsuario : "",
       }
+      mostrarEstadoPedido=false;
       infoUsuario : any;
     nombre:string;
     correoUsuario : string;
@@ -75,6 +89,9 @@ export class HomePage {
             {
               this.listaPedido.push(dato);     
             }
+if(dato.estado=='enProceso'){
+  
+}
             if(dato.estado  == 'enProceso' && dato.estadoChef == 'listo' && dato.estadoBartender == 'listo') 
             {
               this.listaPedidoListo.push(dato);     
@@ -167,6 +184,8 @@ export class HomePage {
                 {
                   this.informarEstadoMesa.mesa = datoCl.mesa;
                   this.informarEstadoMesa.seAsignoMesa = "si";
+                  localStorage.setItem('mesaCliente',this.informarEstadoMesa.mesa);
+
                 }
                 
                 });
@@ -190,7 +209,30 @@ export class HomePage {
        
       }        
 
+      realizoPedido(mesa){
 
+
+        let fb = this.firestore.collection('pedidos');
+   
+        fb.valueChanges().subscribe(datos =>{      
+          
+          this.listaPedido = [];
+          this.listaPedidoListo = [];
+    
+          datos.forEach( (dato:any) =>{
+    
+if(dato.estado=='enProceso' && dato.mesa==mesa){
+  this.mostrarEstadoPedido=true;
+}
+
+         
+            
+          });
+      
+        })
+        
+
+      }
 
 organizarUsuario(usuario,estado){
 
@@ -384,7 +426,25 @@ consultarMozo(numeroMesa)
   });
     
 }
+enviarEncuesta()
+{
+  this.jsonEncuesta.preguntaUno=this.gradoSatisfaccion;
+  this.jsonEncuesta.preguntaDos=this.gradoSatisfaccionRes;
+   this.bd.crear('encuestas',this.jsonEncuesta);
+} 
 
+mostrarEncuestaLista()
+{
+  this.mostrarCuentaDiv = false;
+  this.mostrarEncuestaDiv = true;
  
+}
+
+mostrarCuentaLista()
+{
+  this.mostrarCuentaDiv = true;
+  this.mostrarEncuestaDiv = false;
+  
+}
   
 }

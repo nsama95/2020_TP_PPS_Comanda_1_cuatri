@@ -7,10 +7,9 @@ import { DatabaseService } from 'src/app/servicios/database.service';
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 
 export interface Producto {
-  tipo:string,
   nombre:string,
   cantidad: number,
-  precio : number,
+  tiempo : number,
 }
 
 @Component({
@@ -82,9 +81,8 @@ largo: number;
   ngOnInit() {
     this.ensalada= 0;
     this.productoJson = {
-      tipo: "",
       nombre : "",
-      precio : 0,
+      tiempo : 0,
       cantidad : 0
     }
     //this.bandera = "comida";
@@ -126,15 +124,9 @@ largo: number;
    
     if (tipoDePlato == "comida")
     { 
-     // console.log(this.productoJson);
-     // console.log(producto);
-   // this.productoJson.nombre=producto.nombre;
-   // this.productoJson.precio=producto.precio;
-   // this.productoJson.tipo=producto.tipo;
-  
-    //  this.productoJson.cantidad=1;
+
       this.pedidoEnFormatoJSON.platosPlato.push(plato);
-      //if()
+    
 
       this.contadorPlatos = this.contadorPlatos + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
@@ -157,6 +149,7 @@ largo: number;
       case 'Pastas':
         this.pasta=cant;
       break;
+      
 
     }
       /*if(this.pedidoEnFormatoJSON.platosPlato.length>1){
@@ -204,7 +197,27 @@ largo: number;
       this.pedidoEnFormatoJSON.platosBebida[this.contadorBebidas] = plato;
       this.contadorBebidas = this.contadorBebidas + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+      let cant= this.calcularCantidad(plato,tipoDePlato);
+    switch(plato)
+    {
+      case'Agua sin gas':
+      this.agua=cant;
+      break;
+      case 'Campari':
+        this.campari=cant;
+      break;
+      case 'Coca-cola':
+        this.coca=cant;
+      break;
+      case 'Pepsi':
+        this.pepsi=cant;
+      break;
+      case 'Vino':
+        this.vino=cant;
+      break;
       
+     
+    }
     }
 
     if (tipoDePlato == "postre")
@@ -212,6 +225,26 @@ largo: number;
       this.pedidoEnFormatoJSON.platosPostre[this.contadorPostres] = plato;
       this.contadorPostres = this.contadorPostres + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+      let cant= this.calcularCantidad(plato,tipoDePlato);
+    switch(plato)
+    {
+      case'Lemon pie':
+      this.lemon=cant;
+      break;
+      case 'Flan Casero':
+        this.flan=cant;
+      break;
+      case 'Helado':
+        this.helado=cant;
+      break;
+      case 'Milkshake':
+        this.milkshake=cant;
+      break;
+      case 'Torta Matilda':
+        this.torta=cant;
+      break;
+    }
+
     }
 
 
@@ -271,6 +304,9 @@ desplegarPedido()
       this.complementos.presentToastConMensajeYColor("Pedido generado con éxito. Será redirigido al menú!", "success")
       this.bd.crear('pedidos',this.pedidoEnFormatoJSON);
       this.contadorVecesQueConfirmaPedido = 1;
+      this.desplegarInversoPedido();
+      
+      this.router.navigate(['/home']);
     }else if(this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal==0){
       this.complementos.presentToastConMensajeYColor("¡No se puede confirmar un pedido vacio!", "warning")
     }
@@ -278,6 +314,9 @@ desplegarPedido()
     else
     {
       this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
+      this.desplegarInversoPedido();
+      
+      this.router.navigate(['/home']);
     }
 
    
@@ -296,6 +335,16 @@ desplegarPedido()
       this.pasta=0;
       this.papas=0;
       this.empanada=0;
+      this.agua=0;
+      this.campari=0;
+      this.coca=0;
+      this.pepsi=0;
+      this.vino=0;
+      this.lemon=0;
+      this.flan=0;
+      this.helado=0;
+      this.milkshake=0;
+      this.torta=0;
 
       this.contadorPlatos = 0;
       this.contadorBebidas = 0;
@@ -328,6 +377,29 @@ desplegarPedido()
           {
             this.contadorPlatos = this.contadorPlatos - 1;
             this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal - precio;
+            let cant= this.calcularCantidad(plato,tipoDePlato);
+            switch(plato)
+            {
+              case'Ensalada Vegana':
+              this.ensalada=cant;
+              //console.log( this.ensalada)
+              break;
+              case 'Empanada':
+                this.empanada=cant;
+              break;
+              case 'Papas con cheddar':
+                this.papas=cant;
+              break;
+              case 'Picada Mawey':
+                this.picada=cant;
+              break;
+              case 'Pastas':
+                this.pasta=cant;
+              break;
+              
+        
+            }
+            
           }
       }
     }
@@ -344,6 +416,27 @@ desplegarPedido()
           {
             this.contadorBebidas = this.contadorBebidas - 1;
             this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal - precio;
+            let cant= this.calcularCantidad(plato,tipoDePlato);
+            switch(plato)
+            {
+              case'Agua sin gas':
+              this.agua=cant;
+              break;
+              case 'Campari':
+                this.campari=cant;
+              break;
+              case 'Coca-cola':
+                this.coca=cant;
+              break;
+              case 'Pepsi':
+                this.pepsi=cant;
+              break;
+              case 'Vino':
+                this.vino=cant;
+              break;
+              
+             
+            }
           }
       }
 
@@ -361,6 +454,26 @@ desplegarPedido()
           {
             this.contadorPostres = this.contadorPostres - 1;
             this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal - precio;
+            let cant= this.calcularCantidad(plato,tipoDePlato);
+            switch(plato)
+            {
+              case'Lemon pie':
+              this.lemon=cant;
+              break;
+              case 'Flan Casero':
+                this.flan=cant;
+              break;
+              case 'Helado':
+                this.helado=cant;
+              break;
+              case 'Milkshake':
+                this.milkshake=cant;
+              break;
+              case 'Torta Matilda':
+                this.torta=cant;
+              break;
+            }
+        
           }
       }
      
