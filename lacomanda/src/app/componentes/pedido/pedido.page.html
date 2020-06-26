@@ -40,24 +40,25 @@
   <div *ngFor = "let pedido of listaPedidoListo">
  
       
-    <button color="light" (click)="mostrarPedidoListo(pedido.mesa)">Pedido Listo para la mesa N {{pedido.mesa}}
+    <ion-button  size="large" color="danger" (click)="mostrarPedidoListo(pedido.mesa)" class="boton2">Pedido Listo para la mesa N {{pedido.mesa}}
       <ion-icon name="checkmark-circle"></ion-icon>
-    </button>
-    <div *ngIf="mostrarPedidolisto == true && mesa == pedido.mesa && pedido.estado == 'enProceso'">
+    </ion-button>
+    <ion-card class="card1">
+    <div *ngIf="mostrarPedidolisto == true && mesa == pedido.mesa && pedido.estado == 'enProceso'"  class="pedidos">
       <div   *ngFor = "let pedido of pedido.platosPlato" >
-        {{pedido}} <!--h4 *ngIf="pedido ==='Ensalada Vegana'"> Tiempo de elaboracion:{{ensalada}}</h4--><br>---------------
+        {{pedido}} <!--h4 *ngIf="pedido ==='Ensalada Vegana'"> Tiempo de elaboracion:{{ensalada}}</h4--><br><hr width="500px;" color="black" size="10">
       </div>   
       
       <div   *ngFor = "let pedido of pedido.platosPostre" >
-        {{pedido}} <br>---------------
+        {{pedido}} <br><hr width="500px;" color="black" size="10">
       </div>   
       <div  *ngFor = "let pedido of pedido.platosBebida" >
-        {{pedido}} <br>---------------
+        {{pedido}} <br><hr width="500px;" color="black" size="10">
       </div>      
     
-    <button (click)="enviarPedido(pedido.mesa)">Enviar pedido</button>
+    <ion-button (click)="enviarPedido(pedido.mesa)" size="large" color="danger" class="derivar1" >ENVIAR PRODUCTO</ion-button>
   </div>
-  
+</ion-card>
 
 </div>
 

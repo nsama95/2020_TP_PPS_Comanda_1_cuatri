@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pedido-bartender</ion-title>
+    <ion-back-button defaultHref="" slot="start" style="color: black;" icon="arrow-undo"></ion-back-button>
+    <ion-title style="color: black; text-align: center; font-size: larger;">
+      <i> <b>PEDIDO BARTENDER</b> </i>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,23 +12,23 @@
   <div *ngFor = "let pedido of listaPedido">
  
       
-        <button color="light" (click)="mostrarPedido(pedido.mesa,pedido.platosBebida)">Pedido para la mesa N {{pedido.mesa}}
+        <ion-button  size="large"(click)="mostrarPedido(pedido.mesa,pedido.platosBebida)" class="boton1">Pedido para la mesa N {{pedido.mesa}}
           <ion-icon name="chevron-forward"></ion-icon>
-        </button>
-
-        <div *ngIf="mostrar== true && mesa== pedido.mesa">
-           
+        </ion-button>
+        <ion-card class="card">
+        <div *ngIf="mostrar== true && mesa== pedido.mesa" class="pedidos">
+           <br>
           <div  *ngFor = "let pedido of pedido.platosBebida" >
-            {{pedido}} <br>---------------
+            {{pedido}} <br><hr width="500px;" color="black" size="10">
           </div>      
         <div *ngIf = "nany === 0 && pedido.estadoBartender ==='pendiente'">
-        <button (click)="elaborarPedido(pedido.mesa)">Elaborar Pedido</button>
+        <ion-button (click)="elaborarPedido(pedido.mesa)" class="derivar">ELABORAR PEDIDO</ion-button>
       </div>
       <div *ngIf = "nany === 1">
-        <button (click)="pedidoListo(pedido.mesa)">Listo</button>
+        <ion-button (click)="pedidoListo(pedido.mesa)"  class="derivar">PEDIDO LISTO</ion-button>
       </div>
       </div>
-
+    </ion-card>
   </div>
 
 </ion-content>
