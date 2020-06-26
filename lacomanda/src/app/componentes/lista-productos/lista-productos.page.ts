@@ -4,6 +4,10 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 
+import { ToastController } from '@ionic/angular';
+import { async } from 'rxjs/internal/scheduler/async';
+import { Button } from 'protractor';
+import { messaging } from 'firebase';
 
 @Component({
   selector: 'app-lista-productos',
@@ -18,6 +22,7 @@ export class ListaProductosPage implements OnInit {
     private firestore : AngularFirestore,
     public alertController: AlertController ,
     public router : Router,
+    public toastController: ToastController,
   ) { }
 
   ngOnInit() {
@@ -88,28 +93,37 @@ export class ListaProductosPage implements OnInit {
 
   const alert =  await this.alertController.create({
     cssClass: 'my-custom-class',
-    header: 'Escriba su consulta',
+    header: 'CONSULTAS',
     inputs: [
       {
         name: 'name1',
         type: 'text',
-        placeholder: 'escribe aqui',
+        placeholder: 'escribe aquí...',
         
       }
     ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'CANCELAR',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
+          handler: async () => {
+            const toast = await this.toastController.create({
+              message: 'Consulta cancelada.',
+              duration: 2000
+            });
+            toast.present();
           }
+       
         }, {
-          text: 'aceptar',
-          handler: (data) => {
+          text: 'ACEPTAR',
+          handler: async (data) => {
             localStorage.setItem('consulta',data.name1);
-           console.log(data.name1);
+            const toast = await this.toastController.create({
+              message: 'Su consulta fue enviada con exito!',
+              duration: 2000
+            });
+            toast.present();
           }
         }
       ]
@@ -117,19 +131,9 @@ export class ListaProductosPage implements OnInit {
   
     await alert.present();
   
-  /*await this.alertController.create({
-    message: '<h1>¡Solicitud de cuenta enviada con exito!</h1>No podras iniciar sesion hasta que nuestros administradores acepten tu solicitud de cliente',
-    cssClass: 'custom-alert-danger',
-    buttons: [
-      {
-        text: '¡Exelente! volver al inicio',
-        handler: () => {
-          this.router.navigate(['/']);
-        }
-      }]
-  }); */
-  
+ 
+  }
+
 }
 
 
-}

@@ -1,11 +1,12 @@
 .todoCompleto{
   
     position: fixed;   
-    top: 0;                   
+    top: 10px;                   
     bottom: 0;                    
-    left: 8%;                                                       
+                                                       
     width:80%;         
-    height: 500px;    
+    height: 700px; 
+    width: 380px;   
     
   }
   ion-content{
@@ -54,4 +55,30 @@
   height: 50px;
   width: 50px;
   font-size: x-large;
+}
+.logo
+{
+  position: relative;
+  width: 100px;
+  height: 100px;
+  left: 38%;
+  top: 5px;
+}
+.informacion
+{
+  position: relative;
+  left: 65px;
+}
+.botones 
+{
+  position: relative;
+  top: 10px;
+  left: 40px;
+}
+.botoness 
+{
+  position: relative;
+  top: 10px;
+  left: 40px;
+  width: 298px;
 }

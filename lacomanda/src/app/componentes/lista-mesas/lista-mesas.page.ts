@@ -86,6 +86,4 @@ export class ListaMesasPage implements OnInit {
     })   
   }
 
-
-
 }

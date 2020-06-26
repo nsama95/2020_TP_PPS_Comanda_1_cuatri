@@ -1,6 +1,6 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 import { DatabaseService } from 'src/app/servicios/database.service';
@@ -74,7 +74,8 @@ largo: number;
     public alertController: AlertController ,
     public router : Router,
     private bd : DatabaseService,
-    private complementos : ComplementosService
+    private complementos : ComplementosService,
+    public popoverController: PopoverController
   ) { }
 
 
@@ -274,6 +275,7 @@ largo: number;
 
     return listaProductos;
   }
+
 
 
 

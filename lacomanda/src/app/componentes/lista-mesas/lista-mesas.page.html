@@ -7,20 +7,11 @@
 
 <ion-content class="fondo">
   <div *ngFor = "let mesita of listadoMesas">
-    <ion-card >
-   <!-- <ion-item>
-        Numero de mesa : {{mesita.mesa}}
-      </ion-item>
-        <ion-item>
-        Estado de mesa : {{mesita.estado}}
-      </ion-item>
-      <ion-button routerLink="/home" (click)="asignarMesa(mesita)" class="boton" >
-        <ion-icon name="duplicate"></ion-icon>
-      </ion-button> -->
+    <ion-card style="color: black;">
       <ion-list >
       <ion-radio-group allow-empty-selection>
         <ion-list-header>
-          <ion-label color="light">Disponible</ion-label>
+          <ion-label color="light">MESA DISPONIBLES:</ion-label>
         </ion-list-header>
         <ion-item>
           <ion-label color="light">Mesa: {{mesita.mesa}}</ion-label>

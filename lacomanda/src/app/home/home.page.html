@@ -185,22 +185,11 @@
     </div> 
      
     </div> 
+    
     <div *ngIf = "perfilUsuario == 'metre'">
-
-      <ion-card class="mesas">
-        <ion-card-content>
-            Mesas disponibles: 
-        </ion-card-content>
-        <ion-card-content>
-          Mesas reservadas: 
-      </ion-card-content>
-      <ion-card-content>
-          Mesas ocupadas: 
-    </ion-card-content>
-      </ion-card>
-    
+   
       <ion-card *ngFor="let mesa of listaEspera">
-    
+        
         <div *ngIf = "mesa.estadoMesa == 'enEspera'">
           <ion-card-content>
             <ion-icon name="person"></ion-icon>
@@ -224,10 +213,13 @@
     <div *ngIf = "perfilUsuario == 'mozo' || perfilUsuario == 'bartender' || perfilUsuario == 'cocinero'">
     
       
-    
-           <p>Bienvenido a Mawey revisa el menu principal para ver tus notificaciones</p>
-         <img src="https://i.pinimg.com/originals/53/97/f6/5397f6b51c0cbacab13fa0b85b7f2067.jpg" alt="">  
-        
+            <ion-card style="color: white; font-size: x-large; text-align: center; top: 50px; border: black 4px solid;">
+           <p>Recorda revisar el menu principal para ver las notificaciones pendientes!</p>
+          </ion-card>
+           <ion-card style="top: 80px; border: black 4px solid;">
+         <img src="../../assets/img/check1.png">
+         <!-- <img src="../../assets/img/check2.png">   -->
+        </ion-card>
       </div>
 
 
@@ -237,24 +229,44 @@
     <div *ngIf = "perfilUsuario == 'cliente' || perfilUsuario == 'anonimo'">
     
       <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'no'">
-    
-           <p>Bienvenido a Mawey solicita tu mesa con las opciones de tu perfil</p>
-   
-        
+           <ion-card style="color: black; font-size: xx-large; text-align: center; top: 10px;">
+           <i><b>¡Bienvenido/a {{infoUsuario.nombre}}!</b></i>
+          </ion-card>
+          <ion-card style="color: black; font-size: x-large; text-align: center; top: 20px;">
+           <b>Para solicitar su mesa y estar en la lista de espera del metre
+              debe escanear el QR en la sección "PEDIR MESA" del menu.
+           </b>
+           </ion-card>
+           <ion-card style="top: 40px;">
+           <img src="../../assets/img/2a94a07c97823e03b233e2bba561a815.png" >
+          </ion-card>
+          <ion-card style="color: black; font-size: x-large; text-align: center; top: 50px;">
+           <b>Deseamos que disfrute su estadia en MAWEY</b>
+          </ion-card>
       </div>
     <!-- Si el estado de la mesa del cliente se asigno, se le mostrara la mesa que se le asigno   -->
       <div *ngIf = "informarEstadoMesa.seAsignoMesa == 'si'">
-        <ion-card>
-        <h2>SE LE ASIGNO LA MESA NRO = {{informarEstadoMesa.mesa}}
-          ahora podes ver el menu
-        </h2>
+        <ion-card style="border: black 2px solid;">
+          <h2>
+            <p style="text-align: center; color: white; ">
+              MESA ASIGNADA:  {{informarEstadoMesa.mesa}}
+            </p>
+          </h2>
+       
       </ion-card>
+      
+    <ion-button  size="large" (click)="qrMesa()" style="width: 375px; left: 10px; position: relative;">QR Mesa</ion-button>
 
-    <ion-button color="danger" (click)="qrMesa()">QR Mesa</ion-button>
+      <ion-card style="border: black 2px solid;">
+        <h2>
+          <p style="text-align: center; color: white; ">
+           Escanee el QR de la mesa para poder acceder al menu y realizar el pedido!
+          </p>
+        </h2>
+     
+    </ion-card>
 
-      <div ngIf="mostrarEstadoPedido==true">
-        estado pedido
-      </div>
+
 
 
 
