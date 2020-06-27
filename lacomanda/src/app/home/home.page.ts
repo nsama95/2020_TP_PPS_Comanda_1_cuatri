@@ -19,8 +19,9 @@ import { ComplementosService } from '../servicios/complementos.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  mostrarP= false;
   menuMozo=true;
+  mesaP;
   perfilUsuario : string;
   banderaMostrarCuentasPagadas = false;
   listaCuentasPagadas = [];
@@ -85,7 +86,7 @@ mostrarConsulta= false;
   listaPedidoListo=[];
   listaPedidoenProceso = [];
      // Variable que nos mostrara los productos una vez escaneado el codigo qr
-  mostrarProductos : boolean = false;
+  mostrarProductos = true;
   mesa;
 
   // Lista de los productos que se mostraran
@@ -644,7 +645,13 @@ mostrarSolicitudMozo(){
   this.menu.close();
 
 }
-liberarMesa(mesa)
+mostrarPedido(numero)
+{
+ this.mostrarP=true;
+ this.mesaP=numero;  
+}
+
+liberarMesa(mesaA)
   {
     
     
@@ -653,13 +660,14 @@ liberarMesa(mesa)
     this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
       
       querySnapShot.forEach(dato => {  
-        if(mesa == dato.data().mesa)
+        if(mesaA == dato.data().mesa)
         {
+
           this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
       
             querySnapShot.forEach(datoMesa => {  
 
-              if(mesa == datoMesa.data().numero)
+              if(mesaA == datoMesa.data().mesa)
               {
                 auxMesa = datoMesa.data();
                 auxMesa.estado = "desocupada";

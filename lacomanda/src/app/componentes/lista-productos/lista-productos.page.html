@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button defaultHref="" slot="start"   icon="arrow-undo" style="color: black;"></ion-back-button>
+    <ion-back-button defaultHref="/home" slot="start"   icon="arrow-undo" style="color: black;"></ion-back-button>
     <ion-title style="color: black; text-align: center;">
      <i> <b>LISTA PRODUCTOS</b> </i>
     </ion-title>
@@ -27,7 +27,12 @@
           <br>
           <ion-icon name="ice-cream-outline"></ion-icon>
         </ion-button>
-    
+        <br>
+        <ion-button color="secondary" (click)="alert()" expand="block">
+          Consultar al mozo
+          <br>
+          <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+        </ion-button>
     </ion-col >
 
     <ion-col size="12" size-lg="4" size-md="4">
@@ -50,11 +55,7 @@
     
   </ion-col >
   <ion-col size="12" size-lg="4" size-md="4">
-    <ion-button color="secondary" (click)="alert()" expand="block">
-      Consultar al mozo
-      <br>
-      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-    </ion-button>
+    
   </ion-col>
   </ion-row>
  
