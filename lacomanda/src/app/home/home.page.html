@@ -62,9 +62,9 @@
               <ion-label>Pedidos Listos <ion-badge *ngIf="cantPedidoListo>0"  color="primary" slot="end">{{cantPedidoListo}}</ion-badge></ion-label>
               
             </ion-item>
-            <ion-item routerLink="/">
+            <ion-item routerLink="/consultas">
               <ion-icon slot="start" name="hand-left"></ion-icon>
-              <ion-label>Consultas</ion-label>
+              <ion-label>Consultas<ion-badge *ngIf="cantConsulta>0"color="primary" slot="end">{{cantConsulta}}</ion-badge></ion-label>
               
             </ion-item>
           
@@ -129,6 +129,11 @@
               <ion-icon name="stopwatch-outline" slot="start"></ion-icon>
               <ion-label>Ver estado del pedido</ion-label>
             </ion-item>
+            <ion-item routerLink="/encuenta">
+              <ion-icon slot="start" name="help"></ion-icon>
+               <ion-label> Encuesta</ion-label>
+               
+             </ion-item>
           </ion-list>
 <!--BARTENDER-->
           <ion-list *ngIf = "perfilUsuario == 'bartender'" >
@@ -157,7 +162,7 @@
     </ion-item>
     </ion-menu> 
     <ion-router-outlet id="main"></ion-router-outlet>
-  
+<!----------------------------------SUPERVISOR-DUEÑO------------------------------------------->  
     <div *ngIf = "perfilUsuario == 'dueño' || perfilUsuario == 'supervisor'">
       <ion-card class="titulo">
       <h2>CLIENTES PENDIENTES</h2>
@@ -209,7 +214,7 @@
       </ion-card>
     
     </div> 
-    
+ <!--------------------------------------MOZO-BARTENDER-COCINERO------------------------------------------------------------------->   
     <div *ngIf = "perfilUsuario == 'mozo' || perfilUsuario == 'bartender' || perfilUsuario == 'cocinero'">
     
       
@@ -218,11 +223,15 @@
           </ion-card>
            <ion-card style="top: 80px; border: black 4px solid;">
          <img src="../../assets/img/check1.png">
-         <!-- <img src="../../assets/img/check2.png">   -->
+         <!--img src="../../assets/img/check2.png"-->  
         </ion-card>
       </div>
+<!--------------------------------------MOZO-------------------------------------------------------------------> 
+     <div *ngIf = "perfilUsuario == 'mozo' ">
+    
+      
 
-
+     </div>
       <!------------------------------------ANONIMO-CLIENTE--------------------------------------------->
     
    
@@ -237,9 +246,10 @@
               debe escanear el QR en la sección "PEDIR MESA" del menu.
            </b>
            </ion-card>
-           <ion-card style="top: 40px;">
-           <img src="../../assets/img/2a94a07c97823e03b233e2bba561a815.png" >
-          </ion-card>
+         
+
+           <img style="top: 40px;" src="../../assets/img/2a94a07c97823e03b233e2bba561a815.png" >
+         
           <ion-card style="color: black; font-size: x-large; text-align: center; top: 50px;">
            <b>Deseamos que disfrute su estadia en MAWEY</b>
           </ion-card>
@@ -257,15 +267,20 @@
       
     <ion-button  size="large" (click)="qrMesa()" style="width: 375px; left: 10px; position: relative;">QR Mesa</ion-button>
 
-      <ion-card style="border: black 2px solid;">
+      <ion-card *ngIf = "mostrarProductos == false" style="border: black 2px solid;">
         <h2>
           <p style="text-align: center; color: white; ">
            Escanee el QR de la mesa para poder acceder al menu y realizar el pedido!
           </p>
         </h2>
      
+       
     </ion-card>
+    <div *ngIf = "mostrarProductos == true">
 
+      <ion-button color="success" href="/lista-productos" expand="block">Ver menú</ion-button>
+
+    </div>
 
 
 
@@ -275,11 +290,7 @@
       <ion-button color="light" (click)="mostrarEncuestaLista()"  expand="block">Encuesta</ion-button>
     </div>
     
-    <div *ngIf = "mostrarProductos == true">
-
-      <ion-button color="success" href="/lista-productos" expand="block">Ver menú</ion-button>
-
-    </div>
+   
 
     <div *ngIf = "mostrarEncuestaDiv == true">
         

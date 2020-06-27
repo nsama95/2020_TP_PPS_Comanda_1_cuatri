@@ -52,7 +52,8 @@ export class HomePage {
       private auth : AuthService,
       
       ) {  }
-
+listarConsulta=[];
+mostrarConsulta= false;
       usuarioMesa = {
         mesa : "",
         estadoMesa : "",
@@ -60,6 +61,7 @@ export class HomePage {
         apellidoUsuario: "",
         perfilUsuario : "",
       }
+      cantConsulta=0;
       mostrarEstadoPedido=false;
       infoUsuario : any;
     nombre:string;
@@ -89,9 +91,9 @@ export class HomePage {
             {
               this.listaPedido.push(dato);     
             }
-if(dato.estado=='enProceso'){
+/*if(dato.estado=='enProceso'){
   
-}
+}*/
             if(dato.estado  == 'enProceso' && dato.estadoChef == 'listo' && dato.estadoBartender == 'listo') 
             {
               this.listaPedidoListo.push(dato);     
@@ -104,6 +106,23 @@ if(dato.estado=='enProceso'){
         
         //console.log(this.cantPedido)
         //this.cantPedidoListo=this.listaPedidoListo.length;
+
+
+
+
+        this.firestore.collection('consultas').get().subscribe((querySnapShot) => {
+    
+          querySnapShot.forEach(dato => {
+      
+            if(dato.data().estado == 'pendiente')
+            {
+             this.listarConsulta.push(dato);
+            }
+      
+          })
+          this.cantConsulta=this.listarConsulta.length;
+        
+        });
   
            let auxCorreoUsuario = localStorage.getItem('correoUsuario'); // Obtenemos el correo del usuario que ingreso 
           
@@ -114,6 +133,7 @@ if(dato.estado=='enProceso'){
               if(datos.data().correo == auxCorreoUsuario )
               {
                 this.perfilUsuario = datos.data().perfil;
+               
                 this.nombre= datos.data().nombre;
                 localStorage.setItem('nombreAnonimo',this.nombre);
                 this.infoUsuario = datos.data();
@@ -167,7 +187,7 @@ if(dato.estado=='enProceso'){
                 }
 
                //Si el perfil del usuario que ingreso es un cliente, comprobara el estado de lista de espera
-            else if (this.perfilUsuario == 'cliente')
+            else if (this.perfilUsuario == 'cliente' ||this.perfilUsuario =='anonimo' )
             {
               // Obtenemos el correo del usuario que 
               this.correoCliente = this.correoUsuario ;
@@ -225,14 +245,17 @@ if(dato.estado=='enProceso' && dato.mesa==mesa){
   this.mostrarEstadoPedido=true;
 }
 
-         
-            
           });
       
         })
         
 
       }
+
+
+
+
+
 
 organizarUsuario(usuario,estado){
 
@@ -295,43 +318,7 @@ organizarUsuario(usuario,estado){
     
   }
 
-  /*listaEsperaQRAnonimo()
-  {
-    let auxMesa;
-
-    this.barcodeScanner.scan().then(barcodeData => {
-
-    auxMesa = JSON.parse(barcodeData.text);
-
-    this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
-      querySnapShot.forEach((doc) => {
-
-        if(doc.data().nombre == this.nombreAnonimo)
-        {
-          if(auxMesa == 101010)
-          {
-                this.usuarioMesa.nombreUsuario = doc.data().nombre;
-                this.usuarioMesa.estadoMesa = "enEspera";
-                this.usuarioMesa.perfilUsuario = doc.data().perfil;
-                this.bd.crear('listaEspera', this.usuarioMesa);
-          }
-          
-        }
-
-          this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
-
-      })
-
-    })
-
-
-     }).catch(err => {
-         console.log('Error', err);
-     });
-     
-  }
-*/
-  // PARA EL CLIENTE -> Recorre la coleccion de usuarios de la bd verificando el correo del cliente y no su nombre
+  
   listaEsperaQRCliente()
   {
     let auxMesa;
@@ -356,7 +343,7 @@ organizarUsuario(usuario,estado){
           this.bd.crear('listaEspera', this.usuarioMesa);
         }
 
-          this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
+          this.listaEspera = []; 
 
       })
 
@@ -369,14 +356,14 @@ organizarUsuario(usuario,estado){
   }
 
 
-   // PARA EL METRE -> cuando se seleccione un usuario en espera, se redireccionara a la pagina de  listado-mesas y se guardara en el local storage la info del usuario seleccionado
+   
   comprobarMesas(mesa)
   {
     localStorage.setItem('usuarioMesa',JSON.stringify(mesa));
     this.router.navigate(['/lista-mesas']);
   }
 
-// PARA CLIENTES Y ANONIMOS -> El usuario al escanear el codigo qr de la mesa podra ver los productos
+
 qrMesa()
 {
   let auxMesa;
@@ -388,7 +375,7 @@ qrMesa()
   this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
     querySnapShot.forEach((doc) => {
 
-      if(doc.data().numero == auxMesa) //Recorremos las mesas y comprobamos que coincida
+      if(doc.data().numero == auxMesa) 
       {
         this.mostrarProductos = true;
       }
@@ -402,28 +389,15 @@ qrMesa()
    });
 }
 
-// PARA LOS CLIENTES Y ANONIMOS -> Cargara un listado completo de los productos
+mostrarConsultas(){
 
-
-// CLIENTE O ANONIMO -> Se realiza una consulta al mozo (no se cargara)
-consultarMozo(numeroMesa)
+this.mostrarConsulta= true;
+}
+consultarMozo()
 {
   let auxConsulta ;
 
-  this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
-    
-    querySnapShot.forEach(dato => {
-
-      if(dato.data().mesa == numeroMesa)
-      {
-        auxConsulta = dato.data();
-        auxConsulta.consulta = "realizoConsulta";
-        this.bd.actualizar('listaEspera',auxConsulta,dato.id);
-      }
-
-    })
-  
-  });
+ 
     
 }
 enviarEncuesta()

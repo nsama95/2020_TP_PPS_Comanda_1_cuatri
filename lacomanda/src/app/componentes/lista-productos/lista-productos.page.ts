@@ -8,6 +8,7 @@ import { ToastController } from '@ionic/angular';
 import { async } from 'rxjs/internal/scheduler/async';
 import { Button } from 'protractor';
 import { messaging } from 'firebase';
+import { DatabaseService } from 'src/app/servicios/database.service';
 
 @Component({
   selector: 'app-lista-productos',
@@ -17,15 +18,22 @@ import { messaging } from 'firebase';
 export class ListaProductosPage implements OnInit {
   lista = [];
   bandera="";
+  consulta={
+    consulta:'',
+    mesa:'',
+    estado: 'pendiente'
+  }
   @Input() tipo;
   constructor(
     private firestore : AngularFirestore,
     public alertController: AlertController ,
     public router : Router,
     public toastController: ToastController,
+    private bd : DatabaseService,
   ) { }
-
+  mesa;
   ngOnInit() {
+    this.mesa=localStorage.getItem('mesaCliente');
      
    // console.log(this.listaProductos);
   }
@@ -59,7 +67,7 @@ export class ListaProductosPage implements OnInit {
 
 
       if(datos.data().tipo === this.bandera){
-        localStorage.setItem('tipocomida',this.bandera);
+       // localStorage.setItem('tipocomida',this.bandera);
         let fb = this.firestore.collection('productos');
             
         fb.valueChanges().subscribe(datos =>{       // <-- MUESTRA CAMBIOS HECHOS EN LA BASE DE DATOS.
@@ -93,7 +101,7 @@ export class ListaProductosPage implements OnInit {
 
   const alert =  await this.alertController.create({
     cssClass: 'my-custom-class',
-    header: 'CONSULTAS',
+    header: ' Consulta',
     inputs: [
       {
         name: 'name1',
@@ -118,9 +126,10 @@ export class ListaProductosPage implements OnInit {
         }, {
           text: 'ACEPTAR',
           handler: async (data) => {
-            localStorage.setItem('consulta',data.name1);
+            //localStorage.setItem('consulta',data.name1);
+            this.enviarConsulta(data.name1,this.mesa);
             const toast = await this.toastController.create({
-              message: 'Su consulta fue enviada con exito!',
+              message: 'Su consulta fue enviada al mozo con exito!',
               duration: 2000
             });
             toast.present();
@@ -133,6 +142,19 @@ export class ListaProductosPage implements OnInit {
   
  
   }
+
+
+  enviarConsulta(consulta,mesa){
+
+    
+    this.consulta.consulta=consulta;
+    this.consulta.mesa=mesa;     
+    this.bd.crear('consultas',this.consulta);
+      
+
+  }
+
+
 
 }
 

@@ -61,6 +61,14 @@ const routes: Routes = [
   {
     path: 'pedido-bartender',
     loadChildren: () => import('./componentes/pedido-bartender/pedido-bartender.module').then( m => m.PedidoBartenderPageModule)
+  },
+  {
+    path: 'consultas',
+    loadChildren: () => import('./componentes/consultas/consultas.module').then( m => m.ConsultasPageModule)
+  },
+  {
+    path: 'encuesta',
+    loadChildren: () => import('./componentes/encuesta/encuesta.module').then( m => m.EncuestaPageModule)
   }
 
 

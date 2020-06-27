@@ -54,7 +54,7 @@ export class PedidoCocineroPage implements OnInit {
     
           
         });
-        console.log(this.listaComida);   
+        console.log(this.listaPedido);   
       })
   }
   
