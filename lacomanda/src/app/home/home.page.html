@@ -57,9 +57,9 @@
               <ion-label> Pedidos <ion-badge *ngIf="cantPedido>0"color="primary" slot="end">{{cantPedido}}</ion-badge></ion-label>
               
             </ion-item>
-            <ion-item *ngIf="cantPedidoListo>0" routerLink="/pedido">
+            <ion-item *ngIf="cantPedidoenProceso>0" routerLink="/pedido">
               <ion-icon slot="start" name="checkmark"></ion-icon>
-              <ion-label>Pedidos Listos <ion-badge *ngIf="cantPedidoListo>0"  color="primary" slot="end">{{cantPedidoListo}}</ion-badge></ion-label>
+              <ion-label>Pedidos Listos <ion-badge *ngIf="cantPedidoenProceso>0"  color="primary" slot="end">{{cantPedidoenProceso}}</ion-badge></ion-label>
               
             </ion-item>
             <ion-item routerLink="/consultas">
@@ -68,9 +68,9 @@
               
             </ion-item>
           
-            <ion-item routerLink="/registrar-empleado">
+            <ion-item (click)= "mostrarSolicitudMozo()">
               <ion-icon name="cash-outline" slot="start"></ion-icon>
-              <ion-label>Solicitudes de pago</ion-label>
+              <ion-label>Solicitudes de pago <ion-badge *ngIf="cantPedidoPagadas>0"color="primary" slot="end">{{cantPedidoPagadas}}</ion-badge></ion-label>
             </ion-item>
           </ion-list>
     <!--COCINERO-->
@@ -125,15 +125,19 @@
               <ion-label>Hacer pedido</ion-label>
             </ion-item>
 
-            <ion-item (click)="realizoPedido(localStorage.getItem('mesaCliente'))" routerLink="/home">
+            <ion-item (click)="estadoPedido(mesa)">
               <ion-icon name="stopwatch-outline" slot="start"></ion-icon>
               <ion-label>Ver estado del pedido</ion-label>
             </ion-item>
             <ion-item routerLink="/encuenta">
               <ion-icon slot="start" name="help"></ion-icon>
-               <ion-label> Encuesta</ion-label>
-               
+               <ion-label> Encuesta</ion-label>    
              </ion-item>
+             <ion-item *ngIf="mostrarSolicitudPago==true" (click)="mostrarCuentaLista()" >
+              <ion-icon slot="start" name="help" ></ion-icon>
+               <ion-label>Solicitud de pago</ion-label>    
+             </ion-item>
+             
           </ion-list>
 <!--BARTENDER-->
           <ion-list *ngIf = "perfilUsuario == 'bartender'" >
@@ -215,7 +219,18 @@
     
     </div> 
  <!--------------------------------------MOZO-BARTENDER-COCINERO------------------------------------------------------------------->   
-    <div *ngIf = "perfilUsuario == 'mozo' || perfilUsuario == 'bartender' || perfilUsuario == 'cocinero'">
+ <div *ngIf = "perfilUsuario == 'bartender' || perfilUsuario == 'cocinero' &&  menuMozo==true">
+    
+      
+  <ion-card style="color: white; font-size: x-large; text-align: center; top: 50px; border: black 4px solid;">
+ <p>Recorda revisar el menu principal para ver las notificaciones pendientes!</p>
+</ion-card>
+ <ion-card style="top: 80px; border: black 4px solid;">
+<img src="../../assets/img/check1.png">
+<!--img src="../../assets/img/check2.png"-->  
+</ion-card>
+</div>
+    <div *ngIf = "perfilUsuario == 'mozo'  &&  menuMozo===true">
     
       
             <ion-card style="color: white; font-size: x-large; text-align: center; top: 50px; border: black 4px solid;">
@@ -227,9 +242,14 @@
         </ion-card>
       </div>
 <!--------------------------------------MOZO-------------------------------------------------------------------> 
-     <div *ngIf = "perfilUsuario == 'mozo' ">
+     <div *ngIf = "perfilUsuario == 'mozo' && menuMozo===false ">
     
-      
+      <div *ngIf="banderaMostrarCuentasPagadas == true">
+        <ion-card *ngFor="let pagado of listaCuentasPagadas">
+          <ion-card-content>La mesa {{pagado.mesa}} a pagado la cuenta.</ion-card-content>
+          <ion-button expand="block" color="success" (click)="liberarMesa(pagado.mesa)">Liberar mesa</ion-button>
+        </ion-card>
+      </div>
 
      </div>
       <!------------------------------------ANONIMO-CLIENTE--------------------------------------------->
@@ -273,8 +293,6 @@
            Escanee el QR de la mesa para poder acceder al menu y realizar el pedido!
           </p>
         </h2>
-     
-       
     </ion-card>
     <div *ngIf = "mostrarProductos == true">
 
@@ -282,92 +300,85 @@
 
     </div>
 
-
-
-
-
-    <div *ngIf="mostrarCuentaBoton == true">
-      <ion-button color="light" (click)="mostrarEncuestaLista()"  expand="block">Encuesta</ion-button>
-    </div>
-    
    
-
-    <div *ngIf = "mostrarEncuestaDiv == true">
-        
+    <div *ngIf="pedidoPendiente===true" style="border: black 2px solid;">
       <ion-card >
-        <h2 align="center">Encuesta</h2>
-    
-        <div *ngIf="this.jsonEncuesta.fotos.length != 3">
-         <ion-fab-button color="primary"  color="light"  horizontal="center" vertical="top" (click)="tomarTresFotografias"><ion-icon name="camera-outline"></ion-icon></ion-fab-button>
-        </div>
-    
-        <div *ngIf="jsonEncuesta.fotos.length == 3">
-         <div *ngFor="let foto of jsonEncuesta.fotos ">
-           <img [src]="foto" alt="">
-         </div>
-        </div>
-    
-        <br>
-        <div>¿Qué le parecio nuesta app?</div>
-         <div align="center">
-           <span *ngIf="gradoSatisfaccion ==1" style="margin-left:10px">Muy mala <span
-                   style="font-size: 150%;">😡</span></span>
-           <span *ngIf="gradoSatisfaccion==2 " style="margin-left:10px">Mala<span
-                   style="font-size: 150%;">😠</span></span>
-           <span *ngIf="gradoSatisfaccion ==3" style="margin-left:10px">Regular<span
-                   style="font-size: 150%;">😐</span></span>
-           <span *ngIf="gradoSatisfaccion==4 " style="margin-left:10px">Buena<span
-                   style="font-size: 150%;">🙂</span></span>
-           <span *ngIf="gradoSatisfaccion == 5" style="margin-left:10px">Muy buena<span
-                   style="font-size: 150%;">😊</span></span>
-       </div>
-        <ion-card-content>
-         <ion-item color="success">
-           <ion-range (ionChange)="cambioRango($event)" min="1" max="5" pin="true" color="light"  >
-             <ion-icon size="small" slot="start" name="sunny"></ion-icon>
-             <ion-icon slot="end" name="sunny"></ion-icon>
-           </ion-range>
-    
-         </ion-item>
+        <h2>
+          <p style="text-align: center; color: white; ">
+          Tu pedido esta pendiente.
+          </p>
+        </h2>
+        <ion-button color="success"(click)="confirmarPendiente()" expand="block">Aceptar</ion-button>
+      </ion-card>
+
+    </div>
+    <div *ngIf="pedidoEnproceso===true" style="border: black 2px solid;">
+      <ion-card >
+        <h2>
+          <p style="text-align: center; color: white; ">
+         Tu pedido esta siendo preparado.
+          </p>
+        </h2>
+        <ion-button color="success" (click)="confirmarEnproceso()" expand="block">Aceptar</ion-button>
+      </ion-card>
+
+    </div>
+    <div *ngIf="pedidoFinalizado===true" style="border: black 2px solid;">
+
+      <ion-card >
+        <h2>
+          <p style="text-align: center; color: white; ">
+           Tu pedido esta finalizado, en unos instantes sera entregado por el mozo.
+          </p>
+        </h2>
+        <ion-button color="success" (click)="confirmarFinalizado()" expand="block">Confirmar</ion-button>
+      </ion-card>
+    </div>
+
+    <div *ngIf="solicitudPago==true">
+
+      <ion-card>
+        <ion-card-content align="center">
+          CUENTA
         </ion-card-content>
-        <div>¿Que le parecio el servicio del restaurante?</div>
-        <div align="center">
-          <span *ngIf="gradoSatisfaccionRes ==1" style="margin-left:10px">Muy mala <span
-                  style="font-size: 150%;">😡</span></span>
-          <span *ngIf="gradoSatisfaccionRes==2 " style="margin-left:10px">Mala<span
-                  style="font-size: 150%;">😠</span></span>
-          <span *ngIf="gradoSatisfaccionRes ==3" style="margin-left:10px">Regular<span
-                  style="font-size: 150%;">😐</span></span>
-          <span *ngIf="gradoSatisfaccionRes==4 " style="margin-left:10px">Buena<span
-                  style="font-size: 150%;">🙂</span></span>
-          <span *ngIf="gradoSatisfaccionRes == 5" style="margin-left:10px">Muy buena<span
-                  style="font-size: 150%;">😊</span></span>
-       </div>
-       <ion-card-content>
-        <ion-item color="success">
-          <ion-range (ionChange)="cambioRangoRes($event)" min="1" max="5" pin="true" color="light"  >
-            <ion-icon size="small" slot="start" name="sunny"></ion-icon>
-            <ion-icon slot="end" name="sunny"></ion-icon>
-          </ion-range>
-    
-        </ion-item>
-    
-       </ion-card-content>
+  
+          <ion-card-content *ngFor="let pedido of jsonCuenta.pedidos ">
+            Producto: {{pedido.nombreProducto}} ------- {{pedido.precioUnitario}}
+          </ion-card-content>
+        
+          <ion-card-content >
+            {{propina}}
+           </ion-card-content>
+        
+           <ion-card-content >
+            {{jsonCuenta.precioTotal}}
+           </ion-card-content>
+  
+  
+            <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-6>
+                  <ion-button color="success" (click)="pagarCuenta()" expand="block">Pagar</ion-button>
+                </ion-col>
+                <ion-col col-6>
+                  <ion-button color="warning"  (click)="darPropina()" expand="block">Dar propina</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+  
        
-       <ion-grid>
-         <ion-row>
-           <ion-col col-6>
-             <ion-button (click)="enviarEncuesta()" expand="block" color="success">Enviar</ion-button>
-            </ion-col>
-           <ion-col col-6>
-             <ion-button (click)="verEncuestas()" expand="block" color="warning">Cancelar</ion-button>
-           </ion-col>
-         </ion-row>
-       </ion-grid>
-      
-     </ion-card>
-         
-     </div>
+      </ion-card>
+
+
+    </div>
+
+
+
+
+
+    
   
 </div>
 

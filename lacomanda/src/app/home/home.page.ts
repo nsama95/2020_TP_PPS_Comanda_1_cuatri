@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 
 // IMPORTO EL ROUTER COMO ULTIMO PASO.
 import { Router } from "@angular/router";
-import { MenuController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 
 
 import { async } from '@angular/core/testing';
@@ -11,6 +11,7 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import { DatabaseService } from '../servicios/database.service';
 import { AuthService } from '../servicios/auth.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ComplementosService } from '../servicios/complementos.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 })
 export class HomePage {
 
+  menuMozo=true;
   perfilUsuario : string;
+  banderaMostrarCuentasPagadas = false;
+  listaCuentasPagadas = [];
   listaUsuarios = [];
   listaEspera = [];
   tieneCorreo: string;
@@ -31,6 +35,8 @@ export class HomePage {
     preguntaDos: 0,
     fotos : [],
   }
+  mostrarSolicitudPago=false;
+ solicitudPago=false;
   gradoSatisfaccion ;
   gradoSatisfaccionRes;
     // Mensaje avisando al cliente  su asignacion de mesa
@@ -50,9 +56,12 @@ export class HomePage {
     private firestore : AngularFirestore,
       private bd : DatabaseService,
       private auth : AuthService,
+      public alertController: AlertController,
+      private complementos : ComplementosService,
       
       ) {  }
 listarConsulta=[];
+
 mostrarConsulta= false;
       usuarioMesa = {
         mesa : "",
@@ -61,29 +70,37 @@ mostrarConsulta= false;
         apellidoUsuario: "",
         perfilUsuario : "",
       }
+      pedidoPendiente=false;
+      pedidoEnproceso=false;
+      pedidoFinalizado=false;
       cantConsulta=0;
       mostrarEstadoPedido=false;
       infoUsuario : any;
     nombre:string;
     correoUsuario : string;
     cantPedido=0;
-    cantPedidoListo=0;
+    cantPedidoPagadas=0;
+    cantPedidoenProceso=0
     listaPedido=[];
   listaPedidoListo=[];
+  listaPedidoenProceso = [];
      // Variable que nos mostrara los productos una vez escaneado el codigo qr
-  mostrarProductos : boolean = true;
+  mostrarProductos : boolean = false;
+  mesa;
 
   // Lista de los productos que se mostraran
  //listaProductos = [];
 
       ngOnInit() {
-
+this.mesa=0;
+this.menuMozo=true;
         let fb = this.firestore.collection('pedidos');
    
         fb.valueChanges().subscribe(datos =>{      
           
           this.listaPedido = [];
           this.listaPedidoListo = [];
+          this.listaPedidoenProceso = [];
     
           datos.forEach( (dato:any) =>{
     
@@ -96,12 +113,17 @@ mostrarConsulta= false;
 }*/
             if(dato.estado  == 'enProceso' && dato.estadoChef == 'listo' && dato.estadoBartender == 'listo') 
             {
-              this.listaPedidoListo.push(dato);     
+              this.listaPedidoenProceso.push(dato);     
+            }
+            if(dato.estado === 'pagado') 
+            {
+              this.listaCuentasPagadas.push(dato);     
             }
             
           });
           this.cantPedido=this.listaPedido.length;
-          this.cantPedidoListo=this.listaPedidoListo.length;
+          this.cantPedidoenProceso=this.listaPedidoenProceso.length;
+          this.cantPedidoPagadas=this.listaCuentasPagadas.length;
         })
         
         //console.log(this.cantPedido)
@@ -205,6 +227,7 @@ mostrarConsulta= false;
                   this.informarEstadoMesa.mesa = datoCl.mesa;
                   this.informarEstadoMesa.seAsignoMesa = "si";
                   localStorage.setItem('mesaCliente',this.informarEstadoMesa.mesa);
+                 this.mesa=this.informarEstadoMesa.mesa;
 
                 }
                 
@@ -393,13 +416,7 @@ mostrarConsultas(){
 
 this.mostrarConsulta= true;
 }
-consultarMozo()
-{
-  let auxConsulta ;
 
- 
-    
-}
 enviarEncuesta()
 {
   this.jsonEncuesta.preguntaUno=this.gradoSatisfaccion;
@@ -407,7 +424,7 @@ enviarEncuesta()
    this.bd.crear('encuestas',this.jsonEncuesta);
 } 
 
-mostrarEncuestaLista()
+/*mostrarEncuestaLista()
 {
   this.mostrarCuentaDiv = false;
   this.mostrarEncuestaDiv = true;
@@ -420,5 +437,247 @@ mostrarCuentaLista()
   this.mostrarEncuestaDiv = false;
   
 }
+*/
+
+
+
+estadoPedido(mesaCliente){
   
+  console.log("entra a la funcion");
+  console.log(mesaCliente);
+    this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+      querySnapShot.forEach( async (dato:any) =>{
+      
+      if(dato.data().estado === 'pendiente'&& dato.data().mesa===mesaCliente ) 
+      {
+        this.pedidoPendiente=true;
+        
+        
+    }
+      if(dato.data().estado  == 'enProceso'&& dato.data().mesa===mesaCliente) 
+      {
+        this.pedidoEnproceso=true;
+    }
+      if(dato.data().estado === 'listo'&& dato.data().mesa===mesaCliente) 
+      {
+        this.pedidoFinalizado=true;
+    }
+
+    });
+    
+  })
+  this.menu.close();
+
+}
+  
+
+confirmarFinalizado(){
+  this.pedidoFinalizado=false;
+  this.mostrarSolicitudPago=true;
+  
+}
+confirmarEnproceso(){
+  this.pedidoEnproceso=false;
+}confirmarPendiente(){
+  this.pedidoPendiente=false;
+}
+
+
+
+darPropina()
+{
+  let auxiliar;
+  this.barcodeScanner.scan().then(barcodeData => {
+
+    auxiliar = JSON.parse(barcodeData.text);
+
+      switch(auxiliar) // CAMBIAR ESTO SI NO FUNCIONA
+      {
+        case "Excelente":
+          this.propina = "Excelente -> 20%";
+          this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.2 + this.jsonCuenta.precioTotal ;
+        break ;
+        case "Muy bien" :
+          this.propina = "Muy bien -> 15%";
+          this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.15 + this.jsonCuenta.precioTotal;
+          break;
+        case "Bien" : 
+        this.propina = "Bien -> 10%";
+        this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.1 + this.jsonCuenta.precioTotal;
+        break;
+        case "Regular" :
+          this.propina = "Regular -> 5%";
+          this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.05 + this.jsonCuenta.precioTotal;
+          break;
+          case "Malo" :
+            this.propina = "Malo -> 0%";
+          break;
+      }
+      
+    }).catch(err => {
+      console.log('Error', err);
+})
+
+}
+
+propina;
+
+jsonCuenta = {
+  pedidos: [],
+  propina: this.propina,
+  precioTotal:0
+}
+mostrarCuentaLista()
+{  
+  
+
+  this.solicitudPago=true;
+
+  this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+    querySnapShot.forEach((doc) => {
+
+      if(doc.data().mesa == this.informarEstadoMesa.mesa) // Comparamos las mesas y nos dara el pedido de esa mesa
+      {
+          doc.data().platosPlato.forEach(element => {
+            this.firestore.collection('productos').get().subscribe((querySnapShot) => {
+              querySnapShot.forEach((docP) => { 
+     
+                if(element == docP.data().nombre)
+                {
+                  let jsonPedido = {
+                    precioUnitario : 0,
+                    nombreProducto : ""
+                  }
+                  jsonPedido.precioUnitario = docP.data().precio;
+                  jsonPedido.nombreProducto = element;
+                  this.jsonCuenta.pedidos.push(jsonPedido);
+                }
+              })
+                 
+            });
+          });
+
+          doc.data().platosPostre.forEach(element => {
+            this.firestore.collection('productos').get().subscribe((querySnapShot) => {
+              querySnapShot.forEach((docP) => { 
+     
+                if(element == docP.data().nombre)
+                {
+                  let jsonPedido = {
+                    precioUnitario : 0,
+                    nombreProducto : ""
+                  }
+                  jsonPedido.precioUnitario = docP.data().precio;
+                  jsonPedido.nombreProducto = element;
+                  this.jsonCuenta.pedidos.push(jsonPedido);
+                }
+              })
+                 
+            });
+          });
+
+          doc.data().platosBebida.forEach(element => {
+            this.firestore.collection('productos').get().subscribe((querySnapShot) => {
+              querySnapShot.forEach((docP) => { 
+     
+                if(element == docP.data().nombre)
+                {
+                  let jsonPedido = {
+                    precioUnitario : 0,
+                    nombreProducto : ""
+                  }
+                  jsonPedido.precioUnitario = docP.data().precio;
+                  jsonPedido.nombreProducto = element;
+                  this.jsonCuenta.pedidos.push(jsonPedido);
+                }
+              })
+                 
+            });
+          });
+          this.jsonCuenta.precioTotal = doc.data().precioTotal;
+
+      }
+
+    })
+
+  
+  })
+  this.menu.close();
+}
+
+pagarCuenta()
+{
+  let auxPedido;
+  let auxLisEsp;
+
+  this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+    querySnapShot.forEach((doc) => {
+      if(doc.data().mesa == this.informarEstadoMesa.mesa)
+      {
+        auxPedido = doc.data();
+        auxPedido.estado = "pagado"
+        this.bd.actualizar("pedidos",auxPedido,doc.id);
+
+        this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
+          querySnapShot.forEach((docDos) => {
+            if(this.informarEstadoMesa.mesa == docDos.data().mesa)
+            {
+              this.informarEstadoMesa.mesa = "";
+              this.informarEstadoMesa.seAsignoMesa = "no";
+              // this.firestore.doc(docDos.id).delete() -> Fijarse como borrlo de la lista de espera
+              this.firestore.collection('listaEspera').doc(docDos.id).delete();
+             
+              this.complementos.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!","success");
+            }
+          })
+        });
+      
+      }
+
+    })
+  });
+
+}
+mostrarSolicitudMozo(){
+  this.menuMozo=false;
+  this.banderaMostrarCuentasPagadas = true;
+  this.menu.close();
+
+}
+liberarMesa(mesa)
+  {
+    
+    
+    let auxMesa ;
+    
+    this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+      
+      querySnapShot.forEach(dato => {  
+        if(mesa == dato.data().mesa)
+        {
+          this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
+      
+            querySnapShot.forEach(datoMesa => {  
+
+              if(mesa == datoMesa.data().numero)
+              {
+                auxMesa = datoMesa.data();
+                auxMesa.estado = "desocupada";
+                this.bd.actualizar("listaMesas",auxMesa,datoMesa.id);
+                this.firestore.collection('pedidos').doc(dato.id).delete();
+                this.complementos.presentToastConMensajeYColor("La mesa a sido liberada","success");
+              }
+
+             })
+
+          });
+        }
+
+      })
+
+    });
+    this.menuMozo=true;
+    this.banderaMostrarCuentasPagadas = false;
+  }
+
 }
