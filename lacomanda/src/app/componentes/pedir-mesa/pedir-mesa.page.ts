@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DatabaseService } from '../../servicios/database.service';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
 @Component({
   selector: 'app-pedir-mesa',
   templateUrl: './pedir-mesa.page.html',
@@ -16,6 +17,7 @@ export class PedirMesaPage implements OnInit {
   nombreAnonimo;
 
   constructor(
+    private complementos : ComplementosService,
     private barcodeScanner : BarcodeScanner,
     private firestore : AngularFirestore,
     private bd : DatabaseService
@@ -48,18 +50,21 @@ export class PedirMesaPage implements OnInit {
   
         if(doc.data().nombre == this.nombreAnonimo)
         {
-          if(auxMesa == 101010)
+          if(auxMesa == 0)
           {
                 this.usuarioMesa.nombreUsuario = doc.data().nombre;
                 this.usuarioMesa.estadoMesa = "enEspera";
                 this.usuarioMesa.perfilUsuario = doc.data().perfil;
                 this.bd.crear('listaEspera', this.usuarioMesa);
+                this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"medium");
+          }
+          else{
+            this.complementos.presentToastConMensajeYColor('Error! QR incorrecto, este QR no corresponde al qr de la entrada',"warning");
           }
           
         }
   
-          this.listaEspera = []; // esto pone la lista vacía para que quede facherisima.
-        /*******MENSAJE* */
+          this.listaEspera = []; 
       })
   
     })
@@ -67,6 +72,7 @@ export class PedirMesaPage implements OnInit {
   
      }).catch(err => {
          console.log('Error', err);
+         this.complementos.presentToastConMensajeYColor('Error al usar el Qr scanner',"warning");
      });
      
     }
