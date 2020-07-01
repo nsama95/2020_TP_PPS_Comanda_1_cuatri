@@ -41,7 +41,7 @@ largo: number;
     precioTotal : 0,
     estadoChef : "pendiente",
     estadoBartender : "pendiente",
-    mesa : localStorage.getItem('mesaCliente'),
+    mesa : 0,
     estado:'pendiente'
   };
     productoA: string;
@@ -78,7 +78,7 @@ largo: number;
     public popoverController: PopoverController
   ) { }
 
-
+mesa=0;
   ngOnInit() {
     this.ensalada= 0;
     this.productoJson = {
@@ -93,8 +93,10 @@ largo: number;
     this.contadorVecesQueConfirmaPedido = 0;
 
     this.variabledesplegarPedido = false;
-  
    
+  this.mesa=parseInt(localStorage.getItem('mesaCliente'));
+  
+  this.pedidoEnFormatoJSON.mesa=this.mesa;
 
   }
 

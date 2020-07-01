@@ -15,7 +15,7 @@ export class PedirMesaPage implements OnInit {
   listaEspera = [];
   tieneCorreo: string;
   nombreAnonimo;
-
+bandera=true;
   constructor(
     private complementos : ComplementosService,
     private barcodeScanner : BarcodeScanner,
@@ -25,7 +25,7 @@ export class PedirMesaPage implements OnInit {
 
   
   usuarioMesa = {
-    mesa : "",
+    mesa : 0,
     estadoMesa : "",
     nombreUsuario: "",
     perfilUsuario : "",
@@ -52,28 +52,29 @@ export class PedirMesaPage implements OnInit {
         {
           if(auxMesa == 0)
           {
+            
             this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
-              querySnapShot.forEach((doc) => {
-
-                if(doc.data().nombreUsuario== this.nombreAnonimo)
+              querySnapShot.forEach((data) => {
+               
+                if(data.data().nombreUsuario== this.nombreAnonimo)
                 {
                   this.complementos.presentToastConMensajeYColor('Ya estas en la lista de espera',"warning");
-
-                } else{
-                  bandera=true;
-                }
+                  this.bandera=false;
+                  return;
+                } 
                 
                
               })})
-              if(bandera===true)
-              {
-              this.usuarioMesa.nombreUsuario = doc.data().nombre;
-              this.usuarioMesa.estadoMesa = "enEspera";
-              this.usuarioMesa.perfilUsuario = doc.data().perfil;
-              this.bd.crear('listaEspera', this.usuarioMesa);
-              this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"medium");
-
+             if(bandera != false){
+                  
+                this.usuarioMesa.nombreUsuario = doc.data().nombre;
+            this.usuarioMesa.estadoMesa = "enEspera";
+            this.usuarioMesa.perfilUsuario = doc.data().perfil;
+            this.bd.crear('listaEspera', this.usuarioMesa);
+            this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"medium");
+                
               }
+            
                 
           }
           else{

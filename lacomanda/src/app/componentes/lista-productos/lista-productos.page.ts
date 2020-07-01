@@ -20,7 +20,7 @@ export class ListaProductosPage implements OnInit {
   bandera="";
   consulta={
     consulta:'',
-    mesa:'',
+    mesa:0,
     estado: 'pendiente'
   }
   @Input() tipo;

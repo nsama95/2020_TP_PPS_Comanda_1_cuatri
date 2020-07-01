@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/firestore";
 import { DatabaseService } from 'src/app/servicios/database.service';
 import { Router } from '@angular/router';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
 
 @Component({
   selector: 'app-lista-mesas',
@@ -12,7 +13,8 @@ export class ListaMesasPage implements OnInit {
   listadoMesas = [];
   constructor(private firestore : AngularFirestore,
     private bd : DatabaseService,
-    private router : Router) { }
+    private router : Router,
+    private complementos : ComplementosService) { }
 
   ngOnInit() {
 
@@ -53,7 +55,7 @@ export class ListaMesasPage implements OnInit {
           mesita.estado = "ocupada"; // Se le cambia el estado a la mesa
          
           this.bd.actualizar('listaMesas',mesita,dato.id); // Se actualiza el estado en la base de datos
-
+          this.complementos.presentToastConMensajeYColor('La mesa fue asignada',"medium");
           // Ahora recorremos en lista de espera para cambiar el estado del cliente, se le asigna el numero de mesa y el estado de mesa
           this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
 
@@ -69,6 +71,7 @@ export class ListaMesasPage implements OnInit {
                 this.bd.actualizar('listaEspera',auxUsJson,datoU.id).then( end =>{
                  // Borramos el usuario seleccionado del local storage
                   localStorage.removeItem('usuarioMesa');
+                 
                 }
 
                 )

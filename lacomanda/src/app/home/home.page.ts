@@ -42,7 +42,7 @@ export class HomePage {
   gradoSatisfaccionRes;
     // Mensaje avisando al cliente  su asignacion de mesa
     informarEstadoMesa ={
-      mesa: "",
+      mesa: '',
       seAsignoMesa : "no",
     };
     mostrarEncuestaBoton = false;
@@ -65,7 +65,7 @@ listarConsulta=[];
 
 mostrarConsulta= false;
       usuarioMesa = {
-        mesa : "",
+        mesa : 0,
         estadoMesa : "",
         nombreUsuario: "",
         apellidoUsuario: "",
@@ -87,13 +87,14 @@ mostrarConsulta= false;
   listaPedidoenProceso = [];
      // Variable que nos mostrara los productos una vez escaneado el codigo qr
   mostrarProductos = false;
-  mesa;
+  mesa:string;
+  banderaMesaAsignada= true;
 
   // Lista de los productos que se mostraran
  //listaProductos = [];
 
       ngOnInit() {
-this.mesa=0;
+this.mesa='';
 this.menuMozo=true;
         let fb = this.firestore.collection('pedidos');
    
@@ -229,6 +230,7 @@ this.menuMozo=true;
                   this.informarEstadoMesa.seAsignoMesa = "si";
                   localStorage.setItem('mesaCliente',this.informarEstadoMesa.mesa);
                  this.mesa=this.informarEstadoMesa.mesa;
+                 console.log()
 
                 }
                 
@@ -388,7 +390,7 @@ organizarUsuario(usuario,estado){
   }
 
 
-qrMesa()
+qrMesaAsignada()
 {
   let auxMesa;
 
@@ -398,18 +400,26 @@ qrMesa()
 
   this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
     querySnapShot.forEach((doc) => {
-
-      if(doc.data().numero == auxMesa) 
+      
+      if(doc.data().mesa === auxMesa) 
       {
         this.mostrarProductos = true;
+        this.complementos.presentToastConMensajeYColor('QR cargado con éxito!',"medium");
+        this.banderaMesaAsignada=false;
+       
+      } 
+       if(this.banderaMesaAsignada===true && doc.data().mesa != auxMesa){
+        this.complementos.presentToastConMensajeYColor('Este no es el QR de tu mesa',"warning");
       }
 
-    })
+    }
+    )
 
   })
 
    }).catch(err => {
        console.log('Error', err);
+       this.complementos.presentToastConMensajeYColor('Error al usar el Qr scanner',"warning");
    });
 }
 
@@ -442,25 +452,27 @@ mostrarCuentaLista()
 
 
 
-estadoPedido(mesaCliente){
+estadoPedido(){
   
   console.log("entra a la funcion");
-  console.log(mesaCliente);
+  //console.log(mesaCliente);
+  
     this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
       querySnapShot.forEach( async (dato:any) =>{
-      
-      if(dato.data().estado === 'pendiente'&& dato.data().mesa===mesaCliente ) 
+        console.log(dato.data().mesa)
+      if(dato.data().estado === 'pendiente'&& dato.data().mesa===this.mesa ) 
       {
         this.pedidoPendiente=true;
         
         
     }
-      if(dato.data().estado  == 'enProceso'&& dato.data().mesa===mesaCliente) 
+      if(dato.data().estado  == 'enProceso'&& dato.data().mesa===this.mesa) 
       {
         this.pedidoEnproceso=true;
     }
-      if(dato.data().estado === 'listo'&& dato.data().mesa===mesaCliente) 
+      if(dato.data().estado === 'listo' && dato.data().mesa===this.mesa) 
       {
+        console.log('entre');
         this.pedidoFinalizado=true;
     }
 
@@ -494,23 +506,23 @@ darPropina()
 
       switch(auxiliar) // CAMBIAR ESTO SI NO FUNCIONA
       {
-        case "Excelente":
+        case 4:
           this.propina = "Excelente -> 20%";
           this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.2 + this.jsonCuenta.precioTotal ;
         break ;
-        case "Muy bien" :
+        case 3 :
           this.propina = "Muy bien -> 15%";
           this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.15 + this.jsonCuenta.precioTotal;
           break;
-        case "Bien" : 
+        case 2 : 
         this.propina = "Bien -> 10%";
         this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.1 + this.jsonCuenta.precioTotal;
         break;
-        case "Regular" :
+        case 1 :
           this.propina = "Regular -> 5%";
           this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal  * 0.05 + this.jsonCuenta.precioTotal;
           break;
-          case "Malo" :
+          case 0 :
             this.propina = "Malo -> 0%";
           break;
       }
@@ -623,7 +635,7 @@ pagarCuenta()
           querySnapShot.forEach((docDos) => {
             if(this.informarEstadoMesa.mesa == docDos.data().mesa)
             {
-              this.informarEstadoMesa.mesa = "";
+              this.informarEstadoMesa.mesa = '';
               this.informarEstadoMesa.seAsignoMesa = "no";
               // this.firestore.doc(docDos.id).delete() -> Fijarse como borrlo de la lista de espera
               this.firestore.collection('listaEspera').doc(docDos.id).delete();
