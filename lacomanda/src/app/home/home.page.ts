@@ -86,7 +86,7 @@ mostrarConsulta= false;
   listaPedidoListo=[];
   listaPedidoenProceso = [];
      // Variable que nos mostrara los productos una vez escaneado el codigo qr
-  mostrarProductos = true;
+  mostrarProductos = false;
   mesa;
 
   // Lista de los productos que se mostraran
