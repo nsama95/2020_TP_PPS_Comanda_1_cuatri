@@ -32,7 +32,7 @@ bandera=true;
   }
 
   ngOnInit() {
-    let nombreAnonimo = localStorage.getItem('nombreAnonimo');
+   
     this.nombreAnonimo = localStorage.getItem('nombreAnonimo');
   }
 
@@ -50,7 +50,7 @@ bandera=true;
   
         if(doc.data().nombre == this.nombreAnonimo)
         {
-          if(auxMesa == 0)
+          if(auxMesa == '0')
           {
             
             this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
