@@ -38,21 +38,21 @@ Realizamos llamadas diarias a traves de Hangouts, creamos un excel para una mayo
 
 | Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización |Estado |
 | :---         |     :---:      |          :---: | :---: |:---: |
-|*Natalia Samaniego*| Asignación mesa-cliente - Generar listado de productos - Confirmación de pedido(mozo) -Encuesta|16/6|20/6|Finalizado(pendienteEncuenta) |
-|*Julieta Sdrubolini*|Lectura de QR Mesa - Generar lista de espera de mesa - Gestionar pedido(cliente)|16/6|18/6|Finalizado|
+|*Natalia Samaniego*| Asignación mesa-cliente - Generar listado de productos - Confirmación de pedido(mozo) -Encuesta|16/6|20/6|Listo |
+|*Julieta Sdrubolini*|Lectura de QR Mesa - Generar lista de espera de mesa - Gestionar pedido(cliente)|16/6|18/6|Listo|
 ## Seguimiento y cierre de pedido (semana 17/06) 📌
 
 | Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización |Estado |
 | :---         |     :---:      |          :---: | :---: |:---: |
-|*Natalia Samaniego*| Asignación pedido(por sector) - Detalle de cuenta - Alta de plato |23/6|  |EnCurso |
-|*Julieta Sdrubolini*|Entrega de pedido(mozo) -Confirmacion de pago - Alta de bebida|23/6| |EnCurso|
+|*Natalia Samaniego*| Asignación pedido(por sector) - Detalle de cuenta - Alta de plato |23/6| 25/6|Listo|
+|*Julieta Sdrubolini*|Entrega de pedido(mozo) -Confirmacion de pago - Alta de bebida|23/6| 26/6 |Listo|
 
 ## Correcciones y Reservas (semana 24/06) 📌
 
 | Integrantes | Requerimientos | Fecha estimada |Fecha de Finalización |Estado |
 | :---         |     :---:      |          :---: | :---: |:---: |
-|*Natalia Samaniego*| Correcciones pendientes - Confirmacion de Reserva |1/7|  |EnCurso|
-|*Julieta Sdrubolini*|Correcciones pendientes - Agendar reserva|1/7||EnCurso|
+|*Natalia Samaniego*| Correcciones pendientes - Confirmacion de Reserva |1/7| 3/7 |EnCurso|
+|*Julieta Sdrubolini*|Correcciones pendientes - Agendar reserva|1/7|3/7|EnCurso|
 
 
 ## Delivery y juegos (semana ) 📌
