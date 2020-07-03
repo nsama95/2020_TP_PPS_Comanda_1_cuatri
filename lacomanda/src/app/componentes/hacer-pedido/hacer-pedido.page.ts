@@ -155,43 +155,7 @@ mesa=0;
       
 
     }
-      /*if(this.pedidoEnFormatoJSON.platosPlato.length>1){
-        for(var i=0;i<=this.pedidoEnFormatoJSON.platosPlato.length;i++){
-          this.largo=0;
-          console.log('for de  i');
-          console.log(i);
-          console.log(this.pedidoEnFormatoJSON.platosPlato.length);
 
-         let nombrei= this.pedidoEnFormatoJSON.platosPlato[i].nombre;
-
-          for (var j=i+1; j <=this.pedidoEnFormatoJSON.platosPlato.length; j++) {
-            console.log(this.pedidoEnFormatoJSON.platosPlato.length);
-            console.log('for de  j');
-            console.log(j);
-            console.log(i);
-            let nombreJ= this.pedidoEnFormatoJSON.platosPlato[j].nombre;
-            console.log(this.pedidoEnFormatoJSON.platosPlato[j].nombre);
-           if( nombrei === nombreJ)
-           {
-            console.log('entre al if');
-            this.largo=1;
-            this.pedidoEnFormatoJSON.platosPlato[i].cantidad++;
-            
-           }else{
-            this.largo=1;
-            this.pedidoEnFormatoJSON.platosPlato[i].cantidad=this.largo;
-            console.log('entro al else');
-           }
-        }
-          
-        }
-
-      }*/
-    
-    
-    
-      
-     
       
     }
 
@@ -305,7 +269,7 @@ desplegarPedido()
 
     if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal>0)
     {
-      this.complementos.presentToastConMensajeYColor("Pedido generado con éxito. Será redirigido al menú!", "success")
+      this.complementos.presentToastConMensajeYColor("Pedido generado con éxito. Será redirigido al menú!", "tertiary")
       this.bd.crear('pedidos',this.pedidoEnFormatoJSON);
       this.contadorVecesQueConfirmaPedido = 1;
       this.desplegarInversoPedido();
@@ -317,7 +281,7 @@ desplegarPedido()
 
     else
     {
-      this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
+      this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "tertiary")
       this.desplegarInversoPedido();
       
       this.router.navigate(['/home']);

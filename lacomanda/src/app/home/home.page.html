@@ -108,7 +108,7 @@
 <!--ANONIMO-CLIENTE-->
           <ion-list *ngIf = "perfilUsuario == 'anonimo'  || perfilUsuario == 'cliente'" >
             <ion-item>
-              <img src="../../assets/img/avatarRR.png" style=" height: 80%; width: 40%;" class="imagenAnonimo">
+              <img src="usuario.foto" style=" height: 80%; width: 40%;" class="imagenAnonimo">
   
             <ion-label color="light">
               <h2>Nombre : </h2> <p> {{infoUsuario.nombre}}</p>
@@ -279,7 +279,7 @@
            </ion-card>
          
 
-           <img style="top: 40px;" src="../../assets/img/2a94a07c97823e03b233e2bba561a815.png" >
+           <img style="top: 45px; position: relative;" src="../../assets/img/mesaconqr.png" >
          
           <ion-card style="color: black; font-size: x-large; text-align: center; top: 50px;">
            <b>Deseamos que disfrute su estadia en MAWEY</b>
@@ -347,33 +347,53 @@
     </div>
 
     <div *ngIf="solicitudPago==true">
-
+     
       <ion-card>
-        <ion-card-content align="center">
-          CUENTA
-        </ion-card-content>
+        <img src="../../../assets/img/icon.png" class="logo">
+        <br>
+        <br>
+        <ion-label position="stacked" style="color: black; font-size: large; " >
+          <b class="informacion" style="color: black;">CUENTA</b>
+         <hr width="500px;" color="black" size="10"> 
+       </ion-label>
   
           <ion-card-content *ngFor="let pedido of jsonCuenta.pedidos ">
-            Producto: {{pedido.nombreProducto}} ------- {{pedido.precioUnitario}}
+            <b style="color: black; font-size: medium;">
+            <ion-icon name="checkmark-circle" color="primary"></ion-icon>
+             {{pedido.nombreProducto}} ${{pedido.precioUnitario}}
+            </b>
           </ion-card-content>
         
           <ion-card-content >
-            {{propina}}
+            <b style="color: black; font-size: x-large;">
+             
+                {{propina}}
+              </b>
+            
            </ion-card-content>
         
            <ion-card-content >
-            {{jsonCuenta.precioTotal}}
+            <b style="color: black; font-size: x-large;">
+              <ion-icon name="checkmark-circle" color="primary"></ion-icon>
+               TOTAL: ${{jsonCuenta.precioTotal}}
+              </b>
            </ion-card-content>
   
   
             <ion-item>
             <ion-grid>
               <ion-row>
-                <ion-col col-6>
-                  <ion-button color="success" (click)="pagarCuenta()" expand="block">Pagar</ion-button>
-                </ion-col>
-                <ion-col col-6>
-                  <ion-button color="warning"  (click)="darPropina()" expand="block">Dar propina</ion-button>
+                <ion-col>
+                  <ion-button color="success" (click)="pagarCuenta()" expand="block" style="height: 50px;">
+                    Pagar
+                    <br>
+                    <ion-icon name="checkmark-done-outline"></ion-icon>
+                   </ion-button>
+                  <ion-button color="warning"  (click)="darPropina()" expand="block"  style="height: 50px;">
+                  Dar propina
+                  <br>
+                  <ion-icon name="cash-outline"></ion-icon>
+                </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>

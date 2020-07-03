@@ -9,7 +9,7 @@
 <ion-content class="text-center">
   <div *ngIf="encuesta">
 
-     <ion-card  style="position: relative;  background-color: rgba(0, 0, 0, 0.726);">
+ 
           <ion-label style="color:rgb(255, 255, 255); font-size: large; top: 5px; position: relative;">
             ¿Qué le parecio la atención de nuestros empleados?</ion-label>
     
@@ -96,12 +96,12 @@
         <div>
             <ion-button color = "dark" expand="block" size="large" (click) = "enviarEncuesta()">Enviar encuesta</ion-button>
         </div>
-      </ion-card> 
+   
  
 
 </div>
 
-  <div *ngIf="!encuesta" style="top: 120px; position: relative;" >
+  <div *ngIf="!encuesta" style="top: 120px; position: relative;" class="segundo">
     <img src="../../../assets/img/icon.png" style="width: 200px; left: 90px; position: relative; top: 10px;">
     
       <b><h1 style="text-align: center; color: white;">Gracias por participar de la encuesta.</h1></b>

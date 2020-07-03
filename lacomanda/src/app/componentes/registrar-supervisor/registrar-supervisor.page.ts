@@ -101,7 +101,7 @@ export class RegistrarSupervisorPage implements OnInit {
       this.bd.crear('usuarios',this.usuarioJson);
     }
     this.auth.registrarUsuario(this.usuarioJson.correo,this.usuarioJson.contrasenia);
-    this.complemetos.presentToastConMensajeYColor("¡Supervisor registrado con éxito!","primary");
+    this.complemetos.presentToastConMensajeYColor("¡Supervisor registrado con éxito!","tertiary");
     this.limpiar();
     
   }
@@ -158,12 +158,12 @@ limpiar(){
       this.usuarioJson.nombre = texto[2];
        this.usuarioJson.apellido = texto[1];
       this.usuarioJson.dni=texto[4];//el 4 indica el 4to @
-      this.complemetos.presentToastConMensajeYColor("¡Se cargaron con exito tus datos!","primary");
+      this.complemetos.presentToastConMensajeYColor("¡Se cargaron con exito tus datos!","tertiary");
     }
       
 
      }).catch(err => {
-      this.complemetos.presentToastConMensajeYColor("Hubo un error, intenta más tarde.","primary");
+      this.complemetos.presentToastConMensajeYColor("Hubo un error, intenta más tarde.","warning");
     
      });
 

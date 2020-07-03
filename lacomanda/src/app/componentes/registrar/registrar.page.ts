@@ -141,7 +141,7 @@ export class RegistrarPage implements OnInit {
       //localStorage.setItem('tieneCorreo','sinCorreo'); // NO tiene correo
     }
 
-    this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","primary");
+    this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","tertiary");
     this.limpiar(this.usuarioJson.perfil);
   }
 
@@ -193,7 +193,7 @@ export class RegistrarPage implements OnInit {
       this.usuarioJson.nombre = texto[2];
        this.usuarioJson.apellido = texto[1];
       this.usuarioJson.dni=texto[4];//el 4 indica el 4to @
-      this.complemetos.presentToastConMensajeYColor("¡Se cargaron con exito tus datos!","primary");
+      this.complemetos.presentToastConMensajeYColor("¡Se cargaron con exito tus datos!","tertiary");
     }else if(texto.length == 17)
     {
      this.usuarioJson.nombre = texto[5];

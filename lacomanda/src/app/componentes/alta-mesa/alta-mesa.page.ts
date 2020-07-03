@@ -139,21 +139,5 @@ export class AltaMesaPage implements OnInit {
     
   }
 
-  /*escanearDni()
-  {
-    let auxDni;
 
-    this.barcodeScanner.scan().then(barcodeData => {
-      alert('Barcode data: ' + barcodeData);
-
-      auxDni = JSON.parse(barcodeData.text);
-
-      this.mesaJson.tipo = auxDni;
-
-     }).catch(err => {
-         console.log('Error', err);
-     });
-
-  }
-*/
 }

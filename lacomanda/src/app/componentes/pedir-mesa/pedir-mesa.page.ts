@@ -58,7 +58,7 @@ bandera=true;
                
                 if(data.data().nombreUsuario== this.nombreAnonimo)
                 {
-                  this.complementos.presentToastConMensajeYColor('Ya estas en la lista de espera',"warning");
+                  this.complementos.presentToastConMensajeYColor('Ya estas en la lista de espera',"tertiary");
                   this.bandera=false;
                   return;
                 } 
@@ -71,7 +71,7 @@ bandera=true;
             this.usuarioMesa.estadoMesa = "enEspera";
             this.usuarioMesa.perfilUsuario = doc.data().perfil;
             this.bd.crear('listaEspera', this.usuarioMesa);
-            this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"medium");
+            this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"tertiary");
                 
               }
             

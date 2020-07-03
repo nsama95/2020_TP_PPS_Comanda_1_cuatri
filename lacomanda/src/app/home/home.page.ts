@@ -77,6 +77,7 @@ mostrarConsulta= false;
       cantConsulta=0;
       mostrarEstadoPedido=false;
       infoUsuario : any;
+      foto;
     nombre:string;
     correoUsuario : string;
     cantPedido=0;
@@ -157,7 +158,8 @@ this.menuMozo=true;
               if(datos.data().correo == auxCorreoUsuario )
               {
                 this.perfilUsuario = datos.data().perfil;
-               
+                this.foto = datos.data().foto;
+                console.log(this.foto);
                 this.nombre= datos.data().nombre;
                 localStorage.setItem('nombreAnonimo',this.nombre);
                 this.infoUsuario = datos.data();
@@ -404,7 +406,7 @@ qrMesaAsignada()
       if(doc.data().mesa === auxMesa) 
       {
         this.mostrarProductos = true;
-        this.complementos.presentToastConMensajeYColor('QR cargado con éxito!',"medium");
+        this.complementos.presentToastConMensajeYColor('QR cargado con éxito!',"tertiary");
         this.banderaMesaAsignada=false;
        
       } 
@@ -640,7 +642,7 @@ pagarCuenta()
               // this.firestore.doc(docDos.id).delete() -> Fijarse como borrlo de la lista de espera
               this.firestore.collection('listaEspera').doc(docDos.id).delete();
              
-              this.complementos.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!","success");
+              this.complementos.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!","tertiary");
             }
           })
         });
@@ -685,7 +687,7 @@ liberarMesa(mesaA)
                 auxMesa.estado = "desocupada";
                 this.bd.actualizar("listaMesas",auxMesa,datoMesa.id);
                 this.firestore.collection('pedidos').doc(dato.id).delete();
-                this.complementos.presentToastConMensajeYColor("La mesa a sido liberada","success");
+                this.complementos.presentToastConMensajeYColor("La mesa a sido liberada","tertiary");
               }
 
              })

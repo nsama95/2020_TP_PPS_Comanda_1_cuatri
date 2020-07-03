@@ -55,7 +55,7 @@ export class ListaMesasPage implements OnInit {
           mesita.estado = "ocupada"; // Se le cambia el estado a la mesa
          
           this.bd.actualizar('listaMesas',mesita,dato.id); // Se actualiza el estado en la base de datos
-          this.complementos.presentToastConMensajeYColor('La mesa fue asignada',"medium");
+          this.complementos.presentToastConMensajeYColor('La mesa fue asignada',"tertiary");
           // Ahora recorremos en lista de espera para cambiar el estado del cliente, se le asigna el numero de mesa y el estado de mesa
           this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
 
