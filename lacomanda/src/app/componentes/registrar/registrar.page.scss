@@ -9,17 +9,46 @@ ion-content.background{
     text-align: center;
     
 }
+/* IMAGEN CON TAMAÑO DE JULI
 .img{
   position: absolute;
   height: 120px;
   width: 120px;
-  /* los siguientes valores son independientes del tamaño del círculo */
   background-repeat: no-repeat;
   background-position: 50%;
   border-radius: 5%;
   background-size: 100% auto;
   top: 18px;
   left: 140px;
+
+}
+.camera
+{
+position: absolute;
+left: 148px;
+top: 140px;
+width: 100px;
+
+}*/
+/* IMAGEN CON TAMAÑO DE NATI*/
+.img{
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-radius: 5%;
+  background-size: 100% auto;
+  top: 18px;
+  left: 120px;
+
+}
+.camera
+{
+position: absolute;
+left: 127px;
+top: 140px;
+width: 100px;
 
 }
 .dni
@@ -43,14 +72,7 @@ height: 200px;
 top: -25px;
 left: 98px;
 }
-.camera
-{
-position: absolute;
-left: 148px;
-top: 140px;
-width: 100px;
 
-}
 
   .item{
     
