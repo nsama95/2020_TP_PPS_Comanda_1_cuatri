@@ -65,7 +65,7 @@ bandera=true;
                 
                
               })})
-             if(bandera != false){
+             if(this.bandera != false){
                   
                 this.usuarioMesa.nombreUsuario = doc.data().nombre;
             this.usuarioMesa.estadoMesa = "enEspera";

@@ -19,6 +19,7 @@ import { ComplementosService } from '../servicios/complementos.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  banderaPerfilCliente=true;
   mostrarP= false;
   menuMozo=true;
   mesaP;
@@ -159,7 +160,7 @@ this.menuMozo=true;
               {
                 this.perfilUsuario = datos.data().perfil;
                 this.foto = datos.data().foto;
-                console.log(this.foto);
+                console.log(datos.data());
                 this.nombre= datos.data().nombre;
                 localStorage.setItem('nombreAnonimo',this.nombre);
                 this.infoUsuario = datos.data();
