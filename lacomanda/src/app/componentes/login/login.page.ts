@@ -66,7 +66,7 @@ public onSubmitLogin()
     this.complementos.presentLoading();
 
     let audio = new Audio();
-    audio.src = 'assets/audio/login/sonidoBotonSUCESS.mp3';
+    audio.src = 'assets/audio/login/efectosonido.mp3';
     audio.play();
 
     timer(2000).subscribe(() => {this.router.navigate(['/home']);

@@ -109,7 +109,7 @@
           <ion-list *ngIf = "perfilUsuario == 'anonimo'  || perfilUsuario == 'cliente'" >
             <ion-item>
               <img [src]="infoUsuario.foto" style=" height: 70%; width: 30%;" class="imagenAnonimo">
-
+              <!-- <img src="../../assets/img/avatarRR.png" style=" height: 70%; width: 30%;" class="imagenAnonimo"> -->
             <ion-label color="light">
              
               <h2 style="position: relative;left: 5%;">Nombre : </h2> <p style="position: relative;left: 5%;"> {{infoUsuario.nombre}}</p>
@@ -259,17 +259,20 @@
 
       <div *ngFor="let pagado of listaCuentasPagadas">
 
-        <ion-button  size="large"(click)="mostrarPedido(pagado.mesa)"class="boton1">
-         <p style="color: white; font-size:medium; text-align: center; top: 50px; border: black 4px solid;">La mesa {{pagado.mesa}} realizo el pago</p> 
+        <ion-button  size="large"(click)="mostrarPedido(pagado.mesa)"class="boton1" expand="block">
+         <p style="color: white; font-size:medium; text-align: center; top: 50px; border: black 4px solid;" >La mesa {{pagado.mesa}} realizo el pago</p> 
           <ion-icon name="chevron-forward"></ion-icon>
         </ion-button>
 
         
-        <ion-card *ngIf= "mostrarP==true && mesaP==pagado.mesa"  style="color: white; font-size: x-large; text-align: center; top: 20px; border: black 4px solid;">
-        <div>
-          <ion-button expand="block" color="success" (click)="liberarMesa(pagado.mesa)">Liberar mesa</ion-button>
+        
+        <div  *ngIf= "mostrarP==true && mesaP==pagado.mesa"  style="color: white; font-size: x-large; text-align: center; ">
+          <ion-button expand="block" color="tertiary" (click)="liberarMesa(pagado.mesa)">
+            Liberar mesa
+            <ion-icon name="alert-circle-outline"></ion-icon>
+          </ion-button>
         </div>
-         </ion-card>
+  
         </div>
       
 

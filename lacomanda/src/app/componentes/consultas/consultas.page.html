@@ -13,12 +13,12 @@
   <div *ngIf= "mostrar>0">
       <div *ngFor="let consulta of listarConsulta">
 <br>
-        <ion-button  size="large" expand="block" (click)="mostrarPedido(consulta.mesa)"class="boton1">Consulta de la mesa : {{consulta.mesa}}
+        <ion-button  size="large" expand="block" (click)="mostrarPedido(consulta.mesa)"class="boton1">
+          <p style="color: white; font-size:medium; text-align: center; top: 50px; border: black 4px solid;" >  Consulta de la mesa : {{consulta.mesa}}</p>
+        
           <ion-icon name="chevron-forward"></ion-icon>
         </ion-button>
-
-        
-        <ion-card *ngIf= "mostrarP==true && mesa==consulta.mesa"  style="color: white; font-size: x-large; text-align: center; top: 20px; border: black 4px solid;">
+       <ion-card *ngIf= "mostrarP==true && mesa==consulta.mesa"  style="color: white; font-size: x-large; text-align: center; top: 20px; border: black 4px solid;">
           <br> {{consulta.consulta}} <br><br>
 
         <div>

@@ -742,7 +742,7 @@ liberarMesa(mesaA)
                 auxMesa.estado = "desocupada";
                 this.bd.actualizar("listaMesas",auxMesa,datoMesa.id);
                 this.firestore.collection('pedidos').doc(dato.id).delete();
-                this.complementos.presentToastConMensajeYColor("La mesa a sido liberada","tertiary");
+                this.complementos.presentToastConMensajeYColor("Mesa liberada!","tertiary");
               }
 
              })

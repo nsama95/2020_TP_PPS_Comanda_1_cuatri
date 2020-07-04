@@ -64,7 +64,7 @@ usuarioMesa= {
               this.usuarioMesa.estadoMesa = "enEspera";
               this.usuarioMesa.perfilUsuario = doc.data().perfil;
               this.bd.crear('listaEspera', this.usuarioMesa);
-              this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"medium");
+              this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"tertiary");
               
               
             break;
