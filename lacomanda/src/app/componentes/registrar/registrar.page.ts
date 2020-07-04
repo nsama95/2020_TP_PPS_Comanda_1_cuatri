@@ -157,14 +157,16 @@ export class RegistrarPage implements OnInit {
       {
 
         this.anonimoJson.foto = link;
-        this.bd.crearA('usuarios',this.anonimoJson);
+        
+        this.bd.crear('usuarios',this.anonimoJson);
+
         localStorage.setItem('perfilUsuario',this.anonimoJson.perfil);
         this.router.navigate(['/home']);
  
       });
     }
     else{
-      this.bd.crearA('usuarios',this.anonimoJson);
+      this.bd.crear('usuarios',this.anonimoJson);
       localStorage.setItem('perfilUsuario',this.anonimoJson.perfil);
      this.router.navigate(['/home']);
     }
