@@ -186,8 +186,9 @@
 <ion-footer >
 
     <ion-button color="success" (click)="hola()" class="precioTotal">
-      PRECIO TOTAL: ${{pedidoEnFormatoJSON.precioTotal}} 
+     TOTAL: ${{pedidoEnFormatoJSON.precioTotal}} 
     </ion-button>
+    
   <ion-button color="success" (click)="desplegarPedido()" class="pedido">Ver pedido</ion-button>
   <ion-card class="todoCompleto" *ngIf="variabledesplegarPedido == true" >
         
@@ -235,7 +236,7 @@
         PRECIO TOTAL DEL PEDIDO:
       </b>
        </h1>
-       <h1 style="font-size: medium ; color: black; text-align: center;">
+       <h1 style="font-size: xx-large; color: black; text-align: center;">
         ${{pedidoEnFormatoJSON.precioTotal}}
       </h1>
       <h1  style=" color: black; font-size:medium; text-align: center;"> 

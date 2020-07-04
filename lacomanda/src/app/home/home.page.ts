@@ -81,6 +81,7 @@ mostrarConsulta= false;
       foto;
       qrBandera=true;
     nombre:string;
+    qrPedido=false;
     correoUsuario : string;
     cantPedido=0;
     cantPedidoPagadas=0;
@@ -97,7 +98,8 @@ mostrarConsulta= false;
   mesa:string;
   banderaMesaAsignada= true;
       mesaPedido= '';
-      mostrarItem=false;
+      mostrarItem=true;
+      mostrarEncuesta= false;
       ocultarqr=false;
   // Lista de los productos que se mostraran
  //listaProductos = [];
@@ -432,25 +434,38 @@ qrMesaAsignada()
       
       if(doc.data().mesa === auxMesa) 
       {
-        this.mostrarProductos = true;
-        this.complementos.presentToastConMensajeYColor('Ya podes acceder al menu y hacer tu pedido',"tertiary");
-        this.banderaMesaAsignada=false;
-        this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+        //
+       // 
+       // this.banderaMesaAsignada=false;
+        this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
           querySnapShot.forEach((dato) => {
            
-            if(auxMesa== dato.data().mesa )
+            if(auxMesa=== dato.data().mesa && dato.data().nombreUsuario === this.nombre)
         {
-          this.mostrarItem=true;
+          this.mostrarProductos = true;
+          this.mostrarItem=false;
+          
           this.ocultarqr=true;
-          this.complementos.presentToastConMensajeYColor('Ya podes ver el estado de tu pedido y acceder a la encuesta',"tertiary");
+          this.qrPedido=true;
+          this.complementos.presentToastConMensajeYColor('Ya podes acceder al menu y hacer tu pedido',"tertiary");
+         
+        }    
+        if(auxMesa!= dato.data().mesa && dato.data().nombreUsuario != this.nombre )
+        {
+          this.complementos.presentToastConMensajeYColor('Este no es el QR de tu mesa',"warning");
+          
+       //this.complementos.presentToastConMensajeYColor('Ya podes ver el estado de tu pedido y acceder a la encuesta',"tertiary");
         }   
       
           })
         })
+
+        
+
        
       } 
-       if(this.banderaMesaAsignada===true && doc.data().mesa != auxMesa){
-        this.complementos.presentToastConMensajeYColor('Este no es el QR de tu mesa',"warning");
+       else{
+        this.complementos.presentToastConMensajeYColor('Error, esta mesa no existe',"warning");
       }
 
     }
@@ -479,6 +494,69 @@ qrMesaAsignada()
 
 
 }
+
+qrpedido()
+{
+  let auxMesa;
+
+  this.barcodeScanner.scan().then(barcodeData => {
+
+  auxMesa = JSON.parse(barcodeData.text);
+
+  this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
+    querySnapShot.forEach((doc) => {
+      
+      if(doc.data().mesa === auxMesa) 
+      {
+        //
+       // 
+       // this.banderaMesaAsignada=false;
+        this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+          querySnapShot.forEach((dato) => {
+           
+            if(auxMesa=== dato.data().mesa)
+        {
+          this.mostrarProductos = true;
+          this.mostrarEncuesta=true;
+          this.mostrarItem=true;
+          this.qrPedido=false;
+          this.complementos.presentToastConMensajeYColor('Ya podes acceder a la encuesta y tu estado de pedido',"tertiary");
+         
+        }    
+        if(auxMesa!= dato.data().mesa)
+        {
+          this.complementos.presentToastConMensajeYColor('Error, esta mesa no existe',"warning");
+          
+       //this.complementos.presentToastConMensajeYColor('Ya podes ver el estado de tu pedido y acceder a la encuesta',"tertiary");
+        }   
+      
+          })
+        })
+
+        
+
+       
+      } 
+       else{
+        this.complementos.presentToastConMensajeYColor('Este no es el QR de tu mesa',"warning");
+      }
+
+    }
+    )
+
+  }
+  )
+ 
+
+   }).catch(err => {
+       console.log('Error', err);
+       this.complementos.presentToastConMensajeYColor('Error al usar el Qr scanner',"warning");
+   });
+
+
+}
+
+
 
 mostrarConsultas(){
 
@@ -719,6 +797,7 @@ pagarCuenta()
   this.mostrarProductos = false;
    this.mostrarItem=false;
 this.mostrarSolicitudPago=false;
+this.mostrarEncuesta=false;
 }
 mostrarSolicitudMozo(){
   this.menuMozo=false;
