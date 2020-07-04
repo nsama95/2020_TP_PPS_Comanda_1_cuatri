@@ -27,6 +27,8 @@ export class PedidoCocineroPage implements OnInit {
   papas;
   picada;
   pasta;
+
+  loading = true;
   
   ngOnInit() {
     this.ensalada=0;
@@ -58,6 +60,9 @@ export class PedidoCocineroPage implements OnInit {
         });
         
       })
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
   }
   
 

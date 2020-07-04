@@ -9,7 +9,9 @@
 
 <ion-content>
 
-
+  <ion-content *ngIf="loading" class="ion-padding ion-text-center">
+    <img src="../../assets/img/spinner.gif" style="margin-top:50%;position: absolute;left: 36%;" width="116" height="116">
+</ion-content>
   <div *ngIf= "mostrar>0">
       <div *ngFor="let consulta of listarConsulta">
 <br>

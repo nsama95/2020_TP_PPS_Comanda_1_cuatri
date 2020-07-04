@@ -356,8 +356,14 @@ organizarUsuario(usuario,estado){
 
 
   cerrarSesion() {
+    
+    let audio = new Audio();
+    audio.src = 'assets/audio/login/efectoDos.mp3';
+    audio.play();
+
     this.perfilUsuario = "";
     this.router.navigate(['/login']);
+    
     
   }
 

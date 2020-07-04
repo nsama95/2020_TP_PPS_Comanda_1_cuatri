@@ -38,6 +38,7 @@ import {AngularFireStorageModule} from "@angular/fire/storage";
 
 //IMPORTAR MAIL
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 //import { platform } from 'os';
 
@@ -45,7 +46,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 //import { AltaClienteComponent } from './componentes/alta-cliente/alta-cliente.component';
 //import { AltaClienteService } from './servicios/alta-cliente.service';
-
+//import { Vibration } from '@ionic-native/vibration/ngx';
 @NgModule({
   declarations: [AppComponent,
     MenuComponent],
@@ -68,6 +69,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
     BarcodeScanner,
     AngularFirestore,
     EmailComposer,
+    Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

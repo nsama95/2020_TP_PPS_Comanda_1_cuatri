@@ -20,6 +20,7 @@ export class ConsultasPage implements OnInit {
   listaPedido = [];
   mostrarP= false;
   nany = 0;
+  loading = true;
   ngOnInit() {
 
 
@@ -53,7 +54,9 @@ export class ConsultasPage implements OnInit {
         console.log(this.listarConsulta);   
       })
     
-
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
   }
 
   mostrarPedido(numero,bebida)

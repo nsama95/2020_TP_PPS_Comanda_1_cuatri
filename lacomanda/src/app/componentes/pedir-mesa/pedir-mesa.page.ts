@@ -17,6 +17,7 @@ export class PedirMesaPage implements OnInit {
   correoUsuario;
   nombreAnonimo;
 bandera=true;
+loading = true;
 usuarioMesa= {
   mesa : 0,
   estadoMesa : "",
@@ -37,7 +38,9 @@ usuarioMesa= {
    
     this.nombreAnonimo = localStorage.getItem('nombreAnonimo');
     this.correoUsuario = localStorage.getItem('correoUsuario');
-    
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
   }
 
 

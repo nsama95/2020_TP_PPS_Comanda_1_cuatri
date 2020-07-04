@@ -17,6 +17,7 @@ export class PedidoBartenderPage implements OnInit {
   mostrar= false;
   mesa;
   nany = 0;
+  loading = true;
   ngOnInit() {
     let fb = this.firestore.collection('pedidos');
    
@@ -36,6 +37,9 @@ export class PedidoBartenderPage implements OnInit {
         });
   
       })
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
   }
  
 

@@ -32,7 +32,7 @@ largo: number;
  pedidoHecho;
   cantidad = 0;
   totalProducto= 0;
-
+  loading = true;
   productoJson:Producto;
 
   pedidoEnFormatoJSON = {
@@ -146,6 +146,9 @@ mesa=0;
 
 
     })})
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
 
   }
 

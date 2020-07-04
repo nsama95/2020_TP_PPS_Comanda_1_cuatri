@@ -11,6 +11,7 @@ import { ComplementosService } from 'src/app/servicios/complementos.service';
 })
 export class ListaMesasPage implements OnInit {
   listadoMesas = [];
+  loading = true;
   constructor(private firestore : AngularFirestore,
     private bd : DatabaseService,
     private router : Router,
@@ -35,6 +36,9 @@ export class ListaMesasPage implements OnInit {
         });
   
       })
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
   }
 
 

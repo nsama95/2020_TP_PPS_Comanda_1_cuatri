@@ -32,10 +32,14 @@ export class ListaProductosPage implements OnInit {
     private bd : DatabaseService,
   ) { }
   mesa;
+  loading = true;
   ngOnInit() {
     this.mesa=localStorage.getItem('mesaCliente');
-     
-   // console.log(this.listaProductos);
+    // console.log(this.listaProductos);
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
+   
   }
 
 

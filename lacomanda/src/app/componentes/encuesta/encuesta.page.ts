@@ -15,6 +15,7 @@ export class EncuestaPage implements OnInit {
   habilitado2:boolean = false;
   cantidad : number = 0;
   fotos = [];
+  loading = true;
   options : CameraOptions
   constructor(private camara : Camera,private toast : ToastController) { }
 
@@ -26,6 +27,9 @@ export class EncuestaPage implements OnInit {
       mediaType: this.camara.MediaType.PICTURE,
       correctOrientation: true
     }
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
   }
 
   tomarFoto(){

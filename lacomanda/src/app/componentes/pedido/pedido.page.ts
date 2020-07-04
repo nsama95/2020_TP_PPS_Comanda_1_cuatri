@@ -19,6 +19,7 @@ export class PedidoPage implements OnInit {
  mostrar= false;
  mesa;
  mostrarPedidolisto=false;
+ loading = true;
  /*ensalada= 0;
  empanada=0;
  papas=0;
@@ -58,6 +59,9 @@ export class PedidoPage implements OnInit {
         });
   
       })
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
 
 
      

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 //import{HttpClient} from "@angular/common/http";
 // IMPORTO A USUARIOS.
 import {Usuario} from '../clases/usuario';
-
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 // IMPORTO LOS MENSAJES. CON ESTO USO LOS TOAST.
 import { ToastController, LoadingController } from '@ionic/angular';
 
 // IMPORTO EL TIMER:
 import { timer } from 'rxjs';
+
+
 //pluing
 
 
@@ -17,12 +19,14 @@ import { timer } from 'rxjs';
 })
 
 export class ComplementosService {
+  //vibration: any;
 
 
 
   constructor(private complementos : ComplementosService, 
     public toastController: ToastController,
-    public loadingController: LoadingController//private http:HttpClient
+    public loadingController: LoadingController,//private http:HttpClient
+    public vibration: Vibration
    
     ) { 
     
@@ -107,7 +111,11 @@ this.presentToast(err);
     ]
   });
   toast.present();
+  this.vibration.vibrate(2000);
   }
+
+
+
 /* getMenu(){
     return this.http.get('/assets/data/menu.json');
  }

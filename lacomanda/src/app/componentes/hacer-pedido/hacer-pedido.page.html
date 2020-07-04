@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-content *ngIf="loading" class="ion-padding ion-text-center">
+    <img src="../../assets/img/spinner.gif" style="margin-top:50%;position: absolute;left: 36%;" width="116" height="116">
+</ion-content>
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12" size-lg="4" size-md="4" >

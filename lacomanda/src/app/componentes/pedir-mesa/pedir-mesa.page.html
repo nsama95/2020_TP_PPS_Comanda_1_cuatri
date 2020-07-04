@@ -11,7 +11,9 @@
 
 
 <ion-content class="fondo">
-
+  <ion-content *ngIf="loading" class="ion-padding ion-text-center">
+    <img src="../../assets/img/spinner.gif" style="margin-top:50%;position: absolute;left: 36%;" width="116" height="116">
+</ion-content>
     <ion-button  (click)="listaEsperaQR()" class="qr" color="success"><ion-icon name="qr-code-outline" class="icono"></ion-icon></ion-button>
   
   

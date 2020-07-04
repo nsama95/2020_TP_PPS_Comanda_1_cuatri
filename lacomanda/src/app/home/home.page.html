@@ -12,10 +12,7 @@
     
    <ion-content class="fondo" >
     <ion-content *ngIf="loading" class="ion-padding ion-text-center">
-      <!--img src="../../assets/img/icon.png" style="margin-top:50%;position: absolute;left: 34%;" width="112" height="112">
-      <ion-spinner name="crescent" color="black" style="margin-top:50%;"></ion-spinner(se bien en el celu de nany)-->
-      <img src="../../assets/img/icon.png" style="margin-top:50%;position: absolute;left: 36%;" width="112" height="112">
-      <ion-spinner name="crescent" color="black" style="margin-top:50%;"></ion-spinner>
+      <img src="../../assets/img/spinner.gif" style="margin-top:50%;position: absolute;left: 36%;" width="116" height="116">
   </ion-content>
      <ion-menu side="start" menuId="mainmenu" contentId="main">
     
@@ -38,6 +35,7 @@
             <ion-item routerLink="/registrar-empleado" >
               <ion-icon name="person-add-outline" slot="start"  color="light"></ion-icon>
               <ion-label color="light">Registrar empleado</ion-label>
+
             </ion-item>
           </ion-list>
       <!--MOZO-->
@@ -221,6 +219,9 @@
             <!-- {{mesa.estadoMesa}}
             <br> -->
             <ion-button color="success" (click)="comprobarMesas(mesa)" expand="block"> Asignar mesa</ion-button>
+            <ion-content *ngIf="loading" class="ion-padding ion-text-center">
+              <img src="../../assets/img/spinner.gif" style="margin-top:50%;position: absolute;left: 36%;" width="116" height="116">
+          </ion-content>
           </ion-card-content>
         
         
