@@ -171,7 +171,7 @@ export class RegistrarPage implements OnInit {
 
 
    
-    this.limpiar();
+   // this.limpiar();
   }
 
  
