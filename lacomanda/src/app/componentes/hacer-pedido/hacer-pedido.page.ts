@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 import { DatabaseService } from 'src/app/servicios/database.service';
 import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
 
 export interface Producto {
   nombre:string,
@@ -42,7 +43,8 @@ largo: number;
     estadoChef : "pendiente",
     estadoBartender : "pendiente",
     mesa : 0,
-    estado:'pendiente'
+    estado:'pendiente',
+    tiempo:0
   };
     productoA: string;
     listaProductosTipoPlato = [];
@@ -68,6 +70,38 @@ largo: number;
   helado=0;
   milkshake=0;
   torta=0;
+  ensaladaT= 0;
+  empanadaT=0;
+  papasT=0;
+  picadaT=0;
+  pastaT=0;
+  aguaT=0;
+  campariT=0;
+  cocaT=0;
+  pepsiT=0;
+  vinoT=0;
+  lemonT=0;
+  flanT=0;
+  heladoT=0;
+  milkshakeT=0;
+  tortaT=0;
+  tiempoT=0
+  ensaladaAux= 0;
+  empanadaAux=0;
+  papasAux=0;
+  picadaAux=0;
+  pastaAux=0;
+  aguaAux=0;
+  campariAux=0;
+  cocaAux=0;
+  pepsiAux=0;
+  vinoAux=0;
+  lemonAux=0;
+  flanAux=0;
+  heladoAux=0;
+  milkshakeAux=0;
+  tortaAux=0;
+  tiempoAux=0
     variabledesplegarPedido = false;
   constructor(
     private firestore : AngularFirestore,
@@ -97,6 +131,21 @@ mesa=0;
   this.mesa=parseInt(localStorage.getItem('mesaCliente'));
   
   this.pedidoEnFormatoJSON.mesa=this.mesa;
+  this.firestore.collection('productos').get().subscribe((querySnapShot) => {
+    querySnapShot.forEach((doc) => {
+      if(doc.data().nombre =="Ensalada Vegana"){
+      console.log("entro al if")
+        this.ensaladaAux= doc.data().tiempo;
+      }
+      if(doc.data().nombre =="Empanada"){
+  
+        this.empanadaAux= doc.data().tiempo;
+      }
+
+
+
+
+    })})
 
   }
 
@@ -122,9 +171,9 @@ mesa=0;
     }
   }
 
-  cargarJSONPedidosPlatos(plato : string, tipoDePlato : string, precio : number)
+  cargarJSONPedidosPlatos(plato : string, tipoDePlato : string, precio : number,tiempo: number)
   {
-   
+   console.log(tiempo);
     if (tipoDePlato == "comida")
     { 
 
@@ -133,29 +182,43 @@ mesa=0;
 
       this.contadorPlatos = this.contadorPlatos + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+
+      this.pedidoEnFormatoJSON.tiempo= this.pedidoEnFormatoJSON.tiempo + tiempo;
+
   let cant= this.calcularCantidad(plato,tipoDePlato);
     switch(plato)
     {
       case'Ensalada Vegana':
-      this.ensalada=cant;
-      //console.log( this.ensalada)
+     
+      
+        this.ensalada=cant;
+       
+
+      console.log( this.ensaladaAux)
       break;
       case 'Empanada':
         this.empanada=cant;
+       
+         
+        
       break;
       case 'Papas con cheddar':
         this.papas=cant;
+        
+        
       break;
       case 'Picada Mawey':
         this.picada=cant;
+        
       break;
       case 'Pastas':
         this.pasta=cant;
+        
       break;
       
 
     }
-
+   
       
     }
 
@@ -164,27 +227,34 @@ mesa=0;
       this.pedidoEnFormatoJSON.platosBebida[this.contadorBebidas] = plato;
       this.contadorBebidas = this.contadorBebidas + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+      this.pedidoEnFormatoJSON.tiempo= this.pedidoEnFormatoJSON.tiempo + tiempo;
       let cant= this.calcularCantidad(plato,tipoDePlato);
     switch(plato)
     {
       case'Agua sin gas':
       this.agua=cant;
+      
       break;
       case 'Campari':
         this.campari=cant;
+        
       break;
       case 'Coca-cola':
         this.coca=cant;
+       
       break;
       case 'Pepsi':
         this.pepsi=cant;
+        
       break;
       case 'Vino':
         this.vino=cant;
+        
       break;
       
      
     }
+   
     }
 
     if (tipoDePlato == "postre")
@@ -192,31 +262,35 @@ mesa=0;
       this.pedidoEnFormatoJSON.platosPostre[this.contadorPostres] = plato;
       this.contadorPostres = this.contadorPostres + 1;
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
+      this.pedidoEnFormatoJSON.tiempo= this.pedidoEnFormatoJSON.tiempo + tiempo;
       let cant= this.calcularCantidad(plato,tipoDePlato);
     switch(plato)
     {
       case'Lemon pie':
       this.lemon=cant;
+      
       break;
       case 'Flan casero':
         this.flan=cant;
+       
       break;
       case 'Helado':
         this.helado=cant;
+        
       break;
       case 'Milkshake':
         this.milkshake=cant;
+       
       break;
       case 'Torta Matilda':
         this.torta=cant;
+       
       break;
     }
 
     }
 
-
-    console.log(this.pedidoEnFormatoJSON);
-
+    
 
   }
 

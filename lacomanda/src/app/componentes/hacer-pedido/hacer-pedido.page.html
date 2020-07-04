@@ -58,8 +58,9 @@
                 <h4 style="color: white; text-align: center;">Valor unitario: ${{producto.precio}}</h4>
                
                 <h4 style="color: white; ">Descripcion: {{producto.descripcion}}</h4>
+                <h4 style="color: white; ">tiempo: {{producto.tiempo}}</h4>
   
-              <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio)" class="botonmas">+</ion-button>
+              <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio,producto.tiempo)" class="botonmas">+</ion-button>
               <h4 style="color: white; text-align: center;" *ngIf="producto.nombre ==='Ensalada Vegana'"> CANTIDAD: {{ensalada}}</h4>
               <h4 style="color: white; text-align: center;" *ngIf="producto.nombre==='Empanada'"> CANTIDAD: {{empanada}}</h4>
               <h4 style="color: white; text-align: center;" *ngIf="producto.nombre==='Papas con cheddar'"> CANTIDAD: {{papas}}</h4>
@@ -104,7 +105,7 @@
            
             <h4 style="color: white; ">Descripcion: {{bebida.descripcion}}</h4>
 
-          <ion-button (click)="cargarJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio)" class="botonmas">+</ion-button>
+          <ion-button (click)="cargarJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio,bebida.tiempo)" class="botonmas">+</ion-button>
           <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre ==='Agua sin gas'"> CANTIDAD: {{agua}}</h4>
           <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre==='Campari'"> CANTIDAD: {{campari}}</h4>
           <h4 style="color: white; text-align: center;" *ngIf="bebida.nombre==='Coca-cola'"> CANTIDAD: {{coca}}</h4>
@@ -147,7 +148,7 @@
          
           <h4 style="color: white; ">Descripcion: {{postre.descripcion}}</h4>
 
-          <ion-button (click)="cargarJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio)" class="botonmas">+</ion-button>
+          <ion-button (click)="cargarJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio,postre.tiempo)" class="botonmas">+</ion-button>
           <h4 style="color: white; text-align: center;" *ngIf="postre.nombre ==='Lemon pie'"> CANTIDAD: {{lemon}}</h4>
           <h4 style="color: white; text-align: center;" *ngIf="postre.nombre==='Flan casero'"> CANTIDAD: {{flan}}</h4>
           <h4 style="color: white; text-align: center;" *ngIf="postre.nombre==='Helado'"> CANTIDAD: {{helado}}</h4>
@@ -233,6 +234,14 @@
        </h1>
        <h1 style="font-size: xx-large ; color: black; text-align: center;">
         ${{pedidoEnFormatoJSON.precioTotal}}
+      </h1>
+      <h1  style=" color: black; font-size: large; text-align: center;"> 
+        <b> <ion-icon name="cash-outline"></ion-icon>
+         ESPERA:
+       </b>
+        </h1>
+      <h1 style="font-size: xx-large ; color: black; text-align: center;">
+        {{pedidoEnFormatoJSON.tiempo}} min
       </h1>
       
 
