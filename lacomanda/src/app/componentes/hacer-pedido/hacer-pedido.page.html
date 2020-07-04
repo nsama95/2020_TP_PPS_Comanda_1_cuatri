@@ -205,7 +205,7 @@
 
       <div *ngIf="pedidoEnFormatoJSON != null" >
 
-      <h1 style="color: black;font-size: large; text-align: center;">
+      <h1 style="color: black;font-size: medium; text-align: center;">
         <b><ion-icon name="fast-food-outline"></ion-icon>PLATOS PRINCIPALES: </b>
       </h1>
       <h1 style="font-size: medium ; color: black;left: 5%; position: relative;">
@@ -213,14 +213,14 @@
        {{pedidoEnFormatoJSON.platosPlato}} 
       </h1>
 
-      <h1 style="color: black;font-size: large; text-align: center;left: 5%; position: relative;">
+      <h1 style="color: black;font-size: medium; text-align: center;left: 5%; position: relative;">
         <b><ion-icon name="wine-outline"></ion-icon>BEBIDAS: </b>
       </h1>
       <h1 style="font-size: medium ; color: black; left: 5%; position: relative;">
         {{pedidoEnFormatoJSON.platosBebida}}
       </h1>
 
-      <h1 style="color: black;font-size: large; text-align: center;left: 5%; position: relative;">
+      <h1 style="color: black;font-size: medium; text-align: center;left: 5%; position: relative;">
         <b><ion-icon name="ice-cream-outline"></ion-icon>POSTRES: </b>
       </h1>
       <h1 style="font-size: medium ; color: black; left: 5%; position: relative;">
@@ -230,20 +230,20 @@
 
       <br>
       <hr width="500px;" color="black" size="10"> 
-      <h1  style=" color: black; font-size: large; text-align: center;"> 
+      <h1  style=" color: black; font-size: medium; text-align: center;"> 
        <b> <ion-icon name="cash-outline"></ion-icon>
         PRECIO TOTAL DEL PEDIDO:
       </b>
        </h1>
-       <h1 style="font-size: xx-large ; color: black; text-align: center;">
+       <h1 style="font-size: medium ; color: black; text-align: center;">
         ${{pedidoEnFormatoJSON.precioTotal}}
       </h1>
-      <h1  style=" color: black; font-size: large; text-align: center;"> 
+      <h1  style=" color: black; font-size:medium; text-align: center;"> 
         <b> <ion-icon name="cash-outline"></ion-icon>
          ESPERA:
        </b>
         </h1>
-      <h1 style="font-size: xx-large ; color: black; text-align: center;">
+      <h1 style="font-size: medium ; color: black; text-align: center;">
         {{pedidoEnFormatoJSON.tiempo}} min
       </h1>
       
@@ -251,17 +251,18 @@
       </div>
 
 
-          <ion-button (click)="confirmarPedido()" size="large" color="success" class="botones">
+          <ion-button (click)="confirmarPedido()" size="medium"expand="block"  color="success" class="botones">
             CONFIRMAR PEDIDO
-            <br>
+          
             <ion-icon name="checkmark-outline"></ion-icon>
           </ion-button>
-          <ion-button (click)="desplegarInversoPedido()" size="large"  color="success" class="botoness">
+        
+          <ion-button (click)="desplegarInversoPedido()" size="medium" expand="block" color="success" class="botoness">
            CERRAR
-           <br>
+           
            <ion-icon name="close-outline"></ion-icon>
           </ion-button>
-   
+          <br>
 
   </ion-card>
 
