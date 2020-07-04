@@ -38,7 +38,7 @@ export class ComplementosService {
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Cargando...',
-      duration: 2000,
+      duration: 4000,
       translucent: true,
      // cssClass: 'custom-class custom-loading'
     });
@@ -102,6 +102,23 @@ this.presentToast(err);
       message: msg,
       position: 'bottom',
       duration: 2000,
+      color: color,
+    buttons: [
+      {
+        text: 'Aceptar',
+        role: 'cancel',
+      }
+    ]
+  });
+  toast.present();
+  this.vibration.vibrate(2000);
+  }
+  async presentToastConMensajeYColorA(msg : string, color : string) {
+    console.log(msg);
+    const toast = await this.toastController.create({
+      message: msg,
+      position: 'bottom',
+      duration: 3000,
       color: color,
     buttons: [
       {

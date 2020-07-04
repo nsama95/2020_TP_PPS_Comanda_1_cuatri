@@ -149,7 +149,8 @@ export class RegistrarPage implements OnInit {
   {
     this.anonimoJson.estado=2;
     this.anonimoJson.perfil="anonimo";
-
+//this.anonimoJson.correo=this.anonimoJson.nombre+"@gmail.com";
+//console.log(this.anonimoJson.correo)
     if(this.pathImagen != null){
       
 
@@ -158,12 +159,16 @@ export class RegistrarPage implements OnInit {
 
         this.anonimoJson.foto = link;
         
-        this.bd.crear('usuarios',this.anonimoJson);
-
-        localStorage.setItem('perfilUsuario',this.anonimoJson.perfil);
-        this.router.navigate(['/home']);
- 
       });
+      this.bd.crear('usuarios',this.anonimoJson); 
+      localStorage.setItem('perfilUsuario',this.anonimoJson.perfil);
+
+      
+      this.complemetos.presentToastConMensajeYColorA('Anonimo registrado',"tertiary");
+     
+     
+      this.router.navigate(['/home']);
+
     }
     else{
       this.bd.crear('usuarios',this.anonimoJson);

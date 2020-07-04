@@ -178,7 +178,8 @@ console.log(this.mesaPedido)
         
         });
   
-           let auxCorreoUsuario = localStorage.getItem('correoUsuario'); // Obtenemos el correo del usuario que ingreso 
+           let auxCorreoUsuario = localStorage.getItem('correoUsuario'); 
+           console.log("correo en home"+auxCorreoUsuario)// Obtenemos el correo del usuario que ingreso 
           
            this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
     
@@ -192,6 +193,7 @@ console.log(this.mesaPedido)
                 this.nombre= datos.data().nombre;
                 localStorage.setItem('nombreAnonimo',this.nombre);
                 this.infoUsuario = datos.data();
+                console.log("infoUsuario"+this.infoUsuario)
         
                 if(this.perfilUsuario == 'dueño' || this.perfilUsuario == 'supervisor')
                 {
@@ -360,7 +362,11 @@ organizarUsuario(usuario,estado){
     let audio = new Audio();
     audio.src = 'assets/audio/login/efectoDos.mp3';
     audio.play();
-
+    localStorage.removeItem('correoUsuario');
+    localStorage.removeItem('tieneCorreo');
+    localStorage.removeItem('usuarioAnonimo');
+    localStorage.removeItem('perfilUsuario');
+    localStorage.removeItem('nombreAnonimo');
     this.perfilUsuario = "";
     this.router.navigate(['/login']);
     
