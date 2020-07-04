@@ -142,7 +142,7 @@ export class RegistrarPage implements OnInit {
     }
 
     this.complemetos.presentToastConMensajeYColor("¡Solicitud enviada con exito! Espere su confirmación","tertiary");
-    this.limpiar(this.usuarioJson.perfil);
+    this.limpiar();
   }
 
   registrarAnonimo()
@@ -171,7 +171,7 @@ export class RegistrarPage implements OnInit {
 
 
    
-    this.limpiar(this.anonimoJson.perfil);
+    this.limpiar();
   }
 
  
@@ -225,13 +225,14 @@ export class RegistrarPage implements OnInit {
       }
     });
   }
-  limpiar(usuario:string){
+  limpiar(){
     if(this.anonimoJson.perfil=="anonimo"){
     this.anonimoJson.nombre = "";
     this.anonimoJson.foto="../../../assets/img/avatarRR.png";
     this.anonimoJson.perfil=""; 
      this.anonimoJson.estado=0;
-  }else{
+  }
+   if (this.usuarioJson.perfil=="cliente"){
     this.usuarioJson.nombre = "";
     this.usuarioJson.apellido = "";
     this.usuarioJson.dni = "";

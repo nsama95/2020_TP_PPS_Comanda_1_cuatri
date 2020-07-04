@@ -79,25 +79,38 @@ mostrarConsulta= false;
       mostrarEstadoPedido=false;
       infoUsuario : any;
       foto;
+      qrBandera=true;
     nombre:string;
     correoUsuario : string;
     cantPedido=0;
     cantPedidoPagadas=0;
     cantPedidoenProceso=0
+    cantPedidoCocinero=0
+    cantPedidoBartender=0
     listaPedido=[];
+    listaPedidoCocinero=[];
+    listaPedidoBartender=[];
   listaPedidoListo=[];
   listaPedidoenProceso = [];
      // Variable que nos mostrara los productos una vez escaneado el codigo qr
   mostrarProductos = false;
   mesa:string;
   banderaMesaAsignada= true;
-
+      mesaPedido= '';
+      mostrarItem=false;
+      ocultarqr=false;
   // Lista de los productos que se mostraran
  //listaProductos = [];
 
       ngOnInit() {
 this.mesa='';
 this.menuMozo=true;
+this.mesaPedido=localStorage.getItem('pedidoHecho');
+console.log(this.mesaPedido)
+
+  
+
+
         let fb = this.firestore.collection('pedidos');
    
         fb.valueChanges().subscribe(datos =>{      
@@ -105,12 +118,25 @@ this.menuMozo=true;
           this.listaPedido = [];
           this.listaPedidoListo = [];
           this.listaPedidoenProceso = [];
+          this.listaPedidoCocinero=[];
+    this.listaPedidoBartender=[];
     
           datos.forEach( (dato:any) =>{
     
             if(dato.estado === 'pendiente') 
             {
-              this.listaPedido.push(dato);     
+              this.listaPedido.push(dato); 
+             
+            }
+            if(dato.estado  == 'enProceso' && dato.estadoChef === 'pendiente') 
+            {
+              this.listaPedidoCocinero.push(dato); 
+             
+            }
+            if(dato.estado  == 'enProceso' && dato.estadoBartender === 'pendiente') 
+            {
+              this.listaPedidoBartender.push(dato); 
+             
             }
 /*if(dato.estado=='enProceso'){
   
@@ -128,6 +154,8 @@ this.menuMozo=true;
           this.cantPedido=this.listaPedido.length;
           this.cantPedidoenProceso=this.listaPedidoenProceso.length;
           this.cantPedidoPagadas=this.listaCuentasPagadas.length;
+          this.cantPedidoCocinero= this.listaPedidoCocinero.length;
+          this.cantPedidoBartender= this.listaPedidoBartender.length;
         })
         
         //console.log(this.cantPedido)
@@ -258,26 +286,16 @@ this.menuMozo=true;
        
       }        
 
-      realizoPedido(mesa){
+      realizoPedido(numero){
 
-
-        let fb = this.firestore.collection('pedidos');
-   
-        fb.valueChanges().subscribe(datos =>{      
+    this.firestore.collection('pedidos').get().subscribe((qSnapSh => {
+      qSnapSh.forEach((pedido) => {
+        if(pedido.data().mesa == numero && this.mostrarProductos== true)
+        {
           
-          this.listaPedido = [];
-          this.listaPedidoListo = [];
-    
-          datos.forEach( (dato:any) =>{
-    
-if(dato.estado=='enProceso' && dato.mesa==mesa){
-  this.mostrarEstadoPedido=true;
-}
-
-          });
-      
-        })
-        
+        }
+      })
+    }))
 
       }
 
@@ -289,50 +307,46 @@ if(dato.estado=='enProceso' && dato.mesa==mesa){
 organizarUsuario(usuario,estado){
 
 
-  let indice = this.listaUsuarios.indexOf(usuario); // Encontrar el indice del usuario.
+  let indice = this.listaUsuarios.indexOf(usuario); 
 
-  this.listaUsuarios.splice(indice,1); // Borrar exclusivamente ese índice.
-  // Esto borra de la LISTA, no de la base de datos.
+  this.listaUsuarios.splice(indice,1); 
 
-
-  // A partir de acá empiezo a realizar cambios en la base de datos.
-
-  // Obtengo la coleción y me suscribo a ella.
+  
   this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
     querySnapShot.forEach((doc) => {
 
     
-      // Correo de la BD == Correo de la lista.
+      
      if(doc.data().correo == usuario.correo)
      {
 
-      // Si lo rechaza.
+      
        if(estado == "rechazado")
        {
-        usuario.estado = estado;                        // El cliente pasa a estar rechazado.
-        this.bd.actualizar('usuarios',usuario,doc.id);  // Actualiza el estado del cliente.
+        usuario.estado = estado;                        
+        this.bd.actualizar('usuarios',usuario,doc.id);  
        }
 
-       else{    // Estado aceptado.
+       else{    
 
 
         if (doc.data().perfil == "cliente")
         {
-        usuario.estado = estado;                                          // El cliente pasa a estar aceptado.
-        this.bd.actualizar('usuarios',usuario,doc.id);                    // Actualiza el estado del cliente.               
-        this.auth.registrarUsuario(usuario.correo,usuario.contrasenia);   // Registra el usuario en la BD. Asi puede ingresar al login. Con el estado aceptado.
-        this.auth.mandarCorreoElectronico(usuario.correo);                // Le envia un correo electrónico informado lo sucedido.
+        usuario.estado = estado;                                          
+        this.bd.actualizar('usuarios',usuario,doc.id);                                  
+        this.auth.registrarUsuario(usuario.correo,usuario.contrasenia);   
+        this.auth.mandarCorreoElectronico(usuario.correo);                
         }
 
         else
         {
-          usuario.estado = estado;                                          // El cliente pasa a estar aceptado.
-          this.bd.actualizar('usuarios',usuario,doc.id);                    // Actualiza el estado del cliente.              
+          usuario.estado = estado;                                          
+          this.bd.actualizar('usuarios',usuario,doc.id);                          
         }
 
        }
       
-       this.listaUsuarios = []; // esto pone la lista vacía para que quede facherisima.
+       this.listaUsuarios = []; 
      }
 
     })
@@ -348,7 +362,7 @@ organizarUsuario(usuario,estado){
   }
 
   
-  listaEsperaQRCliente()
+ /* listaEsperaQRCliente()
   {
     let auxMesa;
 
@@ -384,7 +398,7 @@ organizarUsuario(usuario,estado){
      
   }
 
-
+*/
    
   comprobarMesas(mesa)
   {
@@ -407,8 +421,20 @@ qrMesaAsignada()
       if(doc.data().mesa === auxMesa) 
       {
         this.mostrarProductos = true;
-        this.complementos.presentToastConMensajeYColor('QR cargado con éxito!',"tertiary");
+        this.complementos.presentToastConMensajeYColor('Ya podes acceder al menu y hacer tu pedido',"tertiary");
         this.banderaMesaAsignada=false;
+        this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+          querySnapShot.forEach((dato) => {
+           
+            if(auxMesa== dato.data().mesa )
+        {
+          this.mostrarItem=true;
+          this.ocultarqr=true;
+          this.complementos.presentToastConMensajeYColor('Ya podes ver el estado de tu pedido y acceder a la encuesta',"tertiary");
+        }   
+      
+          })
+        })
        
       } 
        if(this.banderaMesaAsignada===true && doc.data().mesa != auxMesa){
@@ -418,12 +444,28 @@ qrMesaAsignada()
     }
     )
 
-  })
+  }
+  )
+ 
+  
+
+
+
+
+
+
+
 
    }).catch(err => {
        console.log('Error', err);
        this.complementos.presentToastConMensajeYColor('Error al usar el Qr scanner',"warning");
    });
+
+
+
+
+
+
 }
 
 mostrarConsultas(){
@@ -456,13 +498,15 @@ mostrarCuentaLista()
 
 
 estadoPedido(){
-  
-  console.log("entra a la funcion");
-  //console.log(mesaCliente);
-  
+
+  let auxiliar;
+  this.barcodeScanner.scan().then(barcodeData => {
+
+    auxiliar = JSON.parse(barcodeData.text);
+
     this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
       querySnapShot.forEach( async (dato:any) =>{
-        console.log(dato.data().mesa)
+        
       if(dato.data().estado === 'pendiente'&& dato.data().mesa===this.mesa ) 
       {
         this.pedidoPendiente=true;
@@ -483,6 +527,14 @@ estadoPedido(){
     
   })
   this.menu.close();
+  
+  }).catch(err => {
+    console.log('Error', err);
+    this.complementos.presentToastConMensajeYColor('Error al usar el Qr scanner',"warning");
+});
+
+
+   
 
 }
   
@@ -507,7 +559,7 @@ darPropina()
 
     auxiliar = JSON.parse(barcodeData.text);
 
-      switch(auxiliar) // CAMBIAR ESTO SI NO FUNCIONA
+      switch(auxiliar) 
       {
         case 4:
           this.propina = "Excelente -> 20%";
@@ -652,7 +704,9 @@ pagarCuenta()
 
     })
   });
-
+  this.mostrarProductos = false;
+   this.mostrarItem=false;
+this.mostrarSolicitudPago=false;
 }
 mostrarSolicitudMozo(){
   this.menuMozo=false;

@@ -28,7 +28,7 @@ largo: number;
 
   bandera="";
 
-
+ pedidoHecho;
   cantidad = 0;
   totalProducto= 0;
 
@@ -198,7 +198,7 @@ mesa=0;
       case'Lemon pie':
       this.lemon=cant;
       break;
-      case 'Flan Casero':
+      case 'Flan casero':
         this.flan=cant;
       break;
       case 'Helado':
@@ -275,6 +275,8 @@ desplegarPedido()
       this.desplegarInversoPedido();
       
       this.router.navigate(['/home']);
+      this.pedidoHecho=this.pedidoEnFormatoJSON.mesa;
+      localStorage.setItem('pedidoHecho',this.pedidoHecho);
     }else if(this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal==0){
       this.complementos.presentToastConMensajeYColor("¡No se puede confirmar un pedido vacio!", "warning")
     }

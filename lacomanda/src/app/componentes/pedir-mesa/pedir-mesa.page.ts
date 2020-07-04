@@ -14,8 +14,15 @@ export class PedirMesaPage implements OnInit {
   listaUsuarios = [];
   listaEspera = [];
   tieneCorreo: string;
+  correoUsuario;
   nombreAnonimo;
 bandera=true;
+usuarioMesa= {
+  mesa : 0,
+  estadoMesa : "",
+  nombreUsuario: "",
+  perfilUsuario : "",
+}
   constructor(
     private complementos : ComplementosService,
     private barcodeScanner : BarcodeScanner,
@@ -24,85 +31,62 @@ bandera=true;
   ) { }
 
   
-  usuarioMesa = {
-    mesa : 0,
-    estadoMesa : "",
-    nombreUsuario: "",
-    perfilUsuario : "",
-  }
+ 
 
   ngOnInit() {
    
     this.nombreAnonimo = localStorage.getItem('nombreAnonimo');
+    this.correoUsuario = localStorage.getItem('correoUsuario');
+    
   }
 
 
   listaEsperaQR()
   {
     let auxMesa;
-  
     this.barcodeScanner.scan().then(barcodeData => {
-  
-    auxMesa = JSON.parse(barcodeData.text);
-  let bandera=false;
+
+      auxMesa= JSON.parse(barcodeData.text);
+     
+    
     this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
       querySnapShot.forEach((doc) => {
-  
-        if(doc.data().nombre == this.nombreAnonimo)
+
+        if(doc.data().correo == this.correoUsuario)
         {
-          if(auxMesa == 0)
+          
+          switch(auxMesa) // CAMBIAR ESTO SI NO FUNCIONA
           {
-            
-            this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
-              querySnapShot.forEach((data) => {
-               
-                if(data.data().nombreUsuario== this.nombreAnonimo)
-                {
-                  this.complementos.presentToastConMensajeYColor('Ya estas en la lista de espera',"tertiary");
-                  this.bandera=false;
-                  return;
-                } 
-                
-               
-              })})
-             if(this.bandera != false){
-                  
+            case 0:
+
+              
                 this.usuarioMesa.nombreUsuario = doc.data().nombre;
-            this.usuarioMesa.estadoMesa = "enEspera";
-            this.usuarioMesa.perfilUsuario = doc.data().perfil;
-            this.bd.crear('listaEspera', this.usuarioMesa);
-            this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"tertiary");
-                
-              }
-            
-                
+              this.usuarioMesa.estadoMesa = "enEspera";
+              this.usuarioMesa.perfilUsuario = doc.data().perfil;
+              this.bd.crear('listaEspera', this.usuarioMesa);
+              this.complementos.presentToastConMensajeYColor('Estas en la lista de espera',"medium");
+              
+              
+            break;
+
+            default:
+              this.complementos.presentToastConMensajeYColor('Error! QR incorrecto, este QR no corresponde al qr de la entrada',"warning");
+              
+            break;
           }
-          else{
-            this.complementos.presentToastConMensajeYColor('Error! QR incorrecto, este QR no corresponde al qr de la entrada',"warning");
-          }
-
-          
-
-
-
-        
-          
         }
-
-
-
-  
+          
           this.listaEspera = []; 
+
       })
-  
+
     })
-  
-  
+
      }).catch(err => {
          console.log('Error', err);
          this.complementos.presentToastConMensajeYColor('Error al usar el Qr scanner',"warning");
-     });
-     
-    }
+     });  
+   
+}
 
 }

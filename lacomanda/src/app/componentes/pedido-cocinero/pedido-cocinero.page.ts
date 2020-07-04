@@ -43,18 +43,20 @@ export class PedidoCocineroPage implements OnInit {
   
         datos.forEach( (dato:any) =>{
   
-          if(dato.estado == 'enProceso' && dato.estadoChef =='pendiente' || dato.estadoChef=='elaborado') 
-          {
+          if(dato.estado == 'enProceso' && dato.estadoChef =='pendiente' || dato.estadoChef=='elaborado'){
+
+         
+         
             
             this.listaPedido.push(dato);
             
             
-          }
-         
+        
+        }
     
           
         });
-        console.log(this.listaPedido);   
+        
       })
   }
   

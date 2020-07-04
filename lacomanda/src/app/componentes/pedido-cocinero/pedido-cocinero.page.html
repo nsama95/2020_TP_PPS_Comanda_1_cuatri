@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button defaultHref="" slot="start" style="color: black;" icon="arrow-undo"></ion-back-button>
+    <ion-back-button defaultHref="/home" slot="start" style="color: black;" icon="arrow-undo"></ion-back-button>
     <ion-title style="color: black; text-align: center; font-size: larger;">
       <i> <b>PEDIDO COCINERO</b> </i>
     </ion-title>
@@ -26,7 +26,7 @@
    
             <br><hr width="500px;" color="black" size="10">
     </div>    
-    <div *ngIf = "nany === 0 && pedido.estadoBartender ==='pendiente'">
+    <div *ngIf = "nany === 0 && pedido.estadoChef ==='pendiente' ">
     <button (click)="elaborarPedido(pedido.mesa)" class="derivar">ELABORAR PEDIDO</button>
   </div>
   <div *ngIf = "nany === 1">
